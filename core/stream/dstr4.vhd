@@ -26,18 +26,14 @@ generic(
     slot:     std_logic_vector(3 downto 0) := "0000";
     crate_id: std_logic_vector(9 downto 0) := "0000000000";
     det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000";
-    ch0_id:   std_logic_vector(5 downto 0) := "000000";
-    ch1_id:   std_logic_vector(5 downto 0) := "000001";
-    ch2_id:   std_logic_vector(5 downto 0) := "000010";
-    ch3_id:   std_logic_vector(5 downto 0) := "000011");
+    version:  std_logic_vector(5 downto 0) := "100000");
 port(
-
-    reset: in std_logic; -- async reset from uC
+    reset: in std_logic;
 
     aclk: in std_logic; -- AFE clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
 	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
+    ch0_id, ch1_id, ch2_id, ch3_id: in std_logic_vector(5 downto 0); -- the channel ID number
     
     fclk: in std_logic; -- transmit clock to FELIX 120.237 MHz 
     dout: out std_logic_vector(31 downto 0);

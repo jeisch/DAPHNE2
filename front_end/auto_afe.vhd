@@ -27,6 +27,7 @@ port(
     clock7x: in  std_logic;  -- 7 x master clock = 437.5MHz
     reset:   in  std_logic;
     done:    out std_logic;
+    warn:    out std_logic; -- warning! I have detected a bit error on the FCLK pattern!
     dout:    out array_8x14_type
   );
 end auto_afe;
@@ -55,7 +56,8 @@ architecture auto_afe_arch of auto_afe is
         bitslip: out std_logic; -- bitslip the ISERDES
         cntvalue: out std_logic_vector(4 downto 0); -- the delay tap value to write into IDELAY
         load: out std_logic; -- load cntvalue into IDELAY
-        done: out std_logic
+        done: out std_logic;
+        warn: out std_logic
       );
     end component;
 
@@ -101,7 +103,8 @@ begin
         bitslip => bitslip,
         cntvalue => cntvalue,
         load => load,
-        done => done
+        done => done,
+        warn => warn
     );
 
 end auto_afe_arch;

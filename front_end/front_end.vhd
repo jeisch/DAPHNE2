@@ -30,6 +30,7 @@ port(
     sclk:    in  std_logic; -- 200MHz system clock, constant
     reset:   in  std_logic;
     done:    out std_logic_vector(4 downto 0); -- status of automatic alignment FSM
+    warn:    out std_logic_vector(4 downto 0); -- warn of bit errors on the "FCLK" sync pattern
     dout:    out array_5x8x14_type -- data synchronized to clock
   );
 end front_end;
@@ -44,6 +45,7 @@ architecture fe_arch of front_end is
         clock7x: in  std_logic;  -- 7 x master clock = 437.5MHz
         reset:   in  std_logic;
         done:    out std_logic;
+        warn:    out std_logic;
         dout:    out array_8x14_type
       );
     end component;
@@ -107,6 +109,7 @@ begin
             clock7x => clock7x,
             reset => reset,
             done => done(i),
+            warn => warn(i),
             dout => dout(i)
         );
     end generate gen_afe;

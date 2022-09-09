@@ -24,8 +24,9 @@ port(
     bitslip: out std_logic; -- bitslip the ISERDES
     cntvalue: out std_logic_vector(4 downto 0); -- the delay tap value to write into IDELAY
     load: out std_logic; -- load cntvalue into IDELAY
-    done: out std_logic
-  );
+    done: out std_logic;
+    warn: out std_logic  -- pulse high if "FCLK" bit error is detected in the done state
+);
 end auto_fsm;
 
 architecture auto_fsm_arch of auto_fsm is
@@ -38,6 +39,7 @@ architecture auto_fsm_arch of auto_fsm is
     signal old_reg, new_reg: std_logic_vector(13 downto 0);
     signal count_reg: std_logic_vector(7 downto 0);
     signal cntvalue_reg: std_logic_vector(4 downto 0);
+    signal done_reg, warn_reg: std_logic;
 
 begin
  
@@ -149,6 +151,26 @@ load <=  '1' when (state=load_cntvalue_init) else
 
 bitslip <= '1' when (state=slipit) else '0';
 
-done <= '1' when (state=aligned) else '0';
+-- register the DONE and WARN outputs since these may be sampled in another clock domain
+
+stat_proc: process(clock) 
+begin
+    if rising_edge(clock) then
+        if (state=aligned) then
+            done_reg <= '1';
+            if (d /= "11111110000000") then
+                warn_reg <= '1';
+            else
+                warn_reg <= '0';
+            end if;
+        else
+            done_reg <= '0';
+            warn_reg <= '0';
+        end if;
+    end if;
+end process stat_proc;
+
+done <= done_reg;
+warn <= warn_reg;
 
 end auto_fsm_arch;

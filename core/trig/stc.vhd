@@ -23,7 +23,7 @@ generic(
     slot:     std_logic_vector(3 downto 0) := "0000";
     crate_id: std_logic_vector(9 downto 0) := "0000000000";
     det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000";
+    version:  std_logic_vector(5 downto 0) := "000001";
     ch_id:    std_logic_vector(5 downto 0) := "000000"
 );
 port(
@@ -230,7 +230,7 @@ begin
          (afe_dly0( 5 downto 0) & afe_dly1(13 downto 0) & afe_dly2(13 downto  2))                          when (state=dat9) else  -- sample11(5..0) & sample10(13..0) & sample9(13..2)
          (afe_dly0( 9 downto 0) & afe_dly1(13 downto 0) & afe_dly2(13 downto  6))                          when (state=dat11) else -- sample13(9..0) & sample12(13..0) & sample11(13..6)
          (afe_dly0(13 downto 0) & afe_dly1(13 downto 0) & afe_dly2(13 downto 10))                          when (state=dat13) else -- sample15(13..0) & sample14(13..0) & sample13(13..10)
-         X"FFFFFFFF" when (state=trailer) else 
+         X"FFFFFFFF" when (state=trailer) else -- OR indicate some overflow condition here!?
          "0000" & crc20 & X"DC" when (state=eof) else -- "0000" & CRC[19..0] & K28.6
          X"00000000"; 
 
