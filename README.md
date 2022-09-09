@@ -35,12 +35,12 @@ This firmware is designed for the DAPHNE V2A hardware only. It cannot be used on
 
 ### Clocks
 
-Programmable clock generator U18 should be configured to output the following clocks: CLK0 = 120.237MHz, CLK1 = 100MHz, CLK2 = 62.5MHz, CLK3 = 125MHz.
+The programmable clock generator U18 should be configured to output the following clocks: 
 
-CLK0 connects to MGT Quad 216, REFCLK0, pins F11/E11. Used for FELIX DAQ.
-CLK1 connects to bank 33, pins AA4/AB4. General purpose 100MHz clock.
-CLK2 connects to bank 33, pins AA3/AA2. Currently not used by the FPGA.
-CLK3 connects to MGT Quad 213, REFCLK0, pins AA13/AB13. Used for GBE.
+* CLK0 = 120.327MHz connects to MGT Quad 216, REFCLK0, pins F11/E11. Used for FELIX DAQ.
+* CLK1 = 100MHz connects to bank 33, pins AA4/AB4. General purpose clock.
+* CLK2 = 62.5MHz connects to bank 33, pins AA3/AA2. Currently unused.
+* CLK3 = 125MHz connects to MGT Quad 213, REFCLK0, pins AA13/AB13. Used for GBE.
 
 The FPGA outputs a 62.5MHz clock on pins AF5/AF4. This clock goes to clock fanout buffer U20 and then copies of this clock go the 5 AFE chips.
 
