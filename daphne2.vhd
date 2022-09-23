@@ -70,8 +70,8 @@ port(
 
     -- misc board I/O
 
-    spi_clk, spi_csn, spi_si: in std_logic; -- slow controls spi slave interface to the micro
-    spi_so: out std_logic; -- looks like a 256x8 SPI EEPROM
+    --spi_clk, spi_csn, spi_si: in std_logic; -- slow controls spi slave interface to the micro
+    --spi_so: out std_logic; -- looks like a 256x8 SPI EEPROM
 
     trig_ext: in std_logic; -- from back panel connector, electrically isolated external trigger input
     led: out std_logic_vector(5 downto 0) -- DAPHNE PCB LEDs are active LOW
@@ -508,10 +508,10 @@ begin
 	-- ENABLE all SFP transmitters
 
 	gbe_sfp_tx_dis <= '0';
-	daq0_sfp_tx_dis <= '0';
-	daq1_sfp_tx_dis <= '0';
-	daq2_sfp_tx_dis <= '0';
-	daq3_sfp_tx_dis <= '0';
+	--daq0_sfp_tx_dis <= '0';
+	--daq1_sfp_tx_dis <= '0';
+	--daq2_sfp_tx_dis <= '0';
+	--daq3_sfp_tx_dis <= '0';
 
     -- don't use the SFP I2C interface for now, this is optional
     -- leave pins in high impedance state, PCB has pullup resistors
@@ -519,14 +519,14 @@ begin
     gbe_sfp_scl  <= 'Z';
     gbe_sfp_sda  <= 'Z';
 
-    daq0_sfp_scl <= 'Z';
-    daq1_sfp_scl <= 'Z';
-    daq2_sfp_scl <= 'Z';
-    daq3_sfp_scl <= 'Z';
-    daq0_sfp_sda <= 'Z';
-    daq1_sfp_sda <= 'Z';
-    daq2_sfp_sda <= 'Z';
-    daq3_sfp_sda <= 'Z';
+    --daq0_sfp_scl <= 'Z';
+    --daq1_sfp_scl <= 'Z';
+    --daq2_sfp_scl <= 'Z';
+    --daq3_sfp_scl <= 'Z';
+    --daq0_sfp_sda <= 'Z';
+    --daq1_sfp_sda <= 'Z';
+    --daq2_sfp_sda <= 'Z';
+    --daq3_sfp_sda <= 'Z';
 
 	-- 'off the shelf' Ethernet Interface (OEI)
     -- burst mode not used here

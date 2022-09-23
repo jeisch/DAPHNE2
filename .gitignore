@@ -1,3 +1,7 @@
 *.asdb
 *.asdbw
 ip/.Xil/*
+xilinx/.Xil/*
+xilinx/output/
+xilinx/*.jou
+xilinx/*.log

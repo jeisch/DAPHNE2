@@ -58,9 +58,13 @@ set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_los}]
 set_property PACKAGE_PIN J5 [get_ports {gbe_sfp_tx_dis}]
 set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_tx_dis}]
 
-# GBE SFP I2C interface is reserved
-# DAQ_SFP4_SDA pin G8
-# DAQ_SFP4_SCL pin F7
+# GBE SFP I2C interface 
+
+set_property PACKAGE_PIN F7 [get_ports {gbe_sfp_scl}]
+set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_scl}]
+
+set_property PACKAGE_PIN G8 [get_ports {gbe_sfp_sda}]
+set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_sda}]
 
 # GBE SFP absent signal is reserved
 # DAQ_SFP4_ABS pin K7
