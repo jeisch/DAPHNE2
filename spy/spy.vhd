@@ -17,7 +17,7 @@ use unisim.vcomponents.all;
 library UNIMACRO;
 use unimacro.Vcomponents.all;
 
-use work.daphne_package.all;
+use work.daphne2_package.all;
 
 entity spy is
 port(

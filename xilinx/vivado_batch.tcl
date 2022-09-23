@@ -10,59 +10,62 @@ set outputDir ./output
 file mkdir $outputDir
 set_part xc7a200t-fbg676-2
 
-# load the sources and constraints...
+# load the sources 
 
-read_vhdl ../src/daphne_package.vhd
-read_vhdl ../src/febit.vhd
-read_vhdl ../src/auto_fsm.vhd
-read_vhdl ../src/auto_afe.vhd
-read_vhdl ../src/front_end.vhd
-read_vhdl ../src/spy.vhd
-# read_vhdl ../src/sync.vhd
-read_vhdl ../src/top_level.vhd
+read_vhdl ../daphne2_package.vhd
 
-read_vhdl ../src/oei/hdl/burst_traffic_controller.vhd
-read_vhdl ../src/oei/hdl/ethernet_interface.vhd
-read_vhdl ../src/oei/hdl/params_package.vhd
+read_vhdl ../front_end/febit.vhd
+read_vhdl ../front_end/auto_fsm.vhd
+read_vhdl ../front_end/auto_afe.vhd
+read_vhdl ../front_end/front_end.vhd
 
-read_vhdl ../src/oei/data_manager/burst_controller_sm.vhd
-read_vhdl ../src/oei/data_manager/data_manager.vhd
-read_vhdl ../src/oei/data_manager/ram_comm_dec.vhd
-read_vhdl ../src/oei/data_manager/rx_ctl.vhd
-read_vhdl ../src/oei/data_manager/tx_seq_ctl.vhd
+read_vhdl ../spy/spy.vhd
 
-read_vhdl ../src/oei/ethernet_controller/address_container.vhd
-read_vhdl ../src/oei/ethernet_controller/crc_splice.vhd
-read_vhdl ../src/oei/ethernet_controller/ethernet_controller.vhd
-read_vhdl ../src/oei/ethernet_controller/icmp_ping_checksum_calc.vhd
-read_vhdl ../src/oei/ethernet_controller/reset_mgr.vhd
-read_vhdl ../src/oei/ethernet_controller/arp_reply.vhd
-read_vhdl ../src/oei/ethernet_controller/create_packet.vhd
-read_vhdl ../src/oei/ethernet_controller/ethernet_controller_wrapper.vhd
-read_vhdl ../src/oei/ethernet_controller/icmp_ping_shift_reg.vhd
-read_vhdl ../src/oei/ethernet_controller/udp_data_splicer.vhd
-read_verilog ../src/oei/ethernet_controller/crc_chk.v
-read_vhdl ../src/oei/ethernet_controller/dataout_mux.vhd
-read_vhdl ../src/oei/ethernet_controller/fifo.vhd
-read_vhdl ../src/oei/ethernet_controller/ip_checksum_calc.vhd
-read_vhdl ../src/oei/ethernet_controller/user_addrs_mux.vhd
-read_verilog ../src/oei/ethernet_controller/crc_gen.v
-read_vhdl ../src/oei/ethernet_controller/decipherer.vhd
-read_vhdl ../src/oei/ethernet_controller/filter_data_out.vhd
-read_vhdl ../src/oei/ethernet_controller/or33.vhd
-read_vhdl ../src/oei/ethernet_controller/xmii_handler.vhd
+read_vhdl ../oei/hdl/burst_traffic_controller.vhd
+read_vhdl ../oei/hdl/ethernet_interface.vhd
+read_vhdl ../oei/hdl/params_package.vhd
+
+read_vhdl ../oei/data_manager/burst_controller_sm.vhd
+read_vhdl ../oei/data_manager/data_manager.vhd
+read_vhdl ../oei/data_manager/ram_comm_dec.vhd
+read_vhdl ../oei/data_manager/rx_ctl.vhd
+read_vhdl ../oei/data_manager/tx_seq_ctl.vhd
+
+read_vhdl ../oei/ethernet_controller/address_container.vhd
+read_vhdl ../oei/ethernet_controller/crc_splice.vhd
+read_vhdl ../oei/ethernet_controller/ethernet_controller.vhd
+read_vhdl ../oei/ethernet_controller/icmp_ping_checksum_calc.vhd
+read_vhdl ../oei/ethernet_controller/reset_mgr.vhd
+read_vhdl ../oei/ethernet_controller/arp_reply.vhd
+read_vhdl ../oei/ethernet_controller/create_packet.vhd
+read_vhdl ../oei/ethernet_controller/ethernet_controller_wrapper.vhd
+read_vhdl ../oei/ethernet_controller/icmp_ping_shift_reg.vhd
+read_vhdl ../oei/ethernet_controller/udp_data_splicer.vhd
+read_verilog ../oei/ethernet_controller/crc_chk.v
+read_vhdl ../oei/ethernet_controller/dataout_mux.vhd
+read_vhdl ../oei/ethernet_controller/fifo.vhd
+read_vhdl ../oei/ethernet_controller/ip_checksum_calc.vhd
+read_vhdl ../oei/ethernet_controller/user_addrs_mux.vhd
+read_verilog ../oei/ethernet_controller/crc_gen.v
+read_vhdl ../oei/ethernet_controller/decipherer.vhd
+read_vhdl ../oei/ethernet_controller/filter_data_out.vhd
+read_vhdl ../oei/ethernet_controller/or33.vhd
+read_vhdl ../oei/ethernet_controller/xmii_handler.vhd
+
+read_vhdl ../daphne2.vhd
 
 # Load IP core container file should be *.XCIX container
 # which includes the output products.  XCIX does not
 # require synth_ip and generate_target commands
-read_ip ../src/ip/gig_ethernet_pcs_pma_0.xcix
 
-# Load IP module as *.xci
+read_ip ../ip/gig_ethernet_pcs_pma_0.xcix
+
+# Load IP module as *.xci (loading from XCIX file is preferred over this method)
 #read_ip ../src/ip/gig_ethernet_pcs_pma_0.xci
 #set_property target_language VHDL [current_project]
 #generate_target all [get_files ../src/ip/gig_ethernet_pcs_pma_0.xci]
 
-# Load general constraints...
+# Load general timing and placement constraints...
 
 read_xdc -verbose ./constraints.xdc
 
@@ -113,7 +116,7 @@ report_io -file $outputDir/io.rpt
 
 # generate bitstream...
 
-write_bitstream -force $outputDir/daphne_$git_sha.bit
+write_bitstream -force $outputDir/daphne2_$git_sha.bit
 
 # write out ILA debug probes file
 # write_debug_probes -force $outputDir/probes.ltx

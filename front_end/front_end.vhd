@@ -10,7 +10,7 @@ use ieee.numeric_std.all;
 library unisim;
 use unisim.vcomponents.all;
 
-use work.daphne_package.all;
+use work.daphne2_package.all;
 
 entity front_end is
 port(
@@ -31,7 +31,8 @@ port(
     reset:   in  std_logic;
     done:    out std_logic_vector(4 downto 0); -- status of automatic alignment FSM
     warn:    out std_logic_vector(4 downto 0); -- warn of bit errors on the "FCLK" sync pattern
-    dout:    out array_5x8x14_type -- data synchronized to clock
+    errcnt:  out array_5x8_type; -- bit error count on the "FCLK" pattern
+    dout:    out array_5x9x14_type -- data synchronized to clock
   );
 end front_end;
 
@@ -46,7 +47,8 @@ architecture fe_arch of front_end is
         reset:   in  std_logic;
         done:    out std_logic;
         warn:    out std_logic;
-        dout:    out array_8x14_type
+        errcnt:  out std_logic_vector(7 downto 0);
+        dout:    out array_9x14_type
       );
     end component;
 
@@ -110,6 +112,7 @@ begin
             reset => reset,
             done => done(i),
             warn => warn(i),
+            errcnt => errcnt(i),
             dout => dout(i)
         );
     end generate gen_afe;

@@ -8,7 +8,7 @@ use ieee.numeric_std.all;
 library unisim;
 use unisim.vcomponents.all;
 
-use work.daphne_package.all;
+use work.daphne2_package.all;
 
 entity frontend_testbench is
 end frontend_testbench;

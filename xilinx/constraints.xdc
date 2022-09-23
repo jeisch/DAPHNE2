@@ -1,4 +1,4 @@
-# DAPHNE GBE OEI version constraints
+# DAPHNE2 constraints
 # Jamieson Olsen <jamieson@fnal.gov>
 
 # #############################################################################
@@ -11,7 +11,7 @@ create_generated_clock -name sclk [get_pins mmcm_inst/CLKOUT0]
 create_generated_clock -name mclk [get_pins mmcm_inst/CLKOUT1]
 create_generated_clock -name fclk [get_pins mmcm_inst/CLKOUT2]
 
-create_clock -name gtrefclk -period 8.000 [get_ports gtrefclk_p]
+create_clock -name gbe_refclk -period 8.000 [get_ports gbe_refclk_p]
 create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0]
 create_generated_clock -name oeihclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT1]
 
@@ -30,28 +30,40 @@ set_false_path -to [get_pins led0_reg_reg[*]/C]
 set_false_path -from [get_pins test_reg_reg[*]/C]
 
 # define multicycle path to get through the rx_addr decoding and big combinatorial mux
-
-# set_multicycle_path 2 -setup -from [get_pins rx_addr_reg_reg[*]/C] -to [get_pins tx_data_reg_reg[*]/D]
-# set_multicycle_path 2 -setup -to [get_pins tx_data_reg_reg[*]/D]
+#set_multicycle_path 2 -setup -from [get_pins rx_addr_reg_reg[*]/C] -to [get_pins tx_data_reg_reg[*]/D]
+#set_multicycle_path 2 -setup -to [get_pins tx_data_reg_reg[*]/D]
 
 # #############################################################################
 # Pin LOCation and IOSTANDARD Constraints...
 
-# Ethernet MGT is "TX1" is QUAD216-1 -> X0Y5 in XC7A200T FBG676
-# refclk is 125MHz on MGTREFCLK0_216 pins F11/E11.  No inversion on DAPHNE board.
+# on DAPHNE V2 PCB the GBE link moves to quad 213
+# the four DAQ links use quad 216
 
-set_property LOC GTPE2_CHANNEL_X0Y5 [get_cells */*/*/transceiver_inst/gtwizard_inst/*/gtwizard_i/gt0_GTWIZARD_i/gtpe2_i]
-set_property LOC F11 [get_ports {gtrefclk_p}]
+# GBE MGT is channel 0 of QUAD213 (aka X0Y0) on device XC7A200T FBG676
+# on schematics the GBE channel is called "DAQ_TX4" pins AC10/AD10 or "DAQ_RX4" pins AC12/AD12
+# gbe_refclk is AC coupled LVDS 125MHz on MGTREFCLK0_213 pins AA13/AB13.
 
-# SFP module LOSS OF SIGNAL indicator IO bank VCCO=3.3V
+set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells */*/*/transceiver_inst/gtwizard_inst/*/gtwizard_i/gt0_GTWIZARD_i/gtpe2_i]
+set_property LOC AA13 [get_ports {gbe_refclk_p}]
 
-set_property PACKAGE_PIN L8 [get_ports {sfp_los}]
-set_property IOSTANDARD LVTTL [get_ports {sfp_los}]
+# GBE SFP module LOSS OF SIGNAL indicator IO bank VCCO=3.3V
+# DAQ_SFP4_LOS on schematics
 
-# SFP module TX DISABLE control, IO bank 35, VCCO=3.3V
+set_property PACKAGE_PIN J6 [get_ports {gbe_sfp_los}]
+set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_los}]
 
-set_property PACKAGE_PIN K8 [get_ports {sfp_tx_dis}]
-set_property IOSTANDARD LVTTL [get_ports {sfp_tx_dis}]
+# GBE SFP module TX DISABLE control, IO bank 35, VCCO=3.3V
+# DAQ_SFP4_TX4_DIS on schematics
+
+set_property PACKAGE_PIN J5 [get_ports {gbe_sfp_tx_dis}]
+set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_tx_dis}]
+
+# GBE SFP I2C interface is reserved
+# DAQ_SFP4_SDA pin G8
+# DAQ_SFP4_SCL pin F7
+
+# GBE SFP absent signal is reserved
+# DAQ_SFP4_ABS pin K7
 
 # reset pin is from uC, I/O bank 35, VCCO=3.3V note ACTIVE LOW on DAPHNE
 
