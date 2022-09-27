@@ -25,7 +25,84 @@ When triggered, the spy buffers will capture 64 pre-trigger samples followed by 
 
 ### Gigabit Ethernet
 
-The GbE Interface is always active, but is not required for operation. This interface is intended for debug readout of the spy buffers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera.
+The GbE Interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera. The default IP address is 192.168.133.12. Example python code is located in the oei directory. 
+
+The memory map is as follows:
+```
+0x70000 - 0x703FF  Test BlockRam 1kx36, R/W, 36 bit
+0xAA55             Test register R/O always returns 0xDEADBEEF, R/O, 32 bit
+0x1974             Status vector for the PCS/PMA IP Core, R/O, 16 bit
+0x9000             Read the FW version aka git commit hash ID, 28 bits, R/O
+0x12345678         Test register, R/W, 64 bit
+0x80000000         Test FIFO, 512 x 64, R/W, 64-bit
+
+0x2000  Write anything to trigger spy buffers
+0x2001  Write anything to reset the AFE front end logic and error counters
+0x2002  Read the status of the AFE automatic alignment front end, lower 5 bits should be HIGH
+0x2010  Number of errors observed for AFE0 frame marker, stops at 255.
+0x2011  Number of errors observed for AFE1 frame marker, stops at 255.
+0x2012  Number of errors observed for AFE2 frame marker, stops at 255.
+0x2013  Number of errors observed for AFE3 frame marker, stops at 255.
+0x2014  Number of errors observed for AFE4 frame marker, stops at 255.
+
+0x40000000 - 0x400003FF Spy Buffer AFE0 data0 
+0x40010000 - 0x400103FF Spy Buffer AFE0 data1
+0x40020000 - 0x400203FF Spy Buffer AFE0 data2
+0x40030000 - 0x400303FF Spy Buffer AFE0 data3
+0x40040000 - 0x400403FF Spy Buffer AFE0 data4
+0x40050000 - 0x400503FF Spy Buffer AFE0 data5
+0x40060000 - 0x400603FF Spy Buffer AFE0 data6
+0x40070000 - 0x400703FF Spy Buffer AFE0 data7
+0x40080000 - 0x400803FF Spy Buffer AFE0 frame
+
+0x40100000 - 0x401003FF Spy Buffer AFE1 data0
+0x40110000 - 0x401103FF Spy Buffer AFE1 data1
+0x40120000 - 0x401203FF Spy Buffer AFE1 data2
+0x40130000 - 0x401303FF Spy Buffer AFE1 data3
+0x40140000 - 0x401403FF Spy Buffer AFE1 data4
+0x40150000 - 0x401503FF Spy Buffer AFE1 data5
+0x40160000 - 0x401603FF Spy Buffer AFE1 data6
+0x40170000 - 0x401703FF Spy Buffer AFE1 data7
+0x40180000 - 0x401803FF Spy Buffer AFE1 frame
+
+0x40200000 - 0x402003FF Spy Buffer AFE2 data0
+0x40210000 - 0x402103FF Spy Buffer AFE2 data1
+0x40220000 - 0x402203FF Spy Buffer AFE2 data2
+0x40230000 - 0x402303FF Spy Buffer AFE2 data3
+0x40240000 - 0x402403FF Spy Buffer AFE2 data4
+0x40250000 - 0x402503FF Spy Buffer AFE2 data5
+0x40260000 - 0x402603FF Spy Buffer AFE2 data6
+0x40270000 - 0x402703FF Spy Buffer AFE2 data7
+0x40280000 - 0x402803FF Spy Buffer AFE2 frame
+
+0x40300000 - 0x403003FF Spy Buffer AFE3 data0
+0x40310000 - 0x403103FF Spy Buffer AFE3 data1
+0x40320000 - 0x403203FF Spy Buffer AFE3 data2
+0x40330000 - 0x403303FF Spy Buffer AFE3 data3
+0x40340000 - 0x403403FF Spy Buffer AFE3 data4
+0x40350000 - 0x403503FF Spy Buffer AFE3 data5
+0x40360000 - 0x403603FF Spy Buffer AFE3 data6
+0x40370000 - 0x403703FF Spy Buffer AFE3 data7
+0x40380000 - 0x403803FF Spy Buffer AFE3 frame
+
+0x40400000 - 0x404003FF Spy Buffer AFE4 data0
+0x40410000 - 0x404103FF Spy Buffer AFE4 data1
+0x40420000 - 0x404203FF Spy Buffer AFE4 data2
+0x40430000 - 0x404303FF Spy Buffer AFE4 data3
+0x40440000 - 0x404403FF Spy Buffer AFE4 data4
+0x40450000 - 0x404503FF Spy Buffer AFE4 data5
+0x40460000 - 0x404603FF Spy Buffer AFE4 data6
+0x40470000 - 0x404703FF Spy Buffer AFE4 data7
+0x40480000 - 0x404803FF Spy Buffer AFE4 frame
+
+0x40500000 - 0x405003FF Spy Buffer for Timestamp
+```
+Memory Map Notes:
+
+* AFE Spy Buffers are 14 bits wide and are read-only:
+* When properly aligned, the frame markers should always read "11111110000000"  (0x3F80)
+* The Timestamp counter is also stored in a Spy buffer this is 64 bits wide and is read only.
+
 
 ## Overview of Hardware Subsystems
 
@@ -79,7 +156,11 @@ Many of the firmware modules have separate testbench files, written in VHDL. The
 
 ## Build Instructions
 
-Xilinx Vivado, batch mode. Instructions coming soon...
+This design is to be built from the command like in Vivado Non-Project mode. Go to the xilinx directory and do the following:
+
+  vivado -mode tcl -source vivado_batch.tcl
+
+Build it and program the FPGA on the DAPHNE board with the bit file. Then connect it to the network and try pinging the IP address. It should respond. Then you can try reading and writing using the special OEI UDP packets (see the example code in Python). There are some registers and buffer memories in this demo design to try out.
 
 
 
