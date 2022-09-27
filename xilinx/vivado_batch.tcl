@@ -20,6 +20,8 @@ read_vhdl ../front_end/auto_afe.vhd
 read_vhdl ../front_end/front_end.vhd
 
 read_vhdl ../spy/spy.vhd
+read_vhdl ../spi/spi.vhd
+read_vhdl ../timing/endpoint.vhd
 
 read_vhdl ../oei/hdl/burst_traffic_controller.vhd
 read_vhdl ../oei/hdl/ethernet_interface.vhd

@@ -88,25 +88,25 @@ set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_*}]
 
 ### Simple SPI slave interface used for slow controls communication with the uC
 
-#set_property PACKAGE_PIN K6 [get_ports {spi_csn}]
-#set_property PACKAGE_PIN G4 [get_ports {spi_sclk}]
-#set_property PACKAGE_PIN F4 [get_ports {spi_miso}]
-#set_property PACKAGE_PIN G5 [get_ports {spi_mosi}]
-#set_property PACKAGE_PIN F5 [get_ports {spi_irq}]
-#set_property IOSTANDARD LVTTL [get_ports {spi_*}]
+set_property PACKAGE_PIN K6 [get_ports {spi_csn}]
+set_property PACKAGE_PIN G4 [get_ports {spi_clk}]
+set_property PACKAGE_PIN F4 [get_ports {spi_miso}]
+set_property PACKAGE_PIN G5 [get_ports {spi_mosi}]
+set_property PACKAGE_PIN F5 [get_ports {spi_irq}]
+set_property IOSTANDARD LVTTL [get_ports {spi_*}]
 
-### DRAM interface in bank 34 is currently unused
+### DRAM interface in bank 34 is currently unused!
 
-### DEBUG header pins are currently unused
+### DEBUG header pins are currently unused!
 
 ### Timing interface signals (LVDS)
 
-#set_property PACKAGE_PIN V6 [get_ports {cdr_sfp_tx_p}]
-#set_property PACKAGE_PIN W6 [get_ports {cdr_sfp_tx_n}]
-#set_property PACKAGE_PIN AB2 [get_ports {cdr_clk_p}]
-#set_property PACKAGE_PIN AC2 [get_ports {cdr_clk_n}]
-#set_property PACKAGE_PIN AC3 [get_ports {cdr_data_p}]
-#set_property PACKAGE_PIN AD3 [get_ports {cdr_data_n}]
+set_property PACKAGE_PIN V6 [get_ports {cdr_sfp_tx_p}]
+set_property PACKAGE_PIN W6 [get_ports {cdr_sfp_tx_n}]
+set_property PACKAGE_PIN AB2 [get_ports {cdr_clk_p}]
+set_property PACKAGE_PIN AC2 [get_ports {cdr_clk_n}]
+set_property PACKAGE_PIN AC3 [get_ports {cdr_data_p}]
+set_property PACKAGE_PIN AD3 [get_ports {cdr_data_n}]
 
 set_property IOSTANDARD LVDS_25 [get_ports {cdr_sfp_tx_?}]
 set_property IOSTANDARD LVDS_25 [get_ports {cdr_clk_?}]
@@ -117,14 +117,16 @@ set_property DIFF_TERM TRUE [get_ports {cdr_data_?}]
 
 ### Timing interface signals (single ended LVTTL)
 
-#set_property PACKAGE_PIN D6 [get_ports {cdr_los}]
-#set_property PACKAGE_PIN H8 [get_ports {cdr_lol}]
-#set_property IOSTANDARD LVTTL [get_ports {cdr_lo?}]
+set_property PACKAGE_PIN D6 [get_ports {cdr_los}]
+set_property PACKAGE_PIN H8 [get_ports {cdr_lol}]
+set_property IOSTANDARD LVTTL [get_ports {cdr_lo?}]
 
-#set_property PACKAGE_PIN G7 [get_ports {cdr_sfp_los}]
-#set_property PACKAGE_PIN F8 [get_ports {cdr_sfp_abs}]
-#set_property PACKAGE_PIN H7 [get_ports {cdr_sfp_tx_dis}]
-#set_property IOSTANDARD LVTTL [get_ports {cdr_sfp_*}]
+set_property PACKAGE_PIN G7 [get_ports {cdr_sfp_los}]
+set_property PACKAGE_PIN F8 [get_ports {cdr_sfp_abs}]
+set_property PACKAGE_PIN H7 [get_ports {cdr_sfp_tx_dis}]
+set_property IOSTANDARD LVTTL [get_ports {cdr_sfp_los}]
+set_property IOSTANDARD LVTTL [get_ports {cdr_sfp_abs}]
+set_property IOSTANDARD LVTTL [get_ports {cdr_sfp_tx_dis}]
 
 # reset pin is from uC, I/O bank 35, VCCO=3.3V note ACTIVE LOW on DAPHNE
 

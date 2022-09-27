@@ -38,22 +38,30 @@ port(
     --daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0
 
     --daq0_rx_p, daq0_rx_n: in std_logic;
-    --daq0_tx_p, daq0_tx_n: in std_logic;
+    --daq0_tx_p, daq0_tx_n: out std_logic;
+    --daq0_sfp_abs: in std_logic; 
+    --daq0_sfp_los: in std_logic; 
 	--daq0_sfp_tx_dis: out std_logic; 
     --daq0_sfp_scl, daq0_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq1_rx_p, daq1_rx_n: in std_logic;
-    --daq1_tx_p, daq1_tx_n: in std_logic;
+    --daq1_tx_p, daq1_tx_n: out std_logic;
+    --daq1_sfp_abs: in std_logic; 
+    --daq1_sfp_los: in std_logic; 
 	--daq1_sfp_tx_dis: out std_logic; 
     --daq1_sfp_scl, daq1_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq2_rx_p, daq2_rx_n: in std_logic;
-    --daq2_tx_p, daq2_tx_n: in std_logic;
+    --daq2_tx_p, daq2_tx_n: out std_logic;
+    --daq2_sfp_abs: in std_logic; 
+    --daq2_sfp_los: in std_logic; 
 	--daq2_sfp_tx_dis: out std_logic; 
     --daq2_sfp_scl, daq2_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq3_rx_p, daq3_rx_n: in std_logic;
-    --daq3_tx_p, daq3_tx_n: in std_logic;
+    --daq3_tx_p, daq3_tx_n: out std_logic;
+    --daq3_sfp_abs: in std_logic; 
+    --daq3_sfp_los: in std_logic; 
 	--daq3_sfp_tx_dis: out std_logic; 
     --daq3_sfp_scl, daq3_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
@@ -62,16 +70,36 @@ port(
 
     gbe_refclk_p, gbe_refclk_n: in std_logic; -- MGT REFCLK for GbE, LVDS, 125.000 MHz, quad 216, refclk0
 
-    gbe_rx_p, gbe_rx_n:   in  std_logic;
-    gbe_tx_p, gbe_tx_n:   out std_logic; 
-	gbe_sfp_los: in  std_logic; -- high if GbE SFP RX fiber is dark
+    gbe_rx_p, gbe_rx_n: in std_logic;
+    gbe_tx_p, gbe_tx_n: out std_logic;
+    gbe_sfp_abs: in std_logic; -- high if GbE SFP is absent
+	gbe_sfp_los: in std_logic; -- high if RX fiber is dark
 	gbe_sfp_tx_dis: out std_logic; -- high to disable GbE SFP transmitter
     gbe_sfp_scl, gbe_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
-    -- misc board I/O
+    -- Timing Endpoint Interface (SFP)
 
-    --spi_clk, spi_csn, spi_si: in std_logic; -- slow controls spi slave interface to the micro
-    --spi_so: out std_logic; -- looks like a 256x8 SPI EEPROM
+    cdr_sfp_los: in std_logic; -- loss of signal
+    cdr_sfp_abs: in std_logic; -- high if module is absent
+    cdr_sfp_tx_dis: out std_logic; -- high to disable timing SFP TX
+    cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic; -- send data upstream (optional)
+
+    -- Timing Endpoint Interface (CDR chip)
+
+    cdr_clk_p, cdr_clk_n: in std_logic; -- LVDS recovered clock 312MHz
+    cdr_data_p, cdr_data_n: in std_logic; -- LVDS recovered serial data 
+    cdr_los: in std_logic; -- loss of signal
+    cdr_lol: in std_logic; -- loss of lock
+
+    -- SPI slave interface for communication with uC
+
+    spi_clk: in std_logic;
+    spi_csn: in std_logic;
+    spi_mosi: in std_logic;
+    spi_miso: out std_logic;
+    spi_irq: out std_logic;
+
+    -- misc board I/O
 
     trig_ext: in std_logic; -- from external trigger input, note INVERTED 
     led: out std_logic_vector(5 downto 0) -- DAPHNE PCB LEDs are active LOW
@@ -81,12 +109,7 @@ end DAPHNE2;
 
 architecture DAPHNE2_arch of DAPHNE2 is
 
--- declare components
-
-	-- this version of the IP core (16.2) was generated for Artix 7 
-	-- Vivado 2020.2
-	-- extra debug ports are NOT needed on DAPHNE version since
-	--  we don't need to invert the TXD and RXD pairs going to the SFP module
+    -- declare components
 
 	component gig_ethernet_pcs_pma_0
       port(
@@ -193,6 +216,31 @@ architecture DAPHNE2_arch of DAPHNE2 is
         dob:   out std_logic_vector(15 downto 0)
       );
     end component;
+
+    component spi
+    port(
+        clock: in std_logic;
+        reset: in std_logic;
+        spi_clk: in std_logic; -- keep it below 10 MHz
+        spi_csn: in std_logic; -- active low select
+        spi_mosi: in std_logic; 
+        spi_miso: out std_logic;
+        spi_irq: out std_logic
+    );
+    end component;
+
+    component endpoint
+    port(
+        cdr_sfp_los: in std_logic;
+        cdr_sfp_abs: in std_logic;
+        cdr_sfp_tx_dis: out std_logic;
+        cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic;
+        cdr_clk_p, cdr_clk_n: in std_logic;
+        cdr_data_p, cdr_data_n: in std_logic;
+        cdr_los: in std_logic;
+        cdr_lol: in std_logic
+      );
+    end component;
 	
 	-- declare signals to connect everything up
 
@@ -247,6 +295,8 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal errcnt: array_5x8_type;
 
 begin
+
+    -- Clocks and Main PLL ----------------------------------------------------
 
 	-- sysclk is 100MHz LVDS, receive it with IBUFDS and drive it out on a BUFG net. sysclk comes in on bank 33
 	-- which has VCCO=1.5V. IOSTANDARD is LVDS and the termination resistor is external (DIFF_TERM=FALSE)
@@ -325,6 +375,53 @@ begin
     clk1_inst:  BUFG port map( I => clkout1, O => mclk);   -- master clock 62.5MHz
 
     clk2_inst:  BUFG port map( I => clkout2, O => fclk);   -- fast clock 437.5MHz
+
+    
+
+
+
+
+
+
+
+
+    -- Timing Endpoint Interface ----------------------------------------------
+
+    endpoint_inst: endpoint
+    port map(
+        cdr_sfp_los => cdr_sfp_los,
+        cdr_sfp_abs => cdr_sfp_abs,
+        cdr_sfp_tx_dis => cdr_sfp_tx_dis,
+        cdr_sfp_tx_p =>cdr_sfp_tx_p,
+        cdr_sfp_tx_n => cdr_sfp_tx_n,
+    
+        cdr_clk_p => cdr_clk_p,
+        cdr_clk_n => cdr_clk_n,
+        cdr_data_p => cdr_data_p,
+        cdr_data_n => cdr_data_n,
+        cdr_los => cdr_los,
+        cdr_lol => cdr_lol
+      );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    -- Reset and Trigger Logic ------------------------------------------------
   
     -- square up some async inputs in the mclk domain
     -- also make a fake 64 bit timestamp counter
@@ -396,7 +493,12 @@ begin
         end if;
     end process;
 
-    -- now instantiate the AUTOMATIC AFE front end, total 45 channels (40 AFE data channels + 5 frame marker channels)
+
+
+
+    -- Automatic Front End ----------------------------------------------------
+
+    -- 45 channels (40 AFE data channels + 5 frame marker channels)
 
     fe_inst: front_end 
     port map(
@@ -420,6 +522,12 @@ begin
             afe_dout_pad(a)(b) <= "00" & afe_dout(a)(b);
         end generate gen_b;
     end generate gen_a;
+
+
+
+
+
+    -- Spy Buffers ------------------------------------------------------------
 
     -- make 45 spy buffers for AFE data, these buffers are READ ONLY
 
@@ -458,6 +566,14 @@ begin
           );
 
     end generate ts_spy_gen;
+
+
+
+
+
+
+
+    -- OEI Gigabit Ethernet ---------------------------------------------------
 
     -- must manually add IBUFs for refclk inputs
     -- see http://forums.xilinx.com/t5/Implementation/Vivado-IBUFDS-GTE2-driven-by-IBUF/td-p/383187
@@ -505,31 +621,17 @@ begin
 		gt0_pll0lock_out => open
       );
 
-	-- ENABLE all SFP transmitters
+	-- enable GBE SFP transmitter
 
 	gbe_sfp_tx_dis <= '0';
-	--daq0_sfp_tx_dis <= '0';
-	--daq1_sfp_tx_dis <= '0';
-	--daq2_sfp_tx_dis <= '0';
-	--daq3_sfp_tx_dis <= '0';
 
-    -- don't use the SFP I2C interface for now, this is optional
+    -- don't use the GBE SFP I2C interface for now, this is optional
     -- leave pins in high impedance state, PCB has pullup resistors
 
     gbe_sfp_scl  <= 'Z';
     gbe_sfp_sda  <= 'Z';
 
-    --daq0_sfp_scl <= 'Z';
-    --daq1_sfp_scl <= 'Z';
-    --daq2_sfp_scl <= 'Z';
-    --daq3_sfp_scl <= 'Z';
-    --daq0_sfp_sda <= 'Z';
-    --daq1_sfp_sda <= 'Z';
-    --daq2_sfp_sda <= 'Z';
-    --daq3_sfp_sda <= 'Z';
-
-	-- 'off the shelf' Ethernet Interface (OEI)
-    -- burst mode not used here
+    -- OEI = "Off the shelf" Ethernet Interface 
 
     eth_int_inst: ethernet_interface
     port map(
@@ -719,6 +821,64 @@ begin
         RST => reset_async,
         WREN => fifo_WREN
     );
+
+
+
+
+
+    -- DAPHNE Core Logic ------------------------------------------------------
+    -- streaming and/or self-triggered core logic
+
+    -- enable DAQ Link SFP transmitters...
+
+	--daq0_sfp_tx_dis <= '0';
+	--daq1_sfp_tx_dis <= '0';
+	--daq2_sfp_tx_dis <= '0';
+	--daq3_sfp_tx_dis <= '0';
+
+    -- DAQ SFP I2C interface, reserved for future use...
+
+    --daq0_sfp_scl <= 'Z';
+    --daq1_sfp_scl <= 'Z';
+    --daq2_sfp_scl <= 'Z';
+    --daq3_sfp_scl <= 'Z';
+    --daq0_sfp_sda <= 'Z';
+    --daq1_sfp_sda <= 'Z';
+    --daq2_sfp_sda <= 'Z';
+    --daq3_sfp_sda <= 'Z';
+
+    -- Quad refclk
+
+
+
+
+
+
+
+
+    -- SPI Slave Interface ----------------------------------------------------
+    -- used for slow controls communication with the uC
+   
+    spi_inst: spi
+    port map(
+        clock => sclk, -- 200MHz
+        reset => reset_async,
+        spi_clk => spi_clk,
+        spi_csn => spi_csn,
+        spi_mosi => spi_mosi,
+        spi_miso => spi_miso,
+        spi_irq => spi_irq
+    );
+
+
+
+
+
+
+
+
+
+    -- LED Blinker ------------------------------------------------------------
 
 	-- DAPHNE has 6 LEDs controlled by the FPGA, which are labeled on the PCB like this:
     --  led(5)   led(4)     led(3)     led(2)    led(1)    led(0)
