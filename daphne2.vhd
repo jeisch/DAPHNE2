@@ -73,7 +73,7 @@ port(
     --spi_clk, spi_csn, spi_si: in std_logic; -- slow controls spi slave interface to the micro
     --spi_so: out std_logic; -- looks like a 256x8 SPI EEPROM
 
-    trig_ext: in std_logic; -- from back panel connector, electrically isolated external trigger input
+    trig_ext: in std_logic; -- from external trigger input, note INVERTED 
     led: out std_logic_vector(5 downto 0) -- DAPHNE PCB LEDs are active LOW
 
   );
@@ -357,10 +357,10 @@ begin
         end if;
     end process trig_oei_proc;
 
-    trig_proc: process(mclk)
+    trig_proc: process(mclk) -- note external trigger input is inverted on DAPHNE2
     begin
         if rising_edge(mclk) then
-            trig_sync <= trig_ext or trig_gbe0_reg or trig_gbe1_reg or trig_gbe2_reg; 
+            trig_sync <= (not trig_ext) or trig_gbe0_reg or trig_gbe1_reg or trig_gbe2_reg; 
         end if;
     end process trig_proc;
 

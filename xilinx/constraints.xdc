@@ -36,9 +36,6 @@ set_false_path -from [get_pins test_reg_reg[*]/C]
 # #############################################################################
 # Pin LOCation and IOSTANDARD Constraints...
 
-# on DAPHNE V2 PCB the GBE link moves to quad 213
-# the four DAQ links use quad 216
-
 # GBE MGT is channel 0 of QUAD213 (aka X0Y0) on device XC7A200T FBG676
 # on schematics the GBE channel is called "DAQ_TX4" pins AC10/AD10 or "DAQ_RX4" pins AC12/AD12
 # gbe_refclk is AC coupled LVDS 125MHz on MGTREFCLK0_213 pins AA13/AB13.
@@ -46,28 +43,88 @@ set_false_path -from [get_pins test_reg_reg[*]/C]
 set_property LOC GTPE2_CHANNEL_X0Y0 [get_cells */*/*/transceiver_inst/gtwizard_inst/*/gtwizard_i/gt0_GTWIZARD_i/gtpe2_i]
 set_property LOC AA13 [get_ports {gbe_refclk_p}]
 
-# GBE SFP module LOSS OF SIGNAL indicator IO bank VCCO=3.3V
-# DAQ_SFP4_LOS on schematics
-
 set_property PACKAGE_PIN J6 [get_ports {gbe_sfp_los}]
-set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_los}]
-
-# GBE SFP module TX DISABLE control, IO bank 35, VCCO=3.3V
-# DAQ_SFP4_TX4_DIS on schematics
-
 set_property PACKAGE_PIN J5 [get_ports {gbe_sfp_tx_dis}]
-set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_tx_dis}]
-
-# GBE SFP I2C interface 
-
 set_property PACKAGE_PIN F7 [get_ports {gbe_sfp_scl}]
-set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_scl}]
-
 set_property PACKAGE_PIN G8 [get_ports {gbe_sfp_sda}]
-set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_sda}]
+#set_property PACKAGE_PIN K7 [get_ports {gbe_sfp_abs}]
+set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_*}]
 
-# GBE SFP absent signal is reserved
-# DAQ_SFP4_ABS pin K7
+### DAQ link 0, channel 0 Quad 213, X0Y4
+
+#set_property PACKAGE_PIN H6 [get_ports {daq0_sfp_los}]
+#set_property PACKAGE_PIN E6 [get_ports {daq0_sfp_abs}]
+#set_property PACKAGE_PIN K8 [get_ports {daq0_sfp_tx_dis}]
+#set_property PACKAGE_PIN J4 [get_ports {daq0_sfp_scl}]
+#set_property PACKAGE_PIN H4 [get_ports {daq0_sfp_sda}]
+#set_property IOSTANDARD LVTTL [get_ports {daq0_sfp_*}]
+
+### DAQ link 1, channel 1 Quad 213, X0Y5
+
+#set_property PACKAGE_PIN E5 [get_ports {daq1_sfp_los}]
+#set_property PACKAGE_PIN L8 [get_ports {daq1_sfp_abs}]
+#set_property PACKAGE_PIN G6 [get_ports {daq1_sfp_tx_dis}]
+#set_property PACKAGE_PIN H9 [get_ports {daq1_sfp_scl}]
+#set_property PACKAGE_PIN G9 [get_ports {daq1_sfp_sda}]
+#set_property IOSTANDARD LVTTL [get_ports {daq1_sfp_*}]
+
+### DAQ link 2, channel 2 Quad 213, X0Y6
+
+#set_property PACKAGE_PIN G2 [get_ports {daq2_sfp_los}]
+#set_property PACKAGE_PIN E1 [get_ports {daq2_sfp_abs}]
+#set_property PACKAGE_PIN D4 [get_ports {daq2_sfp_tx_dis}]
+#set_property PACKAGE_PIN G1 [get_ports {daq2_sfp_scl}]
+#set_property PACKAGE_PIN H3 [get_ports {daq2_sfp_sda}]
+#set_property IOSTANDARD LVTTL [get_ports {daq2_sfp_*}]
+
+### DAQ link 3, channel 3 Quad 213, X0Y7
+
+#set_property PACKAGE_PIN E2 [get_ports {daq3_sfp_los}]
+#set_property PACKAGE_PIN F2 [get_ports {daq3_sfp_abs}]
+#set_property PACKAGE_PIN A2 [get_ports {daq3_sfp_tx_dis}]
+#set_property PACKAGE_PIN C1 [get_ports {daq3_sfp_scl}]
+#set_property PACKAGE_PIN B1 [get_ports {daq3_sfp_sda}]
+#set_property IOSTANDARD LVTTL [get_ports {daq3_sfp_*}]
+
+### Simple SPI slave interface used for slow controls communication with the uC
+
+#set_property PACKAGE_PIN K6 [get_ports {spi_csn}]
+#set_property PACKAGE_PIN G4 [get_ports {spi_sclk}]
+#set_property PACKAGE_PIN F4 [get_ports {spi_miso}]
+#set_property PACKAGE_PIN G5 [get_ports {spi_mosi}]
+#set_property PACKAGE_PIN F5 [get_ports {spi_irq}]
+#set_property IOSTANDARD LVTTL [get_ports {spi_*}]
+
+### DRAM interface in bank 34 is currently unused
+
+### DEBUG header pins are currently unused
+
+### Timing interface signals (LVDS)
+
+#set_property PACKAGE_PIN V6 [get_ports {cdr_sfp_tx_p}]
+#set_property PACKAGE_PIN W6 [get_ports {cdr_sfp_tx_n}]
+#set_property PACKAGE_PIN AB2 [get_ports {cdr_clk_p}]
+#set_property PACKAGE_PIN AC2 [get_ports {cdr_clk_n}]
+#set_property PACKAGE_PIN AC3 [get_ports {cdr_data_p}]
+#set_property PACKAGE_PIN AD3 [get_ports {cdr_data_n}]
+
+set_property IOSTANDARD LVDS_25 [get_ports {cdr_sfp_tx_?}]
+set_property IOSTANDARD LVDS_25 [get_ports {cdr_clk_?}]
+set_property IOSTANDARD LVDS_25 [get_ports {cdr_data_?}]
+set_property DIFF_TERM TRUE [get_ports {cdr_sfp_tx_?}]
+set_property DIFF_TERM TRUE [get_ports {cdr_clk_?}]
+set_property DIFF_TERM TRUE [get_ports {cdr_data_?}]
+
+### Timing interface signals (single ended LVTTL)
+
+#set_property PACKAGE_PIN D6 [get_ports {cdr_los}]
+#set_property PACKAGE_PIN H8 [get_ports {cdr_lol}]
+#set_property IOSTANDARD LVTTL [get_ports {cdr_lo?}]
+
+#set_property PACKAGE_PIN G7 [get_ports {cdr_sfp_los}]
+#set_property PACKAGE_PIN F8 [get_ports {cdr_sfp_abs}]
+#set_property PACKAGE_PIN H7 [get_ports {cdr_sfp_tx_dis}]
+#set_property IOSTANDARD LVTTL [get_ports {cdr_sfp_*}]
 
 # reset pin is from uC, I/O bank 35, VCCO=3.3V note ACTIVE LOW on DAPHNE
 
@@ -75,7 +132,7 @@ set_property PACKAGE_PIN J8 [get_ports {reset_n}]
 set_property IOSTANDARD LVTTL [get_ports {reset_n}]
 
 # external trigger is from rear panel SMB connector (on schematic net is GPI)
-# I/O bank 35, VCCO=3.3V 
+# I/O bank 35, VCCO=3.3V. NOTE: this input is INVERTED by the OPTOCOUPER!
 
 set_property PACKAGE_PIN D5 [get_ports {trig_ext}]
 set_property IOSTANDARD LVTTL [get_ports {trig_ext}]
@@ -105,22 +162,13 @@ set_property PACKAGE_PIN B4 [get_ports {led[3]}]
 set_property PACKAGE_PIN A5 [get_ports {led[2]}]
 set_property PACKAGE_PIN B5 [get_ports {led[1]}]
 set_property PACKAGE_PIN C4 [get_ports {led[0]}]
-
-# set_property IOSTANDARD LVTTL [get_ports {led[7]}]
-# set_property IOSTANDARD LVTTL [get_ports {led[6]}]
-set_property IOSTANDARD LVTTL [get_ports {led[5]}]
-set_property IOSTANDARD LVTTL [get_ports {led[4]}]
-set_property IOSTANDARD LVTTL [get_ports {led[3]}]
-set_property IOSTANDARD LVTTL [get_ports {led[2]}]
-set_property IOSTANDARD LVTTL [get_ports {led[1]}]
-set_property IOSTANDARD LVTTL [get_ports {led[0]}]
+set_property IOSTANDARD LVTTL [get_ports {led[?]}]
 
 # LVDS output clock to AFEs (on schematic 62.5MHz_FPGA_)
 
 set_property PACKAGE_PIN  AF5   [get_ports {afe_clk_p}]
 set_property PACKAGE_PIN  AF4   [get_ports {afe_clk_n}]
-set_property IOSTANDARD LVDS_25 [get_ports {afe_clk_p}]
-set_property IOSTANDARD LVDS_25 [get_ports {afe_clk_n}]
+set_property IOSTANDARD LVDS_25 [get_ports {afe_clk_?}]
 
 # LVDS inputs from AFE 0 (Bank 12)
 

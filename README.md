@@ -64,6 +64,11 @@ The DAPHNE microcontroller can hard reset the FPGA by pulling the RESETn line LO
 
 The DAPHNE microcontroller can monitor and control some of the FPGA functions through a dedicated SPI interface. From the microcontroller's perspective the FPGA looks like a small SPI memory device (256 x 8). Some of the bits in this small memory space are read only (e.g. status bits) while other bits are read-write (control bits). This memory map is TBD. 
 
+### External Trigger
+
+The external interface trigger is now optically isolated. The input is 5-12VDC on an SMB connector (center positive). Note that the optoisolator device used on DAPHNE has an inverted output, so this inversion must be addressed in firmware.
+
+
 ### Status LEDs
 
 There are 5 status LEDs. All are pulse stretched in the firmware so that momenary pulses are visible. Refer to the top level VHDL file for the meaning of these LEDS.
