@@ -20,15 +20,12 @@ generic(
     slot:     std_logic_vector(3 downto 0) := "0000";
     crate_id: std_logic_vector(9 downto 0) := "0000000000";
     det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000";
-    ch0_id:   std_logic_vector(5 downto 0) := "000000";
-    ch1_id:   std_logic_vector(5 downto 0) := "000001";
-    ch2_id:   std_logic_vector(5 downto 0) := "000010";
-    ch3_id:   std_logic_vector(5 downto 0) := "000011");
+    version:  std_logic_vector(5 downto 0) := "100000");
 port(
     reset: in std_logic; -- async reset from uC
-    aclk: in std_logic; -- AFE clock 62.5MHz
+    mclk: in std_logic; -- master clock 62.5MHz
     timestamp: in std_logic_vector(63 downto 0);
+    ch0_id, ch1_id, ch2_id, ch3_id: in std_logic_vector(5 downto 0); -- the channel ID number   
 	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
     fclk: in std_logic; -- transmit clock to FELIX 120.xxx MHz
     dout: out std_logic_vector(31 downto 0);
@@ -38,7 +35,7 @@ end component;
 
 signal reset: std_logic := '1';
 
-signal aclk: std_logic := '0';
+signal mclk: std_logic := '0';
 signal timestamp: std_logic_vector(63 downto 0) := X"0000000000000000";
 signal dat:  std_logic_vector(11 downto 0)     := X"000";
 signal afe_dat0: std_logic_vector(13 downto 0) := "00000000000000";
@@ -57,14 +54,14 @@ file outfile: text;
 
 begin
 
-aclk <= not aclk after 8.000 ns; --  62.500 MHz
+mclk <= not mclk after 8.000 ns; --  62.500 MHz
 fclk <= not fclk after 4.158 ns; -- 120.237 MHz
 
 reset <= '1', '0' after 96ns;
 
 process
 begin 
-    wait until falling_edge(aclk);
+    wait until falling_edge(mclk);
     timestamp <= std_logic_vector(unsigned(timestamp) + 1);
     dat       <= std_logic_vector(unsigned(dat) + 1);
     afe_dat0  <= "00" & dat;
@@ -76,8 +73,12 @@ end process;
 DUT: dstr4
 port map(
     reset => reset,
-    aclk => aclk,
+    mclk => mclk,
     timestamp => timestamp,
+    ch0_id => "000000", 
+    ch1_id => "000001", 
+    ch2_id => "000010",
+    ch3_id => "001001",
 	afe_dat0 => afe_dat0,
 	afe_dat1 => afe_dat1,
 	afe_dat2 => afe_dat2,

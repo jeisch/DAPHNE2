@@ -11,9 +11,13 @@ New for this firmware is a fully automatic front end. DAPHNE has 5 AFE chips, ea
 
 The streaming core design takes 4 AFE data streams and packs 64 samples from each stream them into an output frame for transmission to FELIX DAQ. The output link runs at 4.809 Gbps. This design runs continuously and there are a few idle words inserted between output frames.
 
+This version of the firmware has four streaming core senders instantiated. Output link DAQ0 sends AFE0 channels 0,1,2,3. Output link DAQ1 sends AFE1 channels 0,1,2,3. etc. etc.
+
 ### Self-Triggered Core
 
 The self triggered core logic is built upon a modular approach. The STC module monitors a single AFE data stream. It waits until a trigger condition is satisfied, then it grabs the 1024 samples (including 64 pre-trigger samples), forms an output frame around this data, and stores this frame in a FIFO. This FIFO is deep enough to store ~8.9 events. Then, on the backend, a state machine scans across N modules looking to see who has an output record ready to send in the FIFO. In a round robin manner these STC modules are selected to dump data to the output link to FELIX. And the process repeats. The current design has 10 input modules feeding one output, but can easily be changed to have any number of input modules feeding one output.
+
+This version of the firmware currently does not include any self-triggered senders.
 
 ### Timing Endpoint
 
@@ -25,16 +29,27 @@ When triggered, the spy buffers will capture 64 pre-trigger samples followed by 
 
 ### Gigabit Ethernet
 
-The GbE Interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera. The default IP address is 192.168.133.12. Example python code is located in the oei directory. 
+The GbE Interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera and Lorenzo Uplegger. The default IP address is 192.168.133.12. Example python code is located in the oei directory. 
 
 The memory map is as follows:
 ```
-0x70000 - 0x703FF  Test BlockRam 1kx36, R/W, 36 bit
-0xAA55             Test register R/O always returns 0xDEADBEEF, R/O, 32 bit
-0x1974             Status vector for the PCS/PMA IP Core, R/O, 16 bit
-0x9000             Read the FW version aka git commit hash ID, 28 bits, R/O
-0x12345678         Test register, R/W, 64 bit
-0x80000000         Test FIFO, 512 x 64, R/W, 64-bit
+0x00000000 - 0x00000064 Reserved for OEI internal settings
+
+0x1974  Status vector for the Xilinx GbE PCS/PMA IP Core, read-only, 16 bit
+
+0x1975  SFP module status bits (all should be zero)
+		 0: DAQ0 SFP absent (ABS)
+		 1: DAQ0 SFP loss of signal (LOS)
+		 8: DAQ1 SFP ABS
+		 9: DAQ1 SFP LOS
+		16: DAQ2 SFP ABS
+		17: DAQ2 SFP LOS
+		24: DAQ3 SFP ABS
+		25: DAQ3 SFP LOS
+		32: GbE SFP ABS
+		33: GbE SFP LOS
+		40: Timing Endpoint SFP ABS
+		41: Timing Endpoint SFP LOS
 
 0x2000  Write anything to trigger spy buffers
 0x2001  Write anything to reset the AFE front end logic and error counters
@@ -44,6 +59,14 @@ The memory map is as follows:
 0x2012  Number of errors observed for AFE2 frame marker, stops at 255.
 0x2013  Number of errors observed for AFE3 frame marker, stops at 255.
 0x2014  Number of errors observed for AFE4 frame marker, stops at 255.
+
+0x9000  Read the FW version aka git commit hash ID, read-only, 28 bits
+
+0xAA55  Test register R/O always returns 0xDEADBEEF, read-only, 32 bit
+
+0x70000 - 0x703FF  Test BlockRam read-write, 36 bit
+
+0x12345678 Simple test register, read-write, 64 bit
 
 0x40000000 - 0x400003FF Spy Buffer AFE0 data0 
 0x40010000 - 0x400103FF Spy Buffer AFE0 data1
@@ -95,13 +118,17 @@ The memory map is as follows:
 0x40470000 - 0x404703FF Spy Buffer AFE4 data7
 0x40480000 - 0x404803FF Spy Buffer AFE4 frame
 
-0x40500000 - 0x405003FF Spy Buffer for Timestamp
+0x40500000 - 0x405003FF Spy Buffer for Timestamp (note 64 bit)
+
+0x80000000   Test FIFO, 512 x 64, read-write (64-bit)
+
+0xFFFFFFFF   Reserved for OEI internal settings
+
 ```
 Memory Map Notes:
 
 * AFE Spy Buffers are 14 bits wide and are read-only:
 * When properly aligned, the frame markers should always read "11111110000000"  (0x3F80)
-* The Timestamp counter is also stored in a Spy buffer this is 64 bits wide and is read only.
 
 
 ## Overview of Hardware Subsystems

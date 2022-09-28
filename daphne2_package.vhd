@@ -18,6 +18,7 @@ package daphne2_package is
     constant BRAM0_ADDR:    std_logic_vector(31 downto 0) := "0000000000000111000000----------";  -- 0x00070000-0x000703FF
     constant DEADBEEF_ADDR: std_logic_vector(31 downto 0) := X"0000aa55";
     constant STATVEC_ADDR:  std_logic_vector(31 downto 0) := X"00001974";
+    constant SFPSTATVEC_ADDR:  std_logic_vector(31 downto 0) := X"00001975";
     constant GITVER_ADDR:   std_logic_vector(31 downto 0) := X"00009000";
     constant TESTREG_ADDR:  std_logic_vector(31 downto 0) := X"12345678";
     constant FIFO_ADDR:     std_logic_vector(31 downto 0) := X"80000000";

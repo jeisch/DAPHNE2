@@ -23,6 +23,10 @@ read_vhdl ../spy/spy.vhd
 read_vhdl ../spi/spi.vhd
 read_vhdl ../timing/endpoint.vhd
 
+read_vhdl ../core/crc20_update.vhd
+read_vhdl ../core/stream/dstr4.vhd
+read_vhdl ../core/core.vhd
+
 read_vhdl ../oei/hdl/burst_traffic_controller.vhd
 read_vhdl ../oei/hdl/ethernet_interface.vhd
 read_vhdl ../oei/hdl/params_package.vhd
@@ -61,6 +65,7 @@ read_vhdl ../daphne2.vhd
 # require synth_ip and generate_target commands
 
 read_ip ../ip/gig_ethernet_pcs_pma_0.xcix
+read_ip ../ip/daphne2_daq_txonly.xcix
 
 # Load IP module as *.xci (loading from XCIX file is preferred over this method)
 #read_ip ../src/ip/gig_ethernet_pcs_pma_0.xci

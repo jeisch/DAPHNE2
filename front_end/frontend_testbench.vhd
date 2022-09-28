@@ -34,7 +34,7 @@ port(
     sclk:    in  std_logic; -- 200MHz system clock, constant
     reset:   in  std_logic;
     done:    out std_logic_vector(4 downto 0); -- status of automatic alignment FSM
-    dout:    out array_5x8x14_type -- data synchronized to clock
+    dout:    out array_5x9x14_type -- data synchronized to clock
   );
 end component;
 

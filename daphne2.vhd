@@ -35,35 +35,35 @@ port(
     -- four high speed links to DAQ, all four channels in quad 213 are used
     -- For FELIX links use TX only, disable RX, line rate = 4.809Gbps, refclk = 120.237 MHz
 
-    --daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0
+    daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0
 
-    --daq0_rx_p, daq0_rx_n: in std_logic;
-    --daq0_tx_p, daq0_tx_n: out std_logic;
-    --daq0_sfp_abs: in std_logic; 
-    --daq0_sfp_los: in std_logic; 
-	--daq0_sfp_tx_dis: out std_logic; 
-    --daq0_sfp_scl, daq0_sfp_sda: out std_logic; -- sfp I2C interface (optional)
+    --daq0_rx_p, daq0_rx_n: in std_logic; -- all DAQ links are TX only, GTP RX disabled!
+    daq0_tx_p, daq0_tx_n: out std_logic;
+    daq0_sfp_abs: in std_logic; 
+    daq0_sfp_los: in std_logic; 
+	daq0_sfp_tx_dis: out std_logic; 
+    daq0_sfp_scl, daq0_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq1_rx_p, daq1_rx_n: in std_logic;
-    --daq1_tx_p, daq1_tx_n: out std_logic;
-    --daq1_sfp_abs: in std_logic; 
-    --daq1_sfp_los: in std_logic; 
-	--daq1_sfp_tx_dis: out std_logic; 
-    --daq1_sfp_scl, daq1_sfp_sda: out std_logic; -- sfp I2C interface (optional)
+    daq1_tx_p, daq1_tx_n: out std_logic;
+    daq1_sfp_abs: in std_logic; 
+    daq1_sfp_los: in std_logic; 
+	daq1_sfp_tx_dis: out std_logic; 
+    daq1_sfp_scl, daq1_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq2_rx_p, daq2_rx_n: in std_logic;
-    --daq2_tx_p, daq2_tx_n: out std_logic;
-    --daq2_sfp_abs: in std_logic; 
-    --daq2_sfp_los: in std_logic; 
-	--daq2_sfp_tx_dis: out std_logic; 
-    --daq2_sfp_scl, daq2_sfp_sda: out std_logic; -- sfp I2C interface (optional)
+    daq2_tx_p, daq2_tx_n: out std_logic;
+    daq2_sfp_abs: in std_logic; 
+    daq2_sfp_los: in std_logic; 
+	daq2_sfp_tx_dis: out std_logic; 
+    daq2_sfp_scl, daq2_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     --daq3_rx_p, daq3_rx_n: in std_logic;
-    --daq3_tx_p, daq3_tx_n: out std_logic;
-    --daq3_sfp_abs: in std_logic; 
-    --daq3_sfp_los: in std_logic; 
-	--daq3_sfp_tx_dis: out std_logic; 
-    --daq3_sfp_scl, daq3_sfp_sda: out std_logic; -- sfp I2C interface (optional)
+    daq3_tx_p, daq3_tx_n: out std_logic;
+    daq3_sfp_abs: in std_logic; 
+    daq3_sfp_los: in std_logic; 
+	daq3_sfp_tx_dis: out std_logic; 
+    daq3_sfp_scl, daq3_sfp_sda: out std_logic; -- sfp I2C interface (optional)
 
     -- one MGT used for GbE interface, quad 216, channel 0
     -- NOTE: on schematics this is the 4th channel
@@ -241,6 +241,22 @@ architecture DAPHNE2_arch of DAPHNE2 is
         cdr_lol: in std_logic
       );
     end component;
+
+    component core
+    port(
+        mclk: in std_logic; -- master clock 62.5MHz
+        sclk100: in std_logic; -- system clock 100MHz
+        reset: in std_logic; -- for sender logic and for GTP quad
+        din: in array_5x9x14_type;  -- AFE data synchronized to clock
+        timestamp: in std_logic_vector(63 downto 0);
+        daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0, 120.237MHz
+        daq0_tx_p, daq0_tx_n: out std_logic;
+        daq1_tx_p, daq1_tx_n: out std_logic;
+        daq2_tx_p, daq2_tx_n: out std_logic;
+        daq3_tx_p, daq3_tx_n: out std_logic
+    
+    );
+    end component;
 	
 	-- declare signals to connect everything up
 
@@ -280,7 +296,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal trig_gbe0_reg, trig_gbe1_reg, trig_gbe2_reg: std_logic;
 
     signal sysclk_ibuf, clkfbout, clkfbout_buf, clkout0, clkout1, clkout2, locked: std_logic;
-    signal sclk: std_logic;
+    signal sclk200, sclk100: std_logic;
     signal mclk: std_logic;
     signal fclk: std_logic;
 
@@ -293,6 +309,8 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal timestamp_reg, ts_spy_bufr: std_logic_vector(63 downto 0);
 
     signal errcnt: array_5x8_type;
+
+    signal sfp_stat_vector: std_logic_vector(63 downto 0);
 
 begin
 
@@ -307,6 +325,8 @@ begin
     --      437.5MHz (7 x the master clock) used for ISERDES in the front end 
 
 	sysclk_ibufds_inst : IBUFGDS port map(O => sysclk_ibuf, I => sysclk_p, IB => sysclk_n);
+
+    sclk100_inst: BUFG port map( I => sysclk_ibuf, O => sclk100); -- 100MHz system clock not using the PLL
 
     mmcm_inst: MMCME2_ADV
     generic map(
@@ -370,13 +390,11 @@ begin
 
     clkfb_inst: BUFG port map( I => clkfbout, O => clkfbout_buf);
 
-    clk0_inst:  BUFG port map( I => clkout0, O => sclk);   -- system clock 200MHz
+    clk0_inst:  BUFG port map( I => clkout0, O => sclk200); -- system clock 200MHz
 
     clk1_inst:  BUFG port map( I => clkout1, O => mclk);   -- master clock 62.5MHz
 
     clk2_inst:  BUFG port map( I => clkout2, O => fclk);   -- fast clock 437.5MHz
-
-    
 
 
 
@@ -386,6 +404,8 @@ begin
 
 
     -- Timing Endpoint Interface ----------------------------------------------
+
+    -- placeholder/dummy module for now...
 
     endpoint_inst: endpoint
     port map(
@@ -508,7 +528,7 @@ begin
         afe_clk_n => afe_clk_n,
         clock => mclk,
         clock7x => fclk,
-        sclk => sclk,
+        sclk => sclk200,
         reset => fe_reset_mclk,
         done  => fe_done,
         warn => fe_warn,
@@ -596,7 +616,7 @@ begin
         userclk2_out           => oeiclk, -- 125MHz clock to drive OEI logic, does it run constantly?
         rxuserclk_out          => open,
         rxuserclk2_out         => open, 
-        independent_clock_bufg => sclk,   -- 200MHz system clock always running
+        independent_clock_bufg => sclk200,   -- 200MHz system clock always running
         pma_reset_out          => open,
         resetdone              => open,
         gmii_txd     => gmii_txd,
@@ -677,10 +697,11 @@ begin
 
     tx_data <= test_reg                        when std_match(rx_addr_reg, TESTREG_ADDR) else 
                fifo_DO                         when std_match(rx_addr_reg, FIFO_ADDR) else 
-               (X"00000000000" & "000" & locked & status_vector) when std_match(rx_addr_reg, STATVEC_ADDR) else  -- the status register
+               (X"00000000000" & "000" & locked & status_vector) when std_match(rx_addr_reg, STATVEC_ADDR) else
+               sfp_stat_vector                 when std_match(rx_addr_reg, SFPSTATVEC_ADDR) else  
                (X"00000000deadbeef")           when std_match(rx_addr_reg, DEADBEEF_ADDR) else
                (X"0000000"&bram0_do)           when std_match(rx_addr_reg, BRAM0_ADDR) else
-               (X"000000000"&version)          when std_match(rx_addr_reg, GITVER_ADDR) else  -- 28 bit GIT commit hash
+               (X"000000000"&version)          when std_match(rx_addr_reg, GITVER_ADDR) else
 
                (X"000000000000" & spy_bufr(0)(0))  when std_match(rx_addr_reg, SPYBUF_AFE0_D0_BASEADDR) else
                (X"000000000000" & spy_bufr(0)(1))  when std_match(rx_addr_reg, SPYBUF_AFE0_D1_BASEADDR) else
@@ -822,46 +843,61 @@ begin
         WREN => fifo_WREN
     );
 
+    -- SFP module status vector. Loss of signal (LOS) and Absent (ABS) bits
+    -- go here. Should be zero under normal conditions. These are unregistered
+    -- slow signals OK to add timing ignore constraint here. The SFP used for 
+    -- 100BASE-FX Ethernet connects to the uC, not the FPGA.
 
-
-
-
+    sfp_stat_vector <= X"0000" &
+    ("000000" & cdr_sfp_los & cdr_sfp_abs) &  
+    ("000000" & gbe_sfp_los & gbe_sfp_abs) &
+	("000000" & daq3_sfp_los & daq3_sfp_abs) &
+    ("000000" & daq2_sfp_los & daq2_sfp_abs) &
+    ("000000" & daq1_sfp_los & daq1_sfp_abs) & 
+    ("000000" & daq0_sfp_los & daq0_sfp_abs);
+    
     -- DAPHNE Core Logic ------------------------------------------------------
-    -- streaming and/or self-triggered core logic
 
     -- enable DAQ Link SFP transmitters...
 
-	--daq0_sfp_tx_dis <= '0';
-	--daq1_sfp_tx_dis <= '0';
-	--daq2_sfp_tx_dis <= '0';
-	--daq3_sfp_tx_dis <= '0';
+	daq0_sfp_tx_dis <= '0';
+	daq1_sfp_tx_dis <= '0';
+	daq2_sfp_tx_dis <= '0';
+	daq3_sfp_tx_dis <= '0';
 
     -- DAQ SFP I2C interface, reserved for future use...
 
-    --daq0_sfp_scl <= 'Z';
-    --daq1_sfp_scl <= 'Z';
-    --daq2_sfp_scl <= 'Z';
-    --daq3_sfp_scl <= 'Z';
-    --daq0_sfp_sda <= 'Z';
-    --daq1_sfp_sda <= 'Z';
-    --daq2_sfp_sda <= 'Z';
-    --daq3_sfp_sda <= 'Z';
+    daq0_sfp_scl <= 'Z';
+    daq1_sfp_scl <= 'Z';
+    daq2_sfp_scl <= 'Z';
+    daq3_sfp_scl <= 'Z';
 
-    -- Quad refclk
+    daq0_sfp_sda <= 'Z';
+    daq1_sfp_sda <= 'Z';
+    daq2_sfp_sda <= 'Z';
+    daq3_sfp_sda <= 'Z';
 
-
-
-
-
-
-
+    core_inst: core
+    port map(
+        mclk => mclk,
+        sclk100 => sclk100,
+        reset => reset_async,
+        din => afe_dout,
+        timestamp => timestamp_reg,
+        
+        daq_refclk_p => daq_refclk_p, daq_refclk_n => daq_refclk_n,
+        daq0_tx_p => daq0_tx_p, daq0_tx_n => daq0_tx_n,
+        daq1_tx_p => daq1_tx_p, daq1_tx_n => daq1_tx_n,
+        daq2_tx_p => daq2_tx_p, daq2_tx_n => daq2_tx_n,
+        daq3_tx_p => daq3_tx_p, daq3_tx_n => daq3_tx_n
+    );
 
     -- SPI Slave Interface ----------------------------------------------------
     -- used for slow controls communication with the uC
    
     spi_inst: spi
     port map(
-        clock => sclk, -- 200MHz
+        clock => sclk200, 
         reset => reset_async,
         spi_clk => spi_clk,
         spi_csn => spi_csn,
@@ -897,9 +933,9 @@ begin
 	-- and reset led0_reg. this insures that the output signal led1_reg is HIGH for a whole
 	-- 11Hz cycle, regardless of when the blip on the led_temp occurs.
 
-    oneshot_proc: process(sclk)
+    oneshot_proc: process(sclk200)
     begin
-        if rising_edge(sclk) then
+        if rising_edge(sclk200) then
             if (reset_async='1') then
                 count_reg <= (others=>'0');
                 edge_reg  <= '0';

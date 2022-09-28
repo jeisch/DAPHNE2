@@ -30,7 +30,7 @@ generic(
 port(
     reset: in std_logic;
 
-    aclk: in std_logic; -- AFE clock 62.500 MHz
+    mclk: in std_logic; -- master clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
 	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
     ch0_id, ch1_id, ch2_id, ch3_id: in std_logic_vector(5 downto 0); -- the channel ID number
@@ -80,9 +80,9 @@ architecture dstr4_arch of dstr4 is
 
 begin
 
-    load_proc: process(aclk) -- register 4 channels, 4 samples
+    load_proc: process(mclk) -- register 4 channels, 4 samples
     begin
-        if rising_edge(aclk) then
+        if rising_edge(mclk) then
             if (reset='1') then
                 wptr <= "00";
             else
@@ -149,7 +149,7 @@ begin
             rst    => reset,
             rstreg => '0',
             regce  => '1',
-            wrclk => aclk, 
+            wrclk => mclk, 
             wren  => fifo_wren,
             di    => temp(i),
             dip   => "0000",
@@ -183,7 +183,7 @@ begin
         regce  => '1',
         injectdbiterr => '0',
         injectsbiterr => '0',
-        wrclk  => aclk, 
+        wrclk  => mclk, 
         wren   => fifo_wren,
         di     => timestamp_reg(63 downto 0),
         dip    => "00000000",
@@ -308,7 +308,7 @@ begin
        generic map (Nbits => 32, CRC_Width => 20, G_Poly => X"8359f", G_InitVal => X"FFFFF")
        port map(
          reset => reset,
-         clk => aclk,
+         clk => mclk,
          calc => crc_calc,
          din => d,
          crc => crc20);

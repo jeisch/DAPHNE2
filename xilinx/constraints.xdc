@@ -15,6 +15,8 @@ create_clock -name gbe_refclk -period 8.000 [get_ports gbe_refclk_p]
 create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0]
 create_generated_clock -name oeihclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT1]
 
+create_clock -period 8.317 [get_ports daq_refclk_p]
+
 set_clock_groups -name async_groups -asynchronous \
 -group {sclk} \
 -group {mclk fclk} \
@@ -28,6 +30,9 @@ set_false_path -from [get_pins fe_inst/gen_afe[*].afe_inst/auto_fsm_inst/errcnt_
 set_false_path -from [get_pins trig_gbe*_reg_reg/C] -to [get_pins trig_sync_reg/D]
 set_false_path -to [get_pins led0_reg_reg[*]/C]
 set_false_path -from [get_pins test_reg_reg[*]/C]
+set_false_path -from [get_ports gbe_sfp_??s]
+set_false_path -from [get_ports cdr_sfp_??s]
+set_false_path -from [get_ports daq?_sfp_??s]
 
 # define multicycle path to get through the rx_addr decoding and big combinatorial mux
 #set_multicycle_path 2 -setup -from [get_pins rx_addr_reg_reg[*]/C] -to [get_pins tx_data_reg_reg[*]/D]
@@ -47,44 +52,57 @@ set_property PACKAGE_PIN J6 [get_ports {gbe_sfp_los}]
 set_property PACKAGE_PIN J5 [get_ports {gbe_sfp_tx_dis}]
 set_property PACKAGE_PIN F7 [get_ports {gbe_sfp_scl}]
 set_property PACKAGE_PIN G8 [get_ports {gbe_sfp_sda}]
-#set_property PACKAGE_PIN K7 [get_ports {gbe_sfp_abs}]
+set_property PACKAGE_PIN K7 [get_ports {gbe_sfp_abs}]
 set_property IOSTANDARD LVTTL [get_ports {gbe_sfp_*}]
+
+# 4 DAQ outputs are in QUAD216, uses refclk0 on this quad...
+
+set_property LOC E11 [get_ports daq_refclk_n] 
+set_property LOC F11 [get_ports daq_refclk_p]
 
 ### DAQ link 0, channel 0 Quad 213, X0Y4
 
-#set_property PACKAGE_PIN H6 [get_ports {daq0_sfp_los}]
-#set_property PACKAGE_PIN E6 [get_ports {daq0_sfp_abs}]
-#set_property PACKAGE_PIN K8 [get_ports {daq0_sfp_tx_dis}]
-#set_property PACKAGE_PIN J4 [get_ports {daq0_sfp_scl}]
-#set_property PACKAGE_PIN H4 [get_ports {daq0_sfp_sda}]
+set_property LOC GTPE2_CHANNEL_X0Y4 [get_cells core_inst/daq_quad_inst/U0/daphne2_daq_txonly_init_i/daphne2_daq_txonly_i/gt0_daphne2_daq_txonly_i/gtpe2_i]
+
+set_property PACKAGE_PIN H6 [get_ports {daq0_sfp_los}]
+set_property PACKAGE_PIN E6 [get_ports {daq0_sfp_abs}]
+set_property PACKAGE_PIN K8 [get_ports {daq0_sfp_tx_dis}]
+set_property PACKAGE_PIN J4 [get_ports {daq0_sfp_scl}]
+set_property PACKAGE_PIN H4 [get_ports {daq0_sfp_sda}]
 #set_property IOSTANDARD LVTTL [get_ports {daq0_sfp_*}]
 
 ### DAQ link 1, channel 1 Quad 213, X0Y5
 
-#set_property PACKAGE_PIN E5 [get_ports {daq1_sfp_los}]
-#set_property PACKAGE_PIN L8 [get_ports {daq1_sfp_abs}]
-#set_property PACKAGE_PIN G6 [get_ports {daq1_sfp_tx_dis}]
-#set_property PACKAGE_PIN H9 [get_ports {daq1_sfp_scl}]
-#set_property PACKAGE_PIN G9 [get_ports {daq1_sfp_sda}]
-#set_property IOSTANDARD LVTTL [get_ports {daq1_sfp_*}]
+set_property LOC GTPE2_CHANNEL_X0Y5 [get_cells core_inst/daq_quad_inst/U0/daphne2_daq_txonly_init_i/daphne2_daq_txonly_i/gt1_daphne2_daq_txonly_i/gtpe2_i]
+
+set_property PACKAGE_PIN E5 [get_ports {daq1_sfp_los}]
+set_property PACKAGE_PIN L8 [get_ports {daq1_sfp_abs}]
+set_property PACKAGE_PIN G6 [get_ports {daq1_sfp_tx_dis}]
+set_property PACKAGE_PIN H9 [get_ports {daq1_sfp_scl}]
+set_property PACKAGE_PIN G9 [get_ports {daq1_sfp_sda}]
+set_property IOSTANDARD LVTTL [get_ports {daq1_sfp_*}]
 
 ### DAQ link 2, channel 2 Quad 213, X0Y6
 
-#set_property PACKAGE_PIN G2 [get_ports {daq2_sfp_los}]
-#set_property PACKAGE_PIN E1 [get_ports {daq2_sfp_abs}]
-#set_property PACKAGE_PIN D4 [get_ports {daq2_sfp_tx_dis}]
-#set_property PACKAGE_PIN G1 [get_ports {daq2_sfp_scl}]
-#set_property PACKAGE_PIN H3 [get_ports {daq2_sfp_sda}]
-#set_property IOSTANDARD LVTTL [get_ports {daq2_sfp_*}]
+set_property LOC GTPE2_CHANNEL_X0Y6 [get_cells core_inst/daq_quad_inst/U0/daphne2_daq_txonly_init_i/daphne2_daq_txonly_i/gt2_daphne2_daq_txonly_i/gtpe2_i]
+
+set_property PACKAGE_PIN G2 [get_ports {daq2_sfp_los}]
+set_property PACKAGE_PIN E1 [get_ports {daq2_sfp_abs}]
+set_property PACKAGE_PIN D4 [get_ports {daq2_sfp_tx_dis}]
+set_property PACKAGE_PIN G1 [get_ports {daq2_sfp_scl}]
+set_property PACKAGE_PIN H3 [get_ports {daq2_sfp_sda}]
+set_property IOSTANDARD LVTTL [get_ports {daq2_sfp_*}]
 
 ### DAQ link 3, channel 3 Quad 213, X0Y7
 
-#set_property PACKAGE_PIN E2 [get_ports {daq3_sfp_los}]
-#set_property PACKAGE_PIN F2 [get_ports {daq3_sfp_abs}]
-#set_property PACKAGE_PIN A2 [get_ports {daq3_sfp_tx_dis}]
-#set_property PACKAGE_PIN C1 [get_ports {daq3_sfp_scl}]
-#set_property PACKAGE_PIN B1 [get_ports {daq3_sfp_sda}]
-#set_property IOSTANDARD LVTTL [get_ports {daq3_sfp_*}]
+set_property LOC GTPE2_CHANNEL_X0Y7 [get_cells core_inst/daq_quad_inst/U0/daphne2_daq_txonly_init_i/daphne2_daq_txonly_i/gt3_daphne2_daq_txonly_i/gtpe2_i]
+
+set_property PACKAGE_PIN E2 [get_ports {daq3_sfp_los}]
+set_property PACKAGE_PIN F2 [get_ports {daq3_sfp_abs}]
+set_property PACKAGE_PIN A2 [get_ports {daq3_sfp_tx_dis}]
+set_property PACKAGE_PIN C1 [get_ports {daq3_sfp_scl}]
+set_property PACKAGE_PIN B1 [get_ports {daq3_sfp_sda}]
+set_property IOSTANDARD LVTTL [get_ports {daq3_sfp_*}]
 
 ### Simple SPI slave interface used for slow controls communication with the uC
 
