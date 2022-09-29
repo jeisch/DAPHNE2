@@ -114,6 +114,10 @@ package daphne2_package is
 
     constant SPYBUFTS_BASEADDR: std_logic_vector(31 downto 0) := "0100000001010000----------------";
 
+    -- spy buffer for the first output link 
+
+    constant SPYBUFDOUT0_BASEADDR: std_logic_vector(31 downto 0) := "0100000001100000----------------";
+
 end package;
 
 

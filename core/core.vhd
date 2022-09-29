@@ -19,6 +19,11 @@ port(
     din: in array_5x9x14_type;  -- AFE data synch to mclk
     timestamp: in std_logic_vector(63 downto 0); -- sync to mclk
 
+    oeiclk: in std_logic;
+    trig: in std_logic;
+    spy_addr: in std_logic_vector(11 downto 0);
+    spy_data: out std_logic_vector(31 downto 0);
+
     -- GTP/SFP external interface
     
     daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0, 120.237MHz
@@ -33,8 +38,6 @@ end core;
 
 architecture core_arch of core is
 
-    signal lfsr_c: std_logic_vector (19 downto 0);
-
     component dstr4 -- 4 channel streaming sender
     generic(
         link:     std_logic_vector(5 downto 0) := "000000";
@@ -48,10 +51,22 @@ architecture core_arch of core is
         timestamp: in std_logic_vector(63 downto 0);
     	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
         ch0_id, ch1_id, ch2_id, ch3_id: in std_logic_vector(5 downto 0); -- the channel ID number
-        
+       
         fclk: in std_logic; -- transmit clock to FELIX 120.237 MHz 
         dout: out std_logic_vector(31 downto 0);
         kout: out std_logic_vector( 3 downto 0));
+    end component;
+
+    component spy
+    port(
+        clka:  in std_logic;  
+        reset: in std_logic;
+        trig:  in std_logic;
+        dia:   in std_logic_vector(15 downto 0);
+        clkb:  in  std_logic;
+        addrb: in  std_logic_vector(11 downto 0);
+        dob:   out std_logic_vector(15 downto 0)
+      );
     end component;
 
     -- the following component is from Xilinx IP generator...
@@ -253,6 +268,8 @@ architecture core_arch of core is
     signal fclk0, fclk1, fclk2, fclk3: std_logic;
     signal sender0_dout, sender1_dout, sender2_dout, sender3_dout: std_logic_vector(31 downto 0);
     signal sender0_kout, sender1_kout, sender2_kout, sender3_kout: std_logic_vector(3 downto 0);
+    
+    signal trig_fclk_reg: std_logic;
 
 begin
 
@@ -352,7 +369,46 @@ begin
         kout => sender3_kout
     );
 
-    -- DRP is not used here
+    -- the trigger input to this module comes from the mclk clock domain
+    -- and the pulse is guaranteed to be several mclk cycles wide.
+    -- resample in the fclk domain before it can be used by the spy buffers
+
+    trig_fclk_proc: process(fclk0)
+    begin
+        if rising_edge(fclk0) then
+            trig_fclk_reg <= trig;
+        end if;
+    end process trig_fclk_proc;
+
+    -- insert some spy buffers to capture the output of sender0
+    -- stores the 32 bit data prior to 8b/10b encoding, depth is 4k
+    -- has 64 pre-trigger samples too.
+
+    sender0_spy_hi_inst: spy
+    port map(
+        clka  => fclk0,
+        reset => reset,
+        trig  => trig_fclk_reg,
+        dia   => sender0_dout(31 downto 16),
+
+        clkb  => oeiclk,
+        addrb => spy_addr(11 downto 0),
+        dob   => spy_data(31 downto 16)
+      );
+
+    sender0_spy_lo_inst: spy
+    port map(
+        clka  => fclk0,
+        reset => reset,
+        trig  => trig_fclk_reg,
+        dia   => sender0_dout(15 downto 0),
+
+        clkb  => oeiclk,
+        addrb => spy_addr(11 downto 0),
+        dob   => spy_data(15 downto 0)
+      );
+
+    -- One GTP QUAD configured for OUTPUT TX ONLY. RX disabled. DRP is not used here.
 
     daq_quad_inst : daphne2_daq_txonly
     port map

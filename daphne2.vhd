@@ -249,6 +249,10 @@ architecture DAPHNE2_arch of DAPHNE2 is
         reset: in std_logic; -- for sender logic and for GTP quad
         din: in array_5x9x14_type;  -- AFE data synchronized to clock
         timestamp: in std_logic_vector(63 downto 0);
+        oeiclk: in std_logic;
+        trig: in std_logic;
+        spy_addr: in std_logic_vector(11 downto 0);
+        spy_data: out std_logic_vector(31 downto 0);
         daq_refclk_p, daq_refclk_n: in std_logic; -- MGT REFCLK for DAQ, LVDS, quad 213, refclk0, 120.237MHz
         daq0_tx_p, daq0_tx_n: out std_logic;
         daq1_tx_p, daq1_tx_n: out std_logic;
@@ -299,17 +303,13 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal sclk200, sclk100: std_logic;
     signal mclk: std_logic;
     signal fclk: std_logic;
-
     signal afe_dout: array_5x9x14_type;
     signal afe_dout_pad: array_5x9x16_type;
     signal fe_done, fe_warn: std_logic_vector(4 downto 0);
-
     signal spy_bufr: array_5x9x16_type;
-    
+    signal core_spy_data: std_logic_vector(31 downto 0);
     signal timestamp_reg, ts_spy_bufr: std_logic_vector(63 downto 0);
-
     signal errcnt: array_5x8_type;
-
     signal sfp_stat_vector: std_logic_vector(63 downto 0);
 
 begin
@@ -761,6 +761,8 @@ begin
                (X"00000000000000" & errcnt(3)) when std_match(rx_addr_reg, AFE3_ERRCNT_ADDR) else
                (X"00000000000000" & errcnt(4)) when std_match(rx_addr_reg, AFE4_ERRCNT_ADDR) else
 
+               (X"00000000" & core_spy_data) when std_match(rx_addr_reg, SPYBUFDOUT0_BASEADDR) else 
+
                (others=>'0');
 
     ready <= '1' when (rx_wren='1') else  -- no wait for writes 
@@ -881,6 +883,11 @@ begin
         reset => reset_async,
         din => afe_dout,
         timestamp => timestamp_reg,
+
+        oeiclk => oeiclk,
+        trig => trig_sync,
+        spy_addr => rx_addr(11 downto 0),
+        spy_data => core_spy_data(31 downto 0),
         
         daq_refclk_p => daq_refclk_p, daq_refclk_n => daq_refclk_n,
         daq0_tx_p => daq0_tx_p, daq0_tx_n => daq0_tx_n,

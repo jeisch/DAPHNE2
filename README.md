@@ -24,7 +24,13 @@ The timing endpoint firmware block interfaces to the DAPHNE timing input (optica
 
 ### Spy Buffers
 
+#### Input Spy Buffers
+
 When triggered, the spy buffers will capture 64 pre-trigger samples followed by 4032 samples on EACH AFE channel. These buffers are memory mapped into the GBE internal address space and then can be read out at any time. The trigger may come from an external input to the DAPHNE2 board or by writing to a particular register in the GbE address space.
+
+#### Output Spy Buffers
+
+Output spy buffers capture the data that the core is sending on the DAQ0 output link. This spy buffer is 32 bits wide and 4k deep. It is triggered along with the input spy buffers.
 
 ### Gigabit Ethernet (GbE)
 
@@ -117,7 +123,9 @@ The memory map is as follows:
 	0x40470000 - 0x404703FF Spy Buffer AFE4 data7
 	0x40480000 - 0x404803FF Spy Buffer AFE4 frame
 
-	0x40500000 - 0x405003FF Spy Buffer for Timestamp (note 64 bit)
+	0x40500000 - 0x405003FF Spy Buffer for Timestamp (64 bits)
+
+	0x40600000 - 0x406003FF Spy Buffer for Core Sender0 OUTPUT (32 bits)
 
 	0x80000000   Test FIFO, 512 x 64, read-write (64-bit)
 
@@ -139,10 +147,10 @@ This firmware is designed for the DAPHNE V2A hardware only. It cannot be used on
 
 The programmable clock generator U18 should be configured to output the following clocks: 
 
-	* CLK0 = 120.327MHz connects to MGT Quad 216, REFCLK0, pins F11/E11. Used for FELIX DAQ.
-	* CLK1 = 100MHz connects to bank 33, pins AA4/AB4. General purpose clock.
-	* CLK2 = 62.5MHz connects to bank 33, pins AA3/AA2. Currently unused.
-	* CLK3 = 125MHz connects to MGT Quad 213, REFCLK0, pins AA13/AB13. Used for GBE.
+* CLK0 = 120.327MHz connects to MGT Quad 216, REFCLK0, pins F11/E11. Used for FELIX DAQ.
+* CLK1 = 100MHz connects to bank 33, pins AA4/AB4. General purpose clock.
+* CLK2 = 62.5MHz connects to bank 33, pins AA3/AA2. Currently unused.
+* CLK3 = 125MHz connects to MGT Quad 213, REFCLK0, pins AA13/AB13. Used for GBE.
 
 The FPGA outputs a 62.5MHz clock on pins AF5/AF4. This clock goes to clock fanout buffer U20 and then copies of this clock go the 5 AFE chips.
 

@@ -36,9 +36,6 @@ set_false_path -from [get_ports daq?_sfp_??s]
 
 
 
-
-
-
 # #############################################################################
 # Pin LOCation and IOSTANDARD Constraints...
 
