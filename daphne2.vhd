@@ -295,7 +295,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal trig_sync, trig_gbe: std_logic;
     signal trig_gbe0_reg, trig_gbe1_reg, trig_gbe2_reg: std_logic;
 
-    signal sysclk_ibuf, clkfbout, clkfbout_buf, clkout0, clkout1, clkout2, locked: std_logic;
+    signal sysclk_ibuf, clkfbout, clkfbout_buf, clkout0, clkout1, clkout2, clkout3, locked: std_logic;
     signal sclk200, sclk100: std_logic;
     signal mclk: std_logic;
     signal fclk: std_logic;
@@ -326,8 +326,6 @@ begin
 
 	sysclk_ibufds_inst : IBUFGDS port map(O => sysclk_ibuf, I => sysclk_p, IB => sysclk_n);
 
-    sclk100_inst: BUFG port map( I => sysclk_ibuf, O => sclk100); -- 100MHz system clock not using the PLL
-
     mmcm_inst: MMCME2_ADV
     generic map(
         BANDWIDTH            => "OPTIMIZED",
@@ -350,6 +348,10 @@ begin
         CLKOUT2_PHASE        => 0.000,
         CLKOUT2_DUTY_CYCLE   => 0.500,
         CLKOUT2_USE_FINE_PS  => FALSE,
+        CLKOUT3_DIVIDE       => 8,
+        CLKOUT3_PHASE        => 0.000,
+        CLKOUT3_DUTY_CYCLE   => 0.500,
+        CLKOUT3_USE_FINE_PS  => FALSE,
         CLKIN1_PERIOD        => 10.000
     )
     port map(
@@ -361,7 +363,7 @@ begin
         CLKOUT1B            => open,
         CLKOUT2             => clkout2,  -- 437.5MHz
         CLKOUT2B            => open,     
-        CLKOUT3             => open,
+        CLKOUT3             => clkout3,  -- 100MHz
         CLKOUT3B            => open,
         CLKOUT4             => open,
         CLKOUT5             => open,
@@ -396,12 +398,7 @@ begin
 
     clk2_inst:  BUFG port map( I => clkout2, O => fclk);   -- fast clock 437.5MHz
 
-
-
-
-
-
-
+    clk3_inst: BUFG port map( I => clkout3, O => sclk100); -- 109.375 MHz system clock just for GTP DRP interface
 
     -- Timing Endpoint Interface ----------------------------------------------
 

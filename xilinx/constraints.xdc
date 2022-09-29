@@ -7,20 +7,20 @@
 # when the *.xcix file is added to the project
 
 create_clock -name sysclk   -period 10.000  [get_ports sysclk_p]
-create_generated_clock -name sclk [get_pins mmcm_inst/CLKOUT0]
+create_generated_clock -name sclk200 [get_pins mmcm_inst/CLKOUT0]
 create_generated_clock -name mclk [get_pins mmcm_inst/CLKOUT1]
 create_generated_clock -name fclk [get_pins mmcm_inst/CLKOUT2]
+create_generated_clock -name sclk100 [get_pins mmcm_inst/CLKOUT3]
 
 create_clock -name gbe_refclk -period 8.000 [get_ports gbe_refclk_p]
-create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0]
+create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0] 
 create_generated_clock -name oeihclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT1]
 
-create_clock -period 8.317 [get_ports daq_refclk_p]
+create_clock -name daq_refclk -period 8.316 [get_ports daq_refclk_p]
+create_generated_clock -name daqclk0 [get_pins core_inst/daq_quad_inst/U0/gt_usrclk_source/txoutclk_mmcm0_i/mmcm_adv_inst/CLKOUT0]
+create_generated_clock -name daqclk1 [get_pins core_inst/daq_quad_inst/U0/gt_usrclk_source/txoutclk_mmcm0_i/mmcm_adv_inst/CLKOUT1]
 
-set_clock_groups -name async_groups -asynchronous \
--group {sclk} \
--group {mclk fclk} \
--group {oeiclk oeihclk}
+set_clock_groups -name async_groups -asynchronous -group {sclk100} -group {sclk200} -group {mclk fclk} -group {oeiclk oeihclk} -group {daqclk0 daqclk1}
 
 # tell vivado about places where signals cross clock domains so timing can be ignored here...
 
@@ -34,9 +34,10 @@ set_false_path -from [get_ports gbe_sfp_??s]
 set_false_path -from [get_ports cdr_sfp_??s]
 set_false_path -from [get_ports daq?_sfp_??s]
 
-# define multicycle path to get through the rx_addr decoding and big combinatorial mux
-#set_multicycle_path 2 -setup -from [get_pins rx_addr_reg_reg[*]/C] -to [get_pins tx_data_reg_reg[*]/D]
-#set_multicycle_path 2 -setup -to [get_pins tx_data_reg_reg[*]/D]
+
+
+
+
 
 # #############################################################################
 # Pin LOCation and IOSTANDARD Constraints...
@@ -69,7 +70,7 @@ set_property PACKAGE_PIN E6 [get_ports {daq0_sfp_abs}]
 set_property PACKAGE_PIN K8 [get_ports {daq0_sfp_tx_dis}]
 set_property PACKAGE_PIN J4 [get_ports {daq0_sfp_scl}]
 set_property PACKAGE_PIN H4 [get_ports {daq0_sfp_sda}]
-#set_property IOSTANDARD LVTTL [get_ports {daq0_sfp_*}]
+set_property IOSTANDARD LVTTL [get_ports {daq0_sfp_*}]
 
 ### DAQ link 1, channel 1 Quad 213, X0Y5
 

@@ -88,6 +88,7 @@ puts "INFO: passing git commit number $v_git_sha to top level generic"
 # synth design...
 
 synth_design -top daphne2 -generic version=$v_git_sha
+report_clocks -file $outputDir/clocks.rpt
 report_timing_summary -file $outputDir/post_synth_timing_summary.rpt
 report_power -file $outputDir/post_synth_power.rpt
 report_utilization -file $outputDir/post_synth_util.rpt

@@ -76,7 +76,8 @@ architecture dstr4_arch of dstr4 is
 
     signal crc_calc: std_logic;
     signal crc20: std_logic_vector(19 downto 0);
-    signal d: std_logic_vector(31 downto 0);
+    signal k, kout_reg : std_logic_vector(3 downto 0);
+    signal d, dout_reg : std_logic_vector(31 downto 0);
 
 begin
 
@@ -282,10 +283,10 @@ begin
          ("0000" & crc20 & X"DC") when (state=eof) else -- end of frame word = D0.0 & D0.0 & D0.0 & K28.6
          X"000000BC"; -- send idle word = D0.0 & D0.0 & D0.0 & K28.5
 
-    kout <= "0001" when (state=sof) else 
-            "0001" when (state=eof) else
-            "0001" when (state=idle) else
-            "0000";
+    k <= "0001" when (state=sof) else 
+         "0001" when (state=eof) else
+         "0001" when (state=idle) else
+         "0000";
 
     -- CRC generator is calculated over the DAPHNE frame, not including the SOF and EOF words
 
@@ -313,6 +314,17 @@ begin
          din => d,
          crc => crc20);
 
-    dout <= d;
+    -- register the outputs
+
+    outreg_proc: process(fclk)
+    begin
+        if rising_edge(fclk) then
+            dout_reg <= d;
+            kout_reg <= k;
+        end if;
+    end process outreg_proc;
+
+    dout <= dout_reg;
+    kout <= kout_reg;
 
 end dstr4_arch;
