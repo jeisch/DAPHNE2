@@ -38,9 +38,9 @@ package daphne2_package is
 
     constant TRIGGER_ADDR: std_logic_vector(31 downto 0) := X"00002000";
 
-    -- write anything to this address to force reset of the AFE front end logic
+    -- write anything to this address to force general soft reset 
 
-    constant RESETFE_ADDR: std_logic_vector(31 downto 0) := X"00002001";
+    constant SOFTRESET_ADDR: std_logic_vector(31 downto 0) := X"00002001";
 
     -- read the status of the automatic front end logic (is it done?)
 
@@ -57,6 +57,10 @@ package daphne2_package is
     constant AFE2_ERRCNT_ADDR: std_logic_vector(31 downto 0) := X"00002012";
     constant AFE3_ERRCNT_ADDR: std_logic_vector(31 downto 0) := X"00002013";
     constant AFE4_ERRCNT_ADDR: std_logic_vector(31 downto 0) := X"00002014";
+
+    -- output record parameters
+
+    constant OUTPARAM_ADDR: std_logic_vector(31 downto 0) := X"00003000";
 
     -- spy buffers are 4k deep
 

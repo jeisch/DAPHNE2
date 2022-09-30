@@ -12,12 +12,16 @@ use work.daphne2_package.all;
 
 entity core is
 port(
-
     mclk: in std_logic; -- master clock 62.5MHz
     sclk100: in std_logic; -- system clock 100MHz 
     reset: in std_logic; -- for sender logic and for GTP quad
     din: in array_5x9x14_type;  -- AFE data synch to mclk
     timestamp: in std_logic_vector(63 downto 0); -- sync to mclk
+
+    slot_id: std_logic_vector(3 downto 0);
+    crate_id: std_logic_vector(9 downto 0);
+    detector_id: std_logic_vector(5 downto 0);
+    version_id: std_logic_vector(5 downto 0);
 
     oeiclk: in std_logic;
     trig: in std_logic;
@@ -39,14 +43,13 @@ end core;
 architecture core_arch of core is
 
     component dstr4 -- 4 channel streaming sender
-    generic(
-        link:     std_logic_vector(5 downto 0) := "000000";
-        slot:     std_logic_vector(3 downto 0) := "0000";
-        crate_id: std_logic_vector(9 downto 0) := "0000000000";
-        det_id:   std_logic_vector(5 downto 0) := "000000";
-        version:  std_logic_vector(5 downto 0) := "100000");
+    generic( link: std_logic_vector(5 downto 0) := "000000" );  
     port(
         reset: in std_logic;
+        slot_id: std_logic_vector(3 downto 0);
+        crate_id: std_logic_vector(9 downto 0);
+        detector_id: std_logic_vector(5 downto 0);
+        version_id: std_logic_vector(5 downto 0);
         mclk: in std_logic; -- master clock 62.5 MHz
         timestamp: in std_logic_vector(63 downto 0);
     	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
@@ -274,14 +277,13 @@ architecture core_arch of core is
 begin
 
     sender0_inst: dstr4 
-    generic map(
-        link => "000000", -- link 0
-        slot => "0000",
-        crate_id => "0000000000", 
-        det_id => "000000",
-        version => "100000")
+    generic map( link => "000000" )
     port map(
         reset => reset,
+        slot_id => slot_id,
+        crate_id => crate_id,
+        detector_id => detector_id,
+        version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
     	afe_dat0 => din(0)(0), -- AFE 0, ch 0-3
@@ -298,14 +300,13 @@ begin
     );
 
     sender1_inst: dstr4 
-    generic map(
-        link => "000001", -- link 1
-        slot => "0000",
-        crate_id => "0000000000", 
-        det_id => "000000",
-        version => "100000")
+    generic map( link => "000001" )
     port map(
         reset => reset,
+        slot_id => slot_id,
+        crate_id => crate_id,
+        detector_id => detector_id,
+        version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
     	afe_dat0 => din(1)(0), -- AFE 1, ch 0-3
@@ -322,14 +323,13 @@ begin
     );
 
     sender2_inst: dstr4 
-    generic map(
-        link => "000010", -- link 2
-        slot => "0000",
-        crate_id => "0000000000", 
-        det_id => "000000",
-        version => "100000")
+    generic map( link => "000010" )
     port map(
         reset => reset,
+        slot_id => slot_id,
+        crate_id => crate_id,
+        detector_id => detector_id,
+        version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
     	afe_dat0 => din(2)(0), -- AFE 2, ch 0-3
@@ -346,14 +346,13 @@ begin
     );
 
     sender3_inst: dstr4 
-    generic map(
-        link => "000011", -- link 3
-        slot => "0000",
-        crate_id => "0000000000", 
-        det_id => "000000",
-        version => "100000")
+    generic map( link => "000011" )
     port map(
         reset => reset,
+        slot_id => slot_id,
+        crate_id => crate_id,
+        detector_id => detector_id,
+        version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
     	afe_dat0 => din(3)(0), -- AFE 3, ch 0-3

@@ -21,14 +21,13 @@ library unisim;
 use unisim.vcomponents.all;
 
 entity dstr4 is
-generic(
-    link:     std_logic_vector(5 downto 0) := "000000";
-    slot:     std_logic_vector(3 downto 0) := "0000";
-    crate_id: std_logic_vector(9 downto 0) := "0000000000";
-    det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000");
+generic( link: std_logic_vector(5 downto 0) := "000000" );
 port(
     reset: in std_logic;
+    slot_id: std_logic_vector(3 downto 0);
+    crate_id: std_logic_vector(9 downto 0);
+    detector_id: std_logic_vector(5 downto 0);
+    version_id: std_logic_vector(5 downto 0);
 
     mclk: in std_logic; -- master clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
@@ -74,7 +73,7 @@ architecture dstr4_arch of dstr4 is
          Reset : in     std_logic);
     end component;
 
-    signal crc_calc: std_logic;
+    signal crc_calc, crc_reset: std_logic;
     signal crc20: std_logic_vector(19 downto 0);
     signal k, kout_reg : std_logic_vector(3 downto 0);
     signal d, dout_reg : std_logic_vector(31 downto 0);
@@ -267,7 +266,7 @@ begin
     -- now form the output stream
 
     d <= X"0000003C" when (state=sof) else -- sof of frame word = D0.0 & D0.0 & D0.0 & K28.1
-         link & slot & crate_id & det_id & version when (state=hdr0) else
+         link & slot_id & crate_id & detector_id & version_id when (state=hdr0) else
          fifo_timestamp(31 downto 0)  when (state=hdr1) else
          fifo_timestamp(63 downto 32) when (state=hdr2) else
          X"00" & ch3_id & ch2_id & ch1_id & ch0_id when (state=hdr3) else
@@ -305,11 +304,13 @@ begin
                  '1' when (state=trailer) else
                  '0';
 
+    crc_reset <= '1' when (state=idle) else '0';
+
     crc_inst: CRC_OL
        generic map (Nbits => 32, CRC_Width => 20, G_Poly => X"8359f", G_InitVal => X"FFFFF")
        port map(
-         reset => reset,
-         clk => mclk,
+         reset => crc_reset,
+         clk => fclk,
          calc => crc_calc,
          din => d,
          crc => crc20);

@@ -15,15 +15,14 @@ end dstr4_testbench;
 architecture dstr4_testbench_arch of dstr4_testbench is
 
 component dstr4 is
-generic(
-    link:     std_logic_vector(5 downto 0) := "000000";
-    slot:     std_logic_vector(3 downto 0) := "0000";
-    crate_id: std_logic_vector(9 downto 0) := "0000000000";
-    det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000");
+generic( link: std_logic_vector(5 downto 0) := "000000" );
 port(
     reset: in std_logic; -- async reset from uC
     mclk: in std_logic; -- master clock 62.5MHz
+    slot_id:     std_logic_vector(3 downto 0);
+    crate_id: std_logic_vector(9 downto 0);
+    detector_id:   std_logic_vector(5 downto 0);
+    version_id: std_logic_vector(5 downto 0);
     timestamp: in std_logic_vector(63 downto 0);
     ch0_id, ch1_id, ch2_id, ch3_id: in std_logic_vector(5 downto 0); -- the channel ID number   
 	afe_dat0, afe_dat1, afe_dat2, afe_dat3: in std_logic_vector(13 downto 0); -- four AFE ADC channels
@@ -47,10 +46,15 @@ signal fclk: std_logic := '0';
 signal kout: std_logic_vector(3 downto 0);
 signal dout: std_logic_vector(31 downto 0);
 
+constant slot_id: std_logic_vector(3 downto 0) := "0000";
+constant crate_id: std_logic_vector(9 downto 0) := "0000000000";
+constant detector_id: std_logic_vector(5 downto 0) := "000000";
+constant version_id: std_logic_vector(5 downto 0) := "100000";
+
 type sender_fsm_type is (rst, idle, sof, hdr0, hdr1, hdr2, hdr3, hdr4, dat0, dat1, dat2, dat3, dat4, dat5, dat6, trailer, eof);
 signal state: sender_fsm_type := rst;
 
-file outfile: text;
+file outfile, raw_outfile: text;
 
 begin
 
@@ -71,10 +75,15 @@ begin
 end process;
 
 DUT: dstr4
+generic map ( link => "000000" )
 port map(
     reset => reset,
     mclk => mclk,
     timestamp => timestamp,
+    slot_id => slot_id,
+    crate_id => crate_id,
+    detector_id => detector_id,
+    version_id => version_id,
     ch0_id => "000000", 
     ch1_id => "000001", 
     ch2_id => "000010",
@@ -91,9 +100,10 @@ port map(
 -- unpack and dump the output to console
 
 file_open(outfile, "output.txt", write_mode);
+file_open(raw_outfile, "raw_output.txt", write_mode);
 
-process
-    variable oline: line;
+process -- pretty print the output record to file...
+    variable oline, rawline: line;
     variable framecount: integer;
     variable d0: std_logic_vector(31 downto 0);
     variable d1: std_logic_vector(31 downto 0);
@@ -107,6 +117,9 @@ process
 begin
     wait until falling_edge(fclk);
 
+    hwrite(rawline, dout); -- simple hex dump to file...
+    writeline(raw_outfile, rawline);
+
     case state is
         when rst =>
             if (kout="0001" and dout=X"000000BC") then
@@ -114,7 +127,8 @@ begin
             end if;
         when idle =>
             if (kout="0001" and dout=X"0000003C") then
-                write(oline, "SOF");
+                write(oline, "SOF: ");
+                hwrite(oline, dout);
                 writeline(outfile, oline);
                 state <= hdr0;
             else
@@ -185,7 +199,8 @@ begin
             writeline(outfile, oline);
             state <= eof;
         when eof =>
-            write(oline, "EOF");
+            write(oline, "EOF: ");
+            hwrite(oline, dout);
             writeline(outfile, oline);
             state <= idle;
         when others => 
