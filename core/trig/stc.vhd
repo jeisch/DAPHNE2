@@ -73,7 +73,7 @@ architecture stc_arch of stc is
          Reset : in     std_logic);
     end component;
 
-    signal crc_calc: std_logic;
+    signal crc_calc, crc_reset: std_logic;
     signal crc20: std_logic_vector(19 downto 0);
 
 begin
@@ -255,7 +255,7 @@ begin
                  '1' when (state=eof) else
                  '0';
 
-    -- CRC generator is calculated over the DAPHNE frame, not including the SOF and EOF words
+    -- CRC generator is calculated over the DAPHNE frame, do not include the SOF and EOF words
 
     crc_calc <=  '1' when (state=hdr0) else
                  '1' when (state=hdr1) else
@@ -272,11 +272,13 @@ begin
                  '1' when (state=trailer) else
                  '0';
 
+    crc_reset <= '1' when (state=sof) else '0'; -- reset the CRC generator just prior to the output record generation
+
     crc_inst: CRC_OL
        generic map (Nbits => 32, CRC_Width => 20, G_Poly => X"8359f", G_InitVal => X"FFFFF")
        port map(
-         reset => reset,
-         clk => aclk,
+         reset => crc_reset,
+         clk => fclk,
          calc => crc_calc,
          din => d,
          crc => crc20);

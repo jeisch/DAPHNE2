@@ -18,7 +18,7 @@ use ieee.numeric_std.all;
 
 entity auto_fsm is
 port(
-    reset: in std_logic;
+    reset: in std_logic; -- sync to clock
     clock: in std_logic;
     d: in std_logic_vector(13 downto 0); -- parallel word from ISERDES
     bitslip: out std_logic; -- bitslip the ISERDES

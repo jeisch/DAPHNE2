@@ -7,10 +7,10 @@
 # when the *.xcix file is added to the project
 
 create_clock -name sysclk   -period 10.000  [get_ports sysclk_p]
-create_generated_clock -name sclk200 [get_pins mmcm_inst/CLKOUT0]
-create_generated_clock -name mclk [get_pins mmcm_inst/CLKOUT1]
-create_generated_clock -name fclk [get_pins mmcm_inst/CLKOUT2]
-create_generated_clock -name sclk100 [get_pins mmcm_inst/CLKOUT3]
+create_generated_clock -name sclk200 [get_pins clock_inst/mmcm_inst/CLKOUT0]
+create_generated_clock -name mclk [get_pins clock_inst/mmcm_inst/CLKOUT1]
+create_generated_clock -name fclk [get_pins clock_inst/mmcm_inst/CLKOUT2]
+create_generated_clock -name sclk100 [get_pins clock_inst/mmcm_inst/CLKFBOUT]
 
 create_clock -name gbe_refclk -period 8.000 [get_ports gbe_refclk_p]
 create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0] 

@@ -57,7 +57,7 @@ The memory map is as follows:
 					41: Timing Endpoint SFP LOS
 
 	0x00002000  Write anything to trigger spy buffers
-	0x00002001  Write anything to reset the AFE front end logic and error counters
+	0x00002001  Write anything to generate a SOFT RESET (includes automatic front end alignment logic)
 	0x00002002  Read the status of the AFE automatic alignment front end, lower 5 bits should be HIGH
 	0x00002010  Number of errors observed for AFE0 frame marker, stops at 255.
 	0x00002011  Number of errors observed for AFE1 frame marker, stops at 255.
@@ -183,7 +183,15 @@ The external interface trigger is now optically isolated. The input is 5-12VDC o
 
 ### Status LEDs
 
-There are 5 status LEDs. All are pulse stretched in the firmware so that momenary pulses are visible. Refer to the top level VHDL file for the meaning of these LEDS.
+There are 5 status LEDs. All are pulse stretched in the firmware so that momentary pulses are visible. The LED closest to the SFP Timing Interface connector is reserved for the microcontroller.
+
+* uC LED: blinks at 1Hz when the microcontroller is programmed
+* LED0: ON if the main PLL/MMCM is LOCKED
+* LED1: ON if the automatic front end AFE alignment is done
+* LED2: ON if the automatic front end AFE alignment problem detects a bit error in the "frame" pattern
+* LED3: ON if the GbE link is up and the speed is 1000
+* LED4: ON if there is activity on the GbE link
+* LED5: ON if there if the spy buffers are triggered (externally or internally via GbE)
 
 ## Simulation
 
@@ -191,9 +199,11 @@ Many of the firmware modules have separate testbench files, written in VHDL. The
 
 ## Build Instructions
 
-This design is to be built from the command like in Vivado Non-Project mode. Go to the xilinx directory and do the following:
+This design is intended to be built in Vivado Non-Project mode. In a command line window cd to the src/xilinx directory and type: 
 
 	vivado -mode tcl -source vivado_batch.tcl
+
+After vivado completes the output reports and bit file should be located in the src/xilinx/output directory. It is recommended to NOT use the Vivado GUI ("project mode") to build this design; some settings in the tcl script will likely not be applied properly if that design flow is attempted.
 
 Build it and program the FPGA on the DAPHNE board with the bit file. Then connect it to the network and try pinging the IP address. It should respond. Then you can try reading and writing using the special OEI UDP packets (see the example code in Python). There are some registers and buffer memories in this demo design to try out.
 

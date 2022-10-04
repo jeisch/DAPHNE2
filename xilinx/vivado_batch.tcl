@@ -58,6 +58,7 @@ read_vhdl ../oei/ethernet_controller/filter_data_out.vhd
 read_vhdl ../oei/ethernet_controller/or33.vhd
 read_vhdl ../oei/ethernet_controller/xmii_handler.vhd
 
+read_vhdl ../clock_reset.vhd
 read_vhdl ../daphne2.vhd
 
 # Load IP core container file should be *.XCIX container
@@ -92,6 +93,8 @@ report_clocks -file $outputDir/clocks.rpt
 report_timing_summary -file $outputDir/post_synth_timing_summary.rpt
 report_power -file $outputDir/post_synth_power.rpt
 report_utilization -file $outputDir/post_synth_util.rpt
+
+exit
 
 # place...
 

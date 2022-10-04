@@ -17,7 +17,7 @@ port(
     din_p, din_n:  std_logic;  -- LVDS data input from AFE chip
     clock:        in std_logic;  -- master clock
     clock7x:      in std_logic;  -- 7 x clock, from internal PLL, not from IOB
-    reset:       in std_logic;
+    reset:       in std_logic; -- MUST be sync to clock and minimum of 2 cycles wide
     bitslip:     in std_logic;
     load:        in std_logic;                     
     cntvalue:    in std_logic_vector(4 downto 0);  

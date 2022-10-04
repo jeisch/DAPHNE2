@@ -27,8 +27,9 @@ port(
 
     clock:   in  std_logic; -- master clock 62.5MHz
     clock7x: in  std_logic; -- 7 x master clock = 437.5MHz
-    sclk:    in  std_logic; -- 200MHz system clock, constant
-    reset:   in  std_logic;
+    sclk200: in  std_logic; -- 200MHz system clock, constant
+    reset_clock: in  std_logic; -- sync to clock domain
+    reset_sclk200: in std_logic; -- sync to sclk domain
     done:    out std_logic_vector(4 downto 0); -- status of automatic alignment FSM
     warn:    out std_logic_vector(4 downto 0); -- warn of bit errors on the "FCLK" sync pattern
     errcnt:  out array_5x8_type; -- bit error count on the "FCLK" pattern
@@ -53,10 +54,16 @@ architecture fe_arch of front_end is
     end component;
 
     signal clock_out_temp: std_logic;
-    signal rst_reg: std_logic_vector(15 downto 0);
-    signal idelayctrl_rst_reg: std_logic;
 
 begin
+
+    -- this controller is required for calibrating IDELAY elements...
+
+    IDELAYCTRL_inst: IDELAYCTRL
+        port map(
+            REFCLK => sclk200,
+            RST    => reset_sclk200, 
+            RDY    => open);
 
     -- Forward the master clock to the AFEs (via ext clock fanout chip U20)
 
@@ -78,28 +85,6 @@ begin
             O => afe_clk_p,
             OB => afe_clk_n);
 
-    -- make the special reset pulse for the IDELAYCTRL module. needs to be minimum 59.28ns minimum
-
-    rst_proc: process(sclk)
-    begin
-        if rising_edge(sclk) then -- sampling @ 200MHz
-            rst_reg <= rst_reg(14 downto 0) & reset;
-            if (rst_reg = X"0000") then
-                idelayctrl_rst_reg <= '0';
-            else
-                idelayctrl_rst_reg <= '1';  -- high for 80ns
-            end if;
-        end if;
-    end process rst_proc;
-    
-    -- this controller is required for calibrating IDELAY elements...
-
-    IDELAYCTRL_inst: IDELAYCTRL
-        port map(
-            REFCLK => sclk,
-            RST    => idelayctrl_rst_reg, -- minimum pulse width is 60ns! MUST pulse this before using idelay!
-            RDY    => open);
-
     -- make 5 automatic AFE modules
 
     gen_afe: for i in 4 downto 0 generate
@@ -109,7 +94,7 @@ begin
             afe_n => afe_n(i),
             clock => clock,
             clock7x => clock7x,
-            reset => reset,
+            reset => reset_clock,  -- sync to clock, 3 pulses wide
             done => done(i),
             warn => warn(i),
             errcnt => errcnt(i),
