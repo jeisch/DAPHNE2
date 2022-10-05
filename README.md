@@ -43,18 +43,18 @@ The memory map is as follows:
 	0x00001974  Status vector for the Xilinx GbE PCS/PMA IP Core, read-only, 16 bit
 
 	0x00001975  SFP module status bits (all should be zero)
-					0: DAQ0 SFP absent (ABS)
-					1: DAQ0 SFP loss of signal (LOS)
-					8: DAQ1 SFP ABS
-					9: DAQ1 SFP LOS
-					16: DAQ2 SFP ABS
-					17: DAQ2 SFP LOS
-					24: DAQ3 SFP ABS
-					25: DAQ3 SFP LOS
-					32: GbE SFP ABS
-					33: GbE SFP LOS
-					40: Timing Endpoint SFP ABS
-					41: Timing Endpoint SFP LOS
+				0: DAQ0 SFP absent (ABS)
+				1: DAQ0 SFP loss of signal (LOS)
+				8: DAQ1 SFP ABS
+				9: DAQ1 SFP LOS
+				16: DAQ2 SFP ABS
+				17: DAQ2 SFP LOS
+				24: DAQ3 SFP ABS
+				25: DAQ3 SFP LOS
+				32: GbE SFP ABS
+				33: GbE SFP LOS
+				40: Timing Endpoint SFP ABS
+				41: Timing Endpoint SFP LOS
 
 	0x00002000  Write anything to trigger spy buffers
 	0x00002001  Write anything to generate a SOFT RESET (includes automatic front end alignment logic)

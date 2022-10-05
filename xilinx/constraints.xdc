@@ -6,7 +6,7 @@
 # Note: Xilinx IP core constraints will be applied automatically
 # when the *.xcix file is added to the project
 
-create_clock -name sysclk   -period 10.000  [get_ports sysclk_p]
+create_clock -name sysclk -period 10.000  [get_ports sysclk_p]
 create_generated_clock -name sclk200 [get_pins clock_inst/mmcm_inst/CLKOUT0]
 create_generated_clock -name mclk [get_pins clock_inst/mmcm_inst/CLKOUT1]
 create_generated_clock -name fclk [get_pins clock_inst/mmcm_inst/CLKOUT2]
@@ -20,7 +20,7 @@ create_clock -name daq_refclk -period 8.316 [get_ports daq_refclk_p]
 create_generated_clock -name daqclk0 [get_pins core_inst/daq_quad_inst/U0/gt_usrclk_source/txoutclk_mmcm0_i/mmcm_adv_inst/CLKOUT0]
 create_generated_clock -name daqclk1 [get_pins core_inst/daq_quad_inst/U0/gt_usrclk_source/txoutclk_mmcm0_i/mmcm_adv_inst/CLKOUT1]
 
-set_clock_groups -name async_groups -asynchronous -group {sclk100} -group {sclk200} -group {mclk fclk} -group {oeiclk oeihclk} -group {daqclk0 daqclk1}
+set_clock_groups -name async_groups -asynchronous -group {sysclk sclk100} -group {sclk200} -group {mclk fclk} -group {oeiclk oeihclk} -group {daqclk0 daqclk1}
 
 # tell vivado about places where signals cross clock domains so timing can be ignored here...
 
