@@ -264,10 +264,11 @@ architecture DAPHNE2_arch of DAPHNE2 is
         reset: in std_logic; -- for sender logic and for GTP quad
         din: in array_5x9x14_type;  -- AFE data synchronized to clock
         timestamp: in std_logic_vector(63 downto 0);
-        slot_id: std_logic_vector(3 downto 0);
-        crate_id: std_logic_vector(9 downto 0);
-        detector_id: std_logic_vector(5 downto 0);
-        version_id: std_logic_vector(5 downto 0);
+        slot_id: in std_logic_vector(3 downto 0);
+        crate_id: in std_logic_vector(9 downto 0);
+        detector_id: in std_logic_vector(5 downto 0);
+        version_id: in std_logic_vector(5 downto 0);
+        enable: in std_logic_vector(3 downto 0);
         oeiclk: in std_logic;
         trig: in std_logic;
         spy_addr: in std_logic_vector(11 downto 0);
@@ -330,8 +331,8 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal errcnt: array_5x8_type;
     signal sfp_stat_vector: std_logic_vector(63 downto 0);
 
-    signal outparam_reg: std_logic_vector(25 downto 0);
-    signal outparam_we:  std_logic;
+    signal daq_out_param_reg: std_logic_vector(29 downto 0) := (DEFAULT_DAQ_OUT_LINK_ENABLE & DEFAULT_DAQ_OUT_SLOT_ID & DEFAULT_DAQ_OUT_CRATE_ID & DEFAULT_DAQ_OUT_DETECTOR_ID & DEFAULT_DAQ_OUT_VERSION_ID);
+    signal daq_out_param_we:  std_logic;
 
 begin
 
@@ -676,7 +677,7 @@ begin
 
                (X"00000000" & core_spy_data) when std_match(rx_addr_reg, SPYBUFDOUT0_BASEADDR) else 
 
-               (X"000000000" & "00" & outparam_reg ) when std_match(rx_addr_reg, OUTPARAM_ADDR) else 
+               (X"00000000" & "00" & daq_out_param_reg) when std_match(rx_addr_reg, DAQ_OUT_PARAM_ADDR) else 
 
                (others=>'0');
 
@@ -791,20 +792,20 @@ begin
     daq3_sfp_sda <= 'Z';
 
     -- register for storing quasi-static output record parameters, R/W via GbE
-    -- slot_id(3..0) & crate_id(9..0) & detector_id(5..0) & version_id(5..0)
+    -- output_link_enable(3..0) & slot_id(3..0) & crate_id(9..0) & detector_id(5..0) & version_id(5..0)
 
-    outparam_we <= '1' when (std_match(rx_addr,OUTPARAM_ADDR) and rx_wren='1') else '0';
+    daq_out_param_we <= '1' when (std_match(rx_addr,DAQ_OUT_PARAM_ADDR) and rx_wren='1') else '0';
 
-    outparam_reg_proc: process(oeiclk)
+    misc_outlink_stuff_proc: process(oeiclk)
     begin
         if rising_edge(oeiclk) then
             if (reset_async='1') then
-                outparam_reg <= (others=>'0');
-            elsif (outparam_we='1') then
-                outparam_reg <= rx_data(25 downto 0);
+                daq_out_param_reg <= (DEFAULT_DAQ_OUT_LINK_ENABLE & DEFAULT_DAQ_OUT_SLOT_ID & DEFAULT_DAQ_OUT_CRATE_ID & DEFAULT_DAQ_OUT_DETECTOR_ID & DEFAULT_DAQ_OUT_VERSION_ID);
+            elsif (daq_out_param_we='1') then
+                daq_out_param_reg <= rx_data(29 downto 0);
             end if;
         end if;
-    end process outparam_reg_proc;
+    end process misc_outlink_stuff_proc;
 
     core_inst: core
     port map(
@@ -814,11 +815,12 @@ begin
         din => afe_dout,
         timestamp => timestamp_reg,
 
-        slot_id => outparam_reg(25 downto 22),  -- 4 bits
-        crate_id => outparam_reg(21 downto 12), -- 10 bits
-        detector_id => outparam_reg(11 downto 6), -- 6 bits
-        version_id => outparam_reg(5 downto 0), -- 6 bits
-
+        enable => daq_out_param_reg(29 downto 26),  -- 4 bits
+        slot_id => daq_out_param_reg(25 downto 22),  -- 4 bits
+        crate_id => daq_out_param_reg(21 downto 12), -- 10 bits
+        detector_id => daq_out_param_reg(11 downto 6), -- 6 bits
+        version_id => daq_out_param_reg(5 downto 0), -- 6 bits
+   
         oeiclk => oeiclk,
         trig => trig_sync,
         spy_addr => rx_addr(11 downto 0),

@@ -67,8 +67,16 @@ The memory map is as follows:
 	0x00002013  Number of errors observed for AFE3 frame marker, stops at 255.
 	0x00002014  Number of errors observed for AFE4 frame marker, stops at 255.
 
-	0x00003000  Output record header parameters, read-write, 26 bits defined as:
-				slot_id(3..0) & crate_id(9..0) & detector_id(5..0) & version_id(5..0)
+	0x00003000  Output record header parameters, read-write, 30 bits defined as:
+
+				bits 29..26 = output_link_enable(3..0), default is "1111"
+				bits 25..22 = slot_id(3..0), default "0010"
+				bits 21..12 = crate_id(9..0), default is "0000000001"
+				bits 11..6 = detector_id(5..0), default is "000010"
+				bits 5..0  = version_id(5..0), default is "000001"
+				
+				note: when an output link is disabled it sends FELIX style idle words 
+				(D0.0 & D0.0 & D0.0 & K28.5)
 				
 	0x00009000  Read the FW version aka git commit hash ID, read-only, 28 bits
 

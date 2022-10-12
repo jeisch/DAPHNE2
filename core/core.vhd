@@ -18,10 +18,11 @@ port(
     din: in array_5x9x14_type;  -- AFE data synch to mclk
     timestamp: in std_logic_vector(63 downto 0); -- sync to mclk
 
-    slot_id: std_logic_vector(3 downto 0);
-    crate_id: std_logic_vector(9 downto 0);
-    detector_id: std_logic_vector(5 downto 0);
-    version_id: std_logic_vector(5 downto 0);
+    slot_id: in std_logic_vector(3 downto 0);
+    crate_id: in std_logic_vector(9 downto 0);
+    detector_id: in std_logic_vector(5 downto 0);
+    version_id: in std_logic_vector(5 downto 0);
+    enable: in std_logic_vector(3 downto 0);
 
     oeiclk: in std_logic;
     trig: in std_logic;
@@ -46,6 +47,7 @@ architecture core_arch of core is
     generic( link: std_logic_vector(5 downto 0) := "000000" );  
     port(
         reset: in std_logic;
+        enable: in std_logic;
         slot_id: std_logic_vector(3 downto 0);
         crate_id: std_logic_vector(9 downto 0);
         detector_id: std_logic_vector(5 downto 0);
@@ -280,6 +282,7 @@ begin
     generic map( link => "000000" )
     port map(
         reset => reset,
+        enable => enable(0),
         slot_id => slot_id,
         crate_id => crate_id,
         detector_id => detector_id,
@@ -303,6 +306,7 @@ begin
     generic map( link => "000001" )
     port map(
         reset => reset,
+        enable => enable(1),
         slot_id => slot_id,
         crate_id => crate_id,
         detector_id => detector_id,
@@ -326,6 +330,7 @@ begin
     generic map( link => "000010" )
     port map(
         reset => reset,
+        enable => enable(2),
         slot_id => slot_id,
         crate_id => crate_id,
         detector_id => detector_id,
@@ -349,6 +354,7 @@ begin
     generic map( link => "000011" )
     port map(
         reset => reset,
+        enable => enable(3),
         slot_id => slot_id,
         crate_id => crate_id,
         detector_id => detector_id,

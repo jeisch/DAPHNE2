@@ -58,9 +58,15 @@ package daphne2_package is
     constant AFE3_ERRCNT_ADDR: std_logic_vector(31 downto 0) := X"00002013";
     constant AFE4_ERRCNT_ADDR: std_logic_vector(31 downto 0) := X"00002014";
 
-    -- output record parameters
+    -- output link parameters
 
-    constant OUTPARAM_ADDR: std_logic_vector(31 downto 0) := X"00003000";
+    constant DAQ_OUT_PARAM_ADDR: std_logic_vector(31 downto 0) := X"00003000";
+
+    constant DEFAULT_DAQ_OUT_LINK_ENABLE: std_logic_vector(3 downto 0) := "1111";
+    constant DEFAULT_DAQ_OUT_SLOT_ID:     std_logic_vector(3 downto 0) := "0010";
+    constant DEFAULT_DAQ_OUT_CRATE_ID:    std_logic_vector(9 downto 0) := "0000000001";
+    constant DEFAULT_DAQ_OUT_DETECTOR_ID: std_logic_vector(5 downto 0) := "000010";
+    constant DEFAULT_DAQ_OUT_VERSION_ID:  std_logic_vector(5 downto 0) := "000001";
 
     -- spy buffers are 4k deep
 
