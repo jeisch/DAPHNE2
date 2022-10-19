@@ -21,7 +21,6 @@ read_vhdl ../front_end/front_end.vhd
 
 read_vhdl ../spy/spy.vhd
 read_vhdl ../spi/spi.vhd
-read_vhdl ../timing/endpoint.vhd
 
 read_vhdl ../core/crc20_update.vhd
 read_vhdl ../core/stream/dstr4.vhd
@@ -58,7 +57,34 @@ read_vhdl ../oei/ethernet_controller/filter_data_out.vhd
 read_vhdl ../oei/ethernet_controller/or33.vhd
 read_vhdl ../oei/ethernet_controller/xmii_handler.vhd
 
-read_vhdl ../clock_reset.vhd
+# timing endpoint firmware from bristol UK folks
+
+read_vhdl ../timing/ep_src/pdts_code8b10bpkg.vhd
+read_vhdl ../timing/ep_src/pdts_defs.vhd
+read_vhdl ../timing/ep_src/pdts_endpoint_stdlogic.vhd
+ read_vhdl ../timing/ep_src/pdts_endpoint.vhd
+  read_vhdl ../timing/ep_src/pdts_tstamp.vhd
+  read_vhdl ../timing/ep_src/pdts_adjust.vhd
+   read_vhdl ../timing/ep_src/pdts_synchro.vhd
+  read_vhdl ../timing/ep_src/pdts_acmd_rx.vhd
+  read_vhdl ../timing/ep_src/pdts_rx.vhd
+  read_vhdl ../timing/ep_src/pdts_rx_phy.vhd
+   read_vhdl ../timing/ep_src/pdts_del.vhd
+   read_vhdl ../timing/ep_src/pdts_dec8b10b.vhd
+  read_vhdl ../timing/ep_src/pdts_rx_div_mmcm.vhd
+  read_vhdl ../timing/ep_src/pdts_ep_startup.vhd
+   read_vhdl ../timing/ep_src/pdts_chklock.vhd
+  read_vhdl ../timing/ep_src/pdts_scmd_merge.vhd
+   read_vhdl ../timing/ep_src/pdts_prio_enc.vhd
+  read_vhdl ../timing/ep_src/pdts_idle_gen.vhd
+  read_vhdl ../timing/ep_src/pdts_tx.vhd
+   read_vhdl ../timing/ep_src/pdts_cksum.vhd
+    read_vhdl ../timing/ep_src/outputlogic_crc16.vhd
+  read_vhdl ../timing/ep_src/pdts_tx_phy.vhd
+   read_vhdl ../timing/ep_src/pdts_enc8b10b.vhd
+
+read_vhdl ../timing/endpoint.vhd
+read_vhdl ../timing/resets.vhd
 read_vhdl ../daphne2.vhd
 
 # Load IP core container file should be *.XCIX container

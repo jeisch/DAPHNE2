@@ -36,6 +36,7 @@ end spy;
 
 architecture spy_arch of spy is
 
+    signal reset_reg: std_logic;
     signal addr_reg: std_logic_vector(11 downto 0);
     signal dia_reg, dia_q, dia_delayed:  std_logic_vector(15 downto 0);
     signal we_reg:   std_logic_vector(0 downto 0);
@@ -77,7 +78,9 @@ begin
     begin
         if rising_edge(clka) then
 
-            if (reset='1') then
+            reset_reg <= reset;
+
+            if (reset_reg='1') then
                 --dia_reg  <= X"0000";
                 we_reg   <= "0";
                 --addr_reg <= X"000";

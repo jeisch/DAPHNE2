@@ -86,10 +86,10 @@ port(
 
     -- Timing Endpoint Interface (CDR chip)
 
-    cdr_clk_p, cdr_clk_n: in std_logic; -- LVDS recovered clock 312MHz
-    cdr_data_p, cdr_data_n: in std_logic; -- LVDS recovered serial data 
-    cdr_los: in std_logic; -- loss of signal
-    cdr_lol: in std_logic; -- loss of lock
+    adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312MHz
+    adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data 
+    adn2814_los: in std_logic; -- loss of signal
+    adn2814_lol: in std_logic; -- loss of lock
 
     -- SPI slave interface for communication with uC
 
@@ -109,20 +109,49 @@ end DAPHNE2;
 
 architecture DAPHNE2_arch of DAPHNE2 is
 
-    component clock_reset
+    component resets
     port(
-        sysclk_p, sysclk_n: in std_logic;
-        reset_n: in std_logic;
-        sreset:  in std_logic;
-        sclk100: out std_logic;
-        sclk200: out std_logic;
-        mclk:    out std_logic;
-        fclk:    out std_logic;
-        reset_async:   out std_logic;
-        reset_sclk200: out std_logic;
-        reset_mclk:    out std_logic;
-        locked: out std_logic
+        oeiclk: in std_logic;
+        rx_wren: in std_logic;
+        rx_addr: in std_logic_vector(31 downto 0);
+        sclk100: in std_logic;
+        sclk200: in std_logic;
+        mclk: in std_logic;
+        reset_fe_mclk: out std_logic;  -- reset the iserdes and fsm in the front end
+        reset_fe_sclk200: out std_logic; -- reset the idelay
+        reset_ep: out std_logic; -- sync to sclk100
+        reset_mmcm1: out std_logic -- ok to sync to sclk100
       );
+    end component;
+
+    component endpoint
+    port(
+        sysclk_p, sysclk_n: in std_logic; -- system clock LVDS 100MHz from local oscillator
+        reset_async: in std_logic; -- from the microcontroller
+        cdr_sfp_los: in std_logic; -- loss of signal
+        cdr_sfp_abs: in std_logic; -- high if module is absent
+        cdr_sfp_tx_dis: out std_logic; -- high to disable timing SFP TX
+        cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic; -- send data upstream (optional)
+        adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312.5MHz
+        adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data 
+        adn2814_los: in std_logic; -- loss of signal
+        adn2814_lol: in std_logic; -- loss of lock
+        ep_reset: in std_logic; -- soft reset endpoint logic
+        ep_edgesel: in std_logic; -- sample CDR data on rising or falling edge of CDR clock
+        ep_addr: in std_logic_vector(7 downto 0); -- Endpoint address (async, sampled in clk domain)
+	    ep_tgrp: in std_logic_vector(1 downto 0); -- Timing group (async, sampled in clk domain)
+        ep_ts_rdy: out std_logic; -- endpoint timestamp is good
+        ep_stat: out std_logic_vector(3 downto 0); -- endpoint state bits
+        mmcm1_reset: in std_logic;
+        mmcm1_locked: out std_logic;
+        mmcm0_locked: out std_logic;
+        use_ep: in std_logic; -- 0 = run on local clocks with fake timestamp, 1 = use endpoint clocks and real timestamp
+        mclk: out std_logic;  -- master clock 62.5MHz
+        fclk: out std_logic;  -- fast clock for frontend
+        sclk200: out std_logic; -- system clock 200MHz
+        sclk100: out std_logic; -- system clock 100MHz
+        timestamp: out std_logic_vector(63 downto 0) -- sync to mclk
+    );
     end component;
 
 	component gig_ethernet_pcs_pma_0
@@ -244,19 +273,6 @@ architecture DAPHNE2_arch of DAPHNE2 is
     );
     end component;
 
-    component endpoint
-    port(
-        cdr_sfp_los: in std_logic;
-        cdr_sfp_abs: in std_logic;
-        cdr_sfp_tx_dis: out std_logic;
-        cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic;
-        cdr_clk_p, cdr_clk_n: in std_logic;
-        cdr_data_p, cdr_data_n: in std_logic;
-        cdr_los: in std_logic;
-        cdr_lol: in std_logic
-      );
-    end component;
-
     component core
     port(
         mclk: in std_logic; -- master clock 62.5MHz
@@ -312,10 +328,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
 
     -- DAPHNE specific signals...
 
-	signal reset_async, reset_mclk, reset_sclk200: std_logic;
-
-    signal soft_reset, sreset, locked: std_logic;
-    signal soft_reset_reg: std_logic_vector(2 downto 0);    
+	signal reset_async, reset_ep, reset_fe_sclk200, reset_fe_mclk, reset_mmcm1: std_logic;
 
     signal sclk200, sclk100, mclk, fclk: std_logic;
 
@@ -327,85 +340,102 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal fe_done, fe_warn: std_logic_vector(4 downto 0);
     signal spy_bufr: array_5x9x16_type;
     signal core_spy_data: std_logic_vector(31 downto 0);
-    signal timestamp_reg, ts_spy_bufr: std_logic_vector(63 downto 0);
+    signal timestamp, ts_spy_bufr: std_logic_vector(63 downto 0);
     signal errcnt: array_5x8_type;
     signal sfp_stat_vector: std_logic_vector(63 downto 0);
 
     signal daq_out_param_reg: std_logic_vector(29 downto 0) := (DEFAULT_DAQ_OUT_LINK_ENABLE & DEFAULT_DAQ_OUT_SLOT_ID & DEFAULT_DAQ_OUT_CRATE_ID & DEFAULT_DAQ_OUT_DETECTOR_ID & DEFAULT_DAQ_OUT_VERSION_ID);
     signal daq_out_param_we:  std_logic;
 
+    signal mclk_ctrl_reg: std_logic_vector(15 downto 0) := (others=>'0');
+    signal mclk_stat_reg: std_logic_vector(12 downto 0);
+    signal use_ep, ep_ts_rdy: std_logic;
+    signal ep_stat: std_logic_vector(3 downto 0);
+    signal mmcm1_locked, mmcm0_locked: std_logic;
+    signal mclk_ctrl_reg_we: std_logic;
+
 begin
 
     -- Clocks and Resets ----------------------------------------------------
 
-    -- The soft reset is done through the GbE interface so it originates in the
-    -- oeiclk clock domain. this is a relatively fast 125MHz clock, so pulse 
-    -- stretch this out for a few oeiclk cycles so it can be detected by the 
-    -- slower clock_reset module
+    reset_async <= not reset_n;
 
-    soft_reset <= '1' when (std_match(rx_addr,SOFTRESET_ADDR) and rx_wren='1') else '0';
-
-    softreset_proc: process(oeiclk)
-    begin
-        if rising_edge(oeiclk) then
-            soft_reset_reg(0) <= soft_reset;
-            soft_reset_reg(1) <= soft_reset_reg(0);
-            soft_reset_reg(2) <= soft_reset_reg(1);
-            sreset <= soft_reset_reg(2) or soft_reset_reg(1) or soft_reset_reg(0);
-        end if;
-    end process softreset_proc;
-
-    clock_inst: clock_reset
+    reset_inst: resets -- soft reset logic
     port map(
-        sysclk_p => sysclk_p, -- system clock 100MHz always runs
-        sysclk_n => sysclk_n,
-        reset_n => reset_n, -- hard async reset from uC
-        sreset => sreset, -- soft reset pulse from GbE
+        oeiclk => oeiclk,
+        rx_wren => rx_wren,
+        rx_addr => rx_addr,
         sclk100 => sclk100,
         sclk200 => sclk200,
         mclk => mclk,
-        fclk => fclk,
-        reset_async => reset_async,
-        reset_sclk200 => reset_sclk200,
-        reset_mclk => reset_mclk,
-        locked => locked
+        reset_fe_mclk => reset_fe_mclk,
+        reset_fe_sclk200 => reset_fe_sclk200,
+        reset_ep => reset_ep,
+        reset_mmcm1 => reset_mmcm1
       );
 
-    -- Timing Endpoint Interface ----------------------------------------------
+    -- control and status registers for the endpoint module
 
-    -- placeholder/dummy module for now...
+    mclk_ctrl_reg_we <= '1' when (std_match(rx_addr,MCLK_CTRL_ADDR) and rx_wren='1') else '0';
 
-    endpoint_inst: endpoint
+    mclk_ctrl_proc: process(oeiclk)
+    begin
+        if rising_edge(oeiclk) then
+            if (mclk_ctrl_reg_we='1') then
+                mclk_ctrl_reg <= rx_data(15 downto 0);
+            end if;
+        end if;
+    end process mclk_ctrl_proc;
+
+    mclk_stat_reg <= ep_ts_rdy & ep_stat(3 downto 0) & 
+        cdr_sfp_abs & cdr_sfp_los & 
+        adn2814_lol & adn2814_los & 
+        "00" & mmcm1_locked & mmcm0_locked;
+
+    -- main clock distribution includes timing endpoint logic
+    -- there are two cascaded MMCMs with separate LOCKED status bits
+
+    endpoint_inst: endpoint 
     port map(
+        sysclk_p => sysclk_p,
+        sysclk_n => sysclk_n,
+
+        reset_async => reset_async,
+
         cdr_sfp_los => cdr_sfp_los,
         cdr_sfp_abs => cdr_sfp_abs,
         cdr_sfp_tx_dis => cdr_sfp_tx_dis,
-        cdr_sfp_tx_p =>cdr_sfp_tx_p,
+        cdr_sfp_tx_p => cdr_sfp_tx_p, 
         cdr_sfp_tx_n => cdr_sfp_tx_n,
-    
-        cdr_clk_p => cdr_clk_p,
-        cdr_clk_n => cdr_clk_n,
-        cdr_data_p => cdr_data_p,
-        cdr_data_n => cdr_data_n,
-        cdr_los => cdr_los,
-        cdr_lol => cdr_lol
-      );
 
-    -- make a fake 64 bit timestamp counter
-    -- ultimately this should come from the timing endpoint logic but for now fake it
+        adn2814_clk_p => adn2814_clk_p,
+        adn2814_clk_n => adn2814_clk_n,
+        adn2814_data_p => adn2814_data_p,
+        adn2814_data_n => adn2814_data_n,
+        adn2814_los => adn2814_los,
+        adn2814_lol => adn2814_lol,
 
-    faketimestamp_proc: process(mclk)
-    begin
-        if rising_edge(mclk) then
-            if (reset_mclk='1') then
-                timestamp_reg <= (others=>'0');
-            else
-                timestamp_reg <= std_logic_vector(unsigned(timestamp_reg) + 1);
-            end if;
-        end if;
-    end process faketimestamp_proc;
+        ep_reset => reset_ep,
+        ep_edgesel => mclk_ctrl_reg(1),
+        ep_addr => mclk_ctrl_reg(15 downto 8),
+	    ep_tgrp => mclk_ctrl_reg(5 downto 4),
+        ep_ts_rdy => ep_ts_rdy,
+        ep_stat => ep_stat,
 
-    -- the trigger pulse can come from the outside world (aysnc) or from a write to a special address (oeiclk domain). 
+        mmcm1_reset => reset_mmcm1,
+        mmcm1_locked => mmcm1_locked,
+        mmcm0_locked => mmcm0_locked,
+        use_ep => mclk_ctrl_reg(0),
+
+        mclk => mclk,
+        fclk => fclk,
+        sclk200 => sclk200,
+        sclk100 => sclk100,
+
+        timestamp => timestamp
+    );
+
+    -- the trigger pulse can come from the outside world (async) or from a write to a special address (oeiclk domain). 
     -- square this up and edge detect this and move it into the MCLK domain
 
     trig_gbe <= '1' when (std_match(rx_addr,TRIGGER_ADDR) and rx_wren='1') else '0';
@@ -439,8 +469,8 @@ begin
         clock => mclk,
         clock7x => fclk,
         sclk200 => sclk200,
-        reset_clock => reset_mclk,
-        reset_sclk200 => reset_sclk200,
+        reset_clock => reset_fe_mclk,
+        reset_sclk200 => reset_fe_sclk200,
         done  => fe_done,
         warn => fe_warn,
         errcnt => errcnt,
@@ -454,10 +484,6 @@ begin
         end generate gen_b;
     end generate gen_a;
 
-
-
-
-
     -- Spy Buffers ------------------------------------------------------------
 
     -- make 45 spy buffers for AFE data, these buffers are READ ONLY
@@ -468,7 +494,7 @@ begin
             port map(
                 -- mclk domain
                 clka  => mclk,
-                reset => reset_mclk,
+                reset => reset_async,
                 trig  => trig_sync,
                 dia   => afe_dout_pad(a)(b),
                 -- oeiclk domain    
@@ -486,9 +512,9 @@ begin
         port map(
             -- mclk domain
             clka  => mclk,
-            reset => reset_mclk,
+            reset => reset_async,
             trig  => trig_sync,
-            dia   => timestamp_reg( ((i*16)+15) downto (i*16) ),
+            dia   => timestamp( ((i*16)+15) downto (i*16) ),
 
             -- oeiclk domain    
             clkb  => oeiclk,
@@ -497,12 +523,6 @@ begin
           );
 
     end generate ts_spy_gen;
-
-
-
-
-
-
 
     -- OEI Gigabit Ethernet ---------------------------------------------------
 
@@ -542,7 +562,7 @@ begin
         an_adv_config_vector  => X"0020",  -- AN FD, see PG047 table 2-55
         an_restart_config     => '0',
         status_vector         => status_vector, -- PG047 table 2-41
-        reset                 => reset_async,
+        reset                 => reset_async, -- GbE is reset async
         signal_detect         => '1',   -- no optics, signal is always present
 		gt0_pll0outclk_out => open,
 		gt0_pll0outrefclk_out => open,
@@ -608,7 +628,7 @@ begin
 
     tx_data <= test_reg                        when std_match(rx_addr_reg, TESTREG_ADDR) else 
                fifo_DO                         when std_match(rx_addr_reg, FIFO_ADDR) else 
-               (X"00000000000" & "000" & locked & status_vector) when std_match(rx_addr_reg, STATVEC_ADDR) else
+               (X"000000000000" &  status_vector) when std_match(rx_addr_reg, STATVEC_ADDR) else
                sfp_stat_vector                 when std_match(rx_addr_reg, SFPSTATVEC_ADDR) else  
                (X"00000000deadbeef")           when std_match(rx_addr_reg, DEADBEEF_ADDR) else
                (X"0000000"&bram0_do)           when std_match(rx_addr_reg, BRAM0_ADDR) else
@@ -679,6 +699,9 @@ begin
 
                (X"00000000" & "00" & daq_out_param_reg) when std_match(rx_addr_reg, DAQ_OUT_PARAM_ADDR) else 
 
+               (X"000000000000" & "000" & mclk_stat_reg) when std_match(rx_addr_reg, MCLK_STAT_ADDR) else
+               (X"000000000000" & mclk_ctrl_reg) when std_match(rx_addr_reg, MCLK_CTRL_ADDR) else 
+
                (others=>'0');
 
     ready <= '1' when (rx_wren='1') else  -- no wait for writes 
@@ -692,9 +715,7 @@ begin
     test_proc: process(oeiclk)
     begin
         if rising_edge(oeiclk) then
-            if (reset_async='1') then
-                test_reg <= (others=>'0');
-            elsif (testreg_we='1') then
+            if (testreg_we='1') then
                 test_reg <= rx_data;
             end if;
         end if;
@@ -813,7 +834,7 @@ begin
         sclk100 => sclk100,
         reset => reset_async,
         din => afe_dout,
-        timestamp => timestamp_reg,
+        timestamp => timestamp,
 
         enable => daq_out_param_reg(29 downto 26),  -- 4 bits
         slot_id => daq_out_param_reg(25 downto 22),  -- 4 bits
@@ -839,7 +860,7 @@ begin
     spi_inst: spi
     port map(
         clock => sclk200, 
-        reset => reset_sclk200,
+        reset => reset_async,
         spi_clk => spi_clk,
         spi_csn => spi_csn,
         spi_mosi => spi_mosi,
@@ -847,26 +868,18 @@ begin
         spi_irq => spi_irq
     );
 
-
-
-
-
-
-
-
-
     -- LED Blinker ------------------------------------------------------------
 
 	-- DAPHNE has 6 LEDs controlled by the FPGA, which are labeled on the PCB like this:
     --  led(5)   led(4)     led(3)     led(2)    led(1)    led(0)
     -- "LED14"   "LED13"    "LED4"     "LED3"    "LED2"    "LED1"    "LED5 (uC)"     
 
-	led_temp(0) <= locked;           -- "LED1" on if main PLL MMCM locked and clocks running
+	led_temp(0) <= mmcm1_locked; -- "LED1" on if master clock MMCM1 is locked
     led_temp(1) <= '1' when (fe_done="11111") else '0'; -- "LED2" on automatic front end is DONE
-	led_temp(2) <= '1' when (fe_warn="11111") else '0'; -- "LED3" on if automatic front end reports bit error warnings
+	led_temp(2) <= '1' when (ep_ts_rdy='1') else '0'; -- "LED3" on if timing endpoint is synchronized and timestamp is valid
 	led_temp(3) <= '1' when (status_vector(0)='1' and status_vector(11 downto 10)="10") else '0'; -- "LED4" on if link is UP and speed is 1000
 	led_temp(4) <= gmii_rx_dv or gmii_tx_en; -- "LED13" is on if there is ethernet RX or TX activity
-	led_temp(5) <= trig_sync;        -- "LED14" is on when DAPHNE is triggered 
+	led_temp(5) <= trig_sync; -- "LED14" is on when DAPHNE is triggered 
 
 	-- LED driver logic. pulse stretch fast signals so they are visible (aka a "one shot")
 	-- Use a fast clock to sample the signal led_temp. whenever led_temp is HIGH, led0_reg
@@ -877,7 +890,7 @@ begin
     oneshot_proc: process(sclk200)
     begin
         if rising_edge(sclk200) then
-            if (reset_sclk200='1') then
+            if (reset_async='1') then
                 count_reg <= (others=>'0');
                 edge_reg  <= '0';
                 led0_reg <= (others=>'0');

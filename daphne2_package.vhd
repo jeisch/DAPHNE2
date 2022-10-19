@@ -38,9 +38,9 @@ package daphne2_package is
 
     constant TRIGGER_ADDR: std_logic_vector(31 downto 0) := X"00002000";
 
-    -- write anything to this address to force general soft reset 
+    -- write anything to this address to force front end recalibration
 
-    constant SOFTRESET_ADDR: std_logic_vector(31 downto 0) := X"00002001";
+    constant FE_RST_ADDR: std_logic_vector(31 downto 0) := X"00002001";
 
     -- read the status of the automatic front end logic (is it done?)
 
@@ -67,6 +67,22 @@ package daphne2_package is
     constant DEFAULT_DAQ_OUT_CRATE_ID:    std_logic_vector(9 downto 0) := "0000000001";
     constant DEFAULT_DAQ_OUT_DETECTOR_ID: std_logic_vector(5 downto 0) := "000010";
     constant DEFAULT_DAQ_OUT_VERSION_ID:  std_logic_vector(5 downto 0) := "000001";
+
+    -- master clock and timing endpoint status register
+
+    constant MCLK_STAT_ADDR: std_logic_vector(31 downto 0) := X"00004000";
+
+    -- master clock and timing endpoint control register
+
+    constant MCLK_CTRL_ADDR: std_logic_vector(31 downto 0) := X"00004001";
+    
+    -- write anything to this address to reset master clock MMCM1
+
+    constant MMCM1_RST_ADDR: std_logic_vector(31 downto 0) := X"00004002";
+
+    -- write anything to this address to reset timing endpoint logic
+
+    constant EP_RST_ADDR: std_logic_vector(31 downto 0) := X"00004003";
 
     -- spy buffers are 4k deep
 

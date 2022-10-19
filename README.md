@@ -22,7 +22,7 @@ The self triggered sender is built upon a modular approach. The STC module monit
 
 ### Timing Endpoint
 
-The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. Developed by Adrian for the WIB board. This has not yet been included in this design. This design currently runs asynchronously and generates a fake incrementing timestamp.
+The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. The timing endpoint design used here is the OLDER style timing protocol based on an 8b10b encoded data stream running at 312.5Mbps. The clock is extracted using an external ADN2814 device. The "pdts" endpoint logic was developed by Dave Newbold and others at Bristol UK and adapted to DAPHNE by Adrian @ UPENN. Through the GbE interface the user can monitor all status bits related to the timing endpoint and control status bits as well. The most important control bit selects either the local clocks (with fake timestamp) or timing endpoint to run the FPGA.
 
 ### Spy Buffers
 
@@ -45,21 +45,22 @@ The memory map is as follows:
 	0x00001974  Status vector for the Xilinx GbE PCS/PMA IP Core, read-only, 16 bit
 
 	0x00001975  SFP module status bits (all should be zero)
-				0: DAQ0 SFP absent (ABS)
-				1: DAQ0 SFP loss of signal (LOS)
-				8: DAQ1 SFP ABS
-				9: DAQ1 SFP LOS
-				16: DAQ2 SFP ABS
-				17: DAQ2 SFP LOS
-				24: DAQ3 SFP ABS
-				25: DAQ3 SFP LOS
-				32: GbE SFP ABS
-				33: GbE SFP LOS
-				40: Timing Endpoint SFP ABS
-				41: Timing Endpoint SFP LOS
+
+			0:  DAQ0 SFP absent (ABS)
+			1:  DAQ0 SFP loss of signal (LOS)
+			8:  DAQ1 SFP ABS
+			9:  DAQ1 SFP LOS
+			16: DAQ2 SFP ABS
+			17: DAQ2 SFP LOS
+			24: DAQ3 SFP ABS
+			25: DAQ3 SFP LOS
+			32: GbE SFP ABS
+			33: GbE SFP LOS
+			40: Timing Endpoint SFP ABS
+			41: Timing Endpoint SFP LOS
 
 	0x00002000  Write anything to trigger spy buffers
-	0x00002001  Write anything to generate a SOFT RESET (includes automatic front end alignment logic)
+	0x00002001  Write anything to force front end alignment recalibration
 	0x00002002  Read the status of the AFE automatic alignment front end, lower 5 bits should be HIGH
 	0x00002010  Number of errors observed for AFE0 frame marker, stops at 255.
 	0x00002011  Number of errors observed for AFE1 frame marker, stops at 255.
@@ -69,14 +70,52 @@ The memory map is as follows:
 
 	0x00003000  Output record header parameters, read-write, 30 bits defined as:
 
-				bits 29..26 = output_link_enable(3..0), default is "1111"
-				bits 25..22 = slot_id(3..0), default "0010"
-				bits 21..12 = crate_id(9..0), default is "0000000001"
-				bits 11..6 = detector_id(5..0), default is "000010"
-				bits 5..0  = version_id(5..0), default is "000001"
+			bits 29..26 = output_link_enable(3..0), default is "1111"
+			bits 25..22 = slot_id(3..0), default "0010"
+			bits 21..12 = crate_id(9..0), default is "0000000001"
+			bits 11..6  = detector_id(5..0), default is "000010"
+			bits 5..0   = version_id(5..0), default is "000001"
 				
-				note: when an output link is disabled it sends FELIX style idle words 
-				(D0.0 & D0.0 & D0.0 & K28.5)
+			note: when an output link is disabled it sends FELIX style idle words 
+			(D0.0 & D0.0 & D0.0 & K28.5)
+
+	0x00004000  Master Clock and Timing Endpoint Status Register (read only)
+
+			bit 0: MMCM0 locked status
+			bit 1: MMCM1 locked status
+			bit 2: reserved, 0
+			bit 3: reserved, 0
+			bit 4: CDR chip LOS, should be 0
+			bit 5: CDR chip LOL, should be 0
+			bit 6: Timing SFP LOS, should be 0
+			bit 7: Timing SFP ABS, should be 0 if present
+			bits 11..8: Timing endpoint state bits, defined as:
+
+				"0000" Starting state after reset
+				"0001" Waiting for SFP LOS to go low
+				"0010" Waiting for good frequency check
+				"0011" Waiting for phase adjustment to complete
+				"0100" Waiting for comma alignment, stable 62.5MHz phase
+				"0101" Waiting for 8b10 decoder good packet
+				"0110" Waiting for phase adjustment command
+				"0111" Waiting for time stamp initialization
+				"1000" Good to go!!!
+				"1100" Error in rx
+				"1101" Error in time stamp check
+				"1110" Physical layer error after lock
+
+			bit 12: Timing endpoint timestamp valid (Rdy)
+
+	0x00004001  Master Clock and Timing Endpoint Control Register (read write)
+			
+			bit 0: MMCM1 master clock input select (0=local-default, 1=endpoint)
+			bit 1: Timing endpoint data edge select
+		        bits 5..4: Timing endpoint timing group (1..0)
+			bits 15..8:  Timing endpoint address (7..0)
+
+	0x00004002  Write anything to reset master clock MMCM1
+	0x00004003  Write anything to reset timing endpoint
+			
 				
 	0x00009000  Read the FW version aka git commit hash ID, read-only, 28 bits
 
@@ -218,9 +257,9 @@ The external interface trigger is now optically isolated. The input is 5-12VDC o
 There are 5 status LEDs. All are pulse stretched in the firmware so that momentary pulses are visible. The LED closest to the SFP Timing Interface connector is reserved for the microcontroller.
 
 * uC LED: blinks at 1Hz when the microcontroller is programmed
-* LED0: ON if the main PLL/MMCM is LOCKED
+* LED0: ON if the master clock MMCM is LOCKED
 * LED1: ON if the automatic front end AFE alignment is done
-* LED2: ON if the automatic front end AFE alignment problem detects a bit error in the "frame" pattern
+* LED2: ON if the timing endpoint is locked and timestamp is valid
 * LED3: ON if the GbE link is up and the speed is 1000
 * LED4: ON if there is activity on the GbE link
 * LED5: ON if there if the spy buffers are triggered (externally or internally via GbE)
