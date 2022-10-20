@@ -69,13 +69,13 @@ begin
         if (fe_rst_count(5 downto 4)="00") then -- each pulse is ~128ns
             fe_rst1_reg <= '1';
         else
-            fe_rst1_reg <= '1';
+            fe_rst1_reg <= '0';
         end if;
 
         if (fe_rst_count(5 downto 4)="10") then
             fe_rst2_reg <= '1';
         else
-            fe_rst2_reg <= '1';
+            fe_rst2_reg <= '0';
         end if;
 
     end if;
