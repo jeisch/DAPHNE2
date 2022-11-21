@@ -18,19 +18,22 @@ use unisim.vcomponents.all;
 
 entity stc is
 generic(
-    thresh:   std_logic_vector(13 downto 0) := "00000000100000";
-    link:     std_logic_vector(5 downto 0) := "000000";
-    slot:     std_logic_vector(3 downto 0) := "0000";
-    crate_id: std_logic_vector(9 downto 0) := "0000000000";
-    det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "000001";
-    ch_id:    std_logic_vector(5 downto 0) := "000000"
-);
+    link_id: std_logic_vector(5 downto 0) := "000000";
+    chan_id: std_logic_vector(5 downto 0) := "000000"
+ );
 port(
-    reset: in std_logic;
+    reset: in std_logic;    
+
+    slot_id: std_logic_vector(3 downto 0);
+    crate_id: std_logic_vector(9 downto 0);
+    detector_id: std_logic_vector(5 downto 0);
+    version_id: std_logic_vector(5 downto 0);
+    threshold: std_logic_vector(13 downto 0);
+     
     aclk: in std_logic; -- AFE clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
 	afe_dat: in std_logic_vector(13 downto 0);
+
     fclk: in std_logic; -- transmit clock to FELIX 120.237 MHz 
     fifo_rden: in std_logic;
     fifo_ae: out std_logic;
@@ -45,9 +48,10 @@ architecture stc_arch of stc is
     signal afe_dly0, afe_dly1, afe_dly2: std_logic_vector(13 downto 0);
     signal block_count: std_logic_vector(5 downto 0);
 
-    type state_type is (rst, wait4trig, trig0, trig1, trig2, 
+    type state_type is (rst, wait4trig, 
                         sof, hdr0, hdr1, hdr2, hdr3, hdr4, 
-                        dat0, dat1, dat2, dat3, dat4, dat5, dat6, dat7, dat8, dat9, dat10, dat11, dat12, dat13, dat14, dat15, trailer, eof);
+                        dat0, dat1, dat2, dat3, dat4, dat5, dat6, dat7, dat8, dat9, dat10, dat11, dat12, dat13, dat14, dat15, 
+                        trailer, eof);
     signal state: state_type;
 
     signal d: std_logic_vector(31 downto 0);
@@ -72,13 +76,21 @@ architecture stc_arch of stc is
          DIn   : in     std_logic_vector(Nbits-1 downto 0);
          Reset : in     std_logic);
     end component;
+	
+    component trig is -- the self trigger algorithm broken out in a separate component...
+       port(
+         clock: in std_logic;
+         din: in std_logic_vector(13 downto 0);
+         threshold: std_logic_vector(13 downto 0);
+         triggered: out std_logic);
+    end component;
 
-    signal crc_calc, crc_reset: std_logic;
+    signal crc_calc, crc_reset, triggered: std_logic;
     signal crc20: std_logic_vector(19 downto 0);
 
 begin
 
-    -- delay input data by 64 clocks for pre-trigger info
+    -- delay input data by 64 clocks for capturing pre-trigger data, this is fixed
 
     gendelay: for i in 13 downto 0 generate
 
@@ -115,6 +127,16 @@ begin
         end if;
     end process pack_proc;       
 
+    -- trigger module watches the live (not delayed) data...
+
+    trig_inst: trig
+    port map(
+         clock => aclk,
+         din => afe_dat,
+         threshold => threshold,
+         triggered => triggered
+    );        
+
     -- FSM waits for trigger condition then assembles output frame and stores into FIFO
 
     builder_fsm_proc: process(aclk)
@@ -127,29 +149,10 @@ begin
                     when rst =>
                         state <= wait4trig;
                     when wait4trig => 
-                        if (afe_dat < thresh) then
-                            state <= trig0;
-                            ts_reg <= timestamp;
-                        else
-                            state <= wait4trig;
-                        end if;
-                    when trig0 =>
-
-                        if (afe_dat < thresh) then
-                            state <= trig1;
-                        else
-                            state <= wait4trig;
-                        end if;
-                    when trig1 =>
-                        if (afe_dat < thresh) then
-                            state <= trig2;
-                        else
-                            state <= wait4trig;
-                        end if;
-                    when trig2 =>
-                        if (afe_dat < thresh) then
-                            state <= sof; -- triggered! start assembling the output frame
+                        if (triggered='1') then -- start assembling the output frame
                             block_count <= "000000";
+                            ts_reg <= timestamp;
+                            state <= sof; 
                         else
                             state <= wait4trig;
                         end if;
@@ -218,10 +221,10 @@ begin
     -- total frame lenth = SOF + 5 header + 448 data + trailer + EOF = 456 words
 
     d <= X"0000003C" when (state=sof) else -- sof of frame word = D0.0 & D0.0 & D0.0 & K28.1
-         link & slot & crate_id & det_id & version when (state=hdr0) else
+         link_id & slot_id & crate_id & detector_id & version_id when (state=hdr0) else
          ts_reg(31 downto 0)  when (state=hdr1) else
          ts_reg(63 downto 32) when (state=hdr2) else
-         X"000000" & "00" & ch_id(5 downto 0) when (state=hdr3) else
+         X"000000" & "00" & chan_id(5 downto 0) when (state=hdr3) else
          X"DEADBEEF" when (state=hdr4) else
          (afe_dly0( 3 downto 0) & afe_dly1(13 downto 0) & afe_dly2(13 downto  0))                          when (state=dat0) else  -- sample2(3..0) & sample1(13..0) & sample0(13..0) 
          (afe_dly0( 7 downto 0) & afe_dly1(13 downto 0) & afe_dly2(13 downto  4))                          when (state=dat2) else  -- sample4(7..0) & sample3(13..0) & sample2(13..4) 

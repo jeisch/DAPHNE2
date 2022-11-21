@@ -18,19 +18,22 @@ architecture stc_testbench_arch of stc_testbench is
 
 component stc is
 generic(
-    thresh:   std_logic_vector(13 downto 0) := "00000000100000";
-    link:     std_logic_vector(5 downto 0) := "000000";
-    slot:     std_logic_vector(3 downto 0) := "0000";
-    crate_id: std_logic_vector(9 downto 0) := "0000000000";
-    det_id:   std_logic_vector(5 downto 0) := "000000";
-    version:  std_logic_vector(5 downto 0) := "100000";
-    ch_id:    std_logic_vector(5 downto 0) := "000000"
+    link_id:     std_logic_vector(5 downto 0) := "000000";
+    chan_id:    std_logic_vector(5 downto 0) := "000000"
 );
 port(
     reset: in std_logic;
+
+    slot_id: std_logic_vector(3 downto 0) := "0000";
+    crate_id: std_logic_vector(9 downto 0) := "0000000000";
+    detector_id: std_logic_vector(5 downto 0) := "000000";
+    version_id: std_logic_vector(5 downto 0) := "100000";
+    threshold: std_logic_vector(13 downto 0) := "00000000100000";
+
     aclk: in std_logic; -- AFE clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
 	afe_dat: in std_logic_vector(13 downto 0);
+
     fclk: in std_logic; -- transmit clock to FELIX 120.237 MHz 
     fifo_rden: in std_logic;
     fifo_ae: out std_logic;
@@ -76,18 +79,21 @@ end process pulse_proc;
 
 DUT: stc
 generic map(
-    thresh => "00000000100000",
-    link => "000000", 
-    slot => "0000",
-    crate_id => "0000000000",
-    det_id => "000000",
-    version => "100000",
-    ch_id => "000000" )
+    link_id => "000000", 
+    chan_id => "000000" )
 port map(
     reset => reset,
+
+    threshold => "00000000100000",
+    slot_id => "0000",
+    crate_id => "0000000000",
+    detector_id => "000000",
+    version_id => "100000",
+
     aclk => aclk,
     timestamp => timestamp,
 	afe_dat => afe_dat,
+
     fclk => fclk,
     fifo_rden => '0'
 );

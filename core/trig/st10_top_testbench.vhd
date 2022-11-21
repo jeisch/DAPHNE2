@@ -16,16 +16,16 @@ end st10_top_testbench;
 architecture st10_top_testbench_arch of st10_top_testbench is
 
 component st10_top is
-generic(
-    thresh:   std_logic_vector(13 downto 0) := "00000000100000";
-    link:     std_logic_vector(5 downto 0)  := "000000";
-    slot:     std_logic_vector(3 downto 0)  := "0000";
-    crate_id: std_logic_vector(9 downto 0)  := "0000000000";
-    det_id:   std_logic_vector(5 downto 0)  := "000000";
-    version:  std_logic_vector(5 downto 0)  := "100000"
-);
+generic( link_id: std_logic_vector(5 downto 0)  := "000000" );
 port(
     reset: in std_logic;
+
+    threshold: std_logic_vector(13 downto 0);
+    slot_id: std_logic_vector(3 downto 0);
+    crate_id: std_logic_vector(9 downto 0);
+    detector_id:   std_logic_vector(5 downto 0);
+    version_id:  std_logic_vector(5 downto 0);
+
     aclk: in std_logic; -- AFE clock 62.500 MHz
     timestamp: in std_logic_vector(63 downto 0);
 	afe_dat: in array_10x14_type;
@@ -109,8 +109,16 @@ begin
 end process pulse_proc;
 
 DUT: st10_top
+generic map ( link_id => "000001" )
 port map(
     reset => reset,
+
+    threshold => "00000000100000",
+    slot_id => "0011",
+    crate_id => "0000100100",
+    detector_id => "100000",
+    version_id => "001100",
+
     aclk => aclk,
     timestamp => timestamp,
 	afe_dat => afe_dat,
