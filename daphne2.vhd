@@ -86,8 +86,8 @@ port(
 
     -- Timing Endpoint Interface (CDR chip)
 
-    adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312MHz
-    adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data 
+    --adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312MHz (not used anymore)
+    adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data (actually the clock)
     adn2814_los: in std_logic; -- loss of signal
     adn2814_lol: in std_logic; -- loss of lock
 
@@ -129,17 +129,17 @@ architecture DAPHNE2_arch of DAPHNE2 is
         sysclk_p, sysclk_n: in std_logic; -- system clock LVDS 100MHz from local oscillator
         reset_async: in std_logic; -- from the microcontroller
         cdr_sfp_los: in std_logic; -- loss of signal
-        cdr_sfp_abs: in std_logic; -- high if module is absent
+        --cdr_sfp_abs: in std_logic; -- high if module is absent
         cdr_sfp_tx_dis: out std_logic; -- high to disable timing SFP TX
         cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic; -- send data upstream (optional)
-        adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312.5MHz
+        --adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312.5MHz
         adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data 
-        adn2814_los: in std_logic; -- loss of signal
-        adn2814_lol: in std_logic; -- loss of lock
+        --adn2814_los: in std_logic; -- loss of signal
+        --adn2814_lol: in std_logic; -- loss of lock
         ep_reset: in std_logic; -- soft reset endpoint logic
-        ep_edgesel: in std_logic; -- sample CDR data on rising or falling edge of CDR clock
-        ep_addr: in std_logic_vector(7 downto 0); -- Endpoint address (async, sampled in clk domain)
-	    ep_tgrp: in std_logic_vector(1 downto 0); -- Timing group (async, sampled in clk domain)
+        --ep_edgesel: in std_logic; -- sample CDR data on rising or falling edge of CDR clock
+        --ep_addr: in std_logic_vector(7 downto 0); -- Endpoint address (async, sampled in clk domain)
+	    --ep_tgrp: in std_logic_vector(1 downto 0); -- Timing group (async, sampled in clk domain)
         ep_ts_rdy: out std_logic; -- endpoint timestamp is good
         ep_stat: out std_logic_vector(3 downto 0); -- endpoint state bits
         mmcm1_reset: in std_logic;
@@ -403,22 +403,22 @@ begin
         reset_async => reset_async,
 
         cdr_sfp_los => cdr_sfp_los,
-        cdr_sfp_abs => cdr_sfp_abs,
+        --cdr_sfp_abs => cdr_sfp_abs,
         cdr_sfp_tx_dis => cdr_sfp_tx_dis,
         cdr_sfp_tx_p => cdr_sfp_tx_p, 
         cdr_sfp_tx_n => cdr_sfp_tx_n,
 
-        adn2814_clk_p => adn2814_clk_p,
-        adn2814_clk_n => adn2814_clk_n,
+        --adn2814_clk_p => adn2814_clk_p,
+        --adn2814_clk_n => adn2814_clk_n,
         adn2814_data_p => adn2814_data_p,
         adn2814_data_n => adn2814_data_n,
-        adn2814_los => adn2814_los,
-        adn2814_lol => adn2814_lol,
+        --adn2814_los => adn2814_los,
+        --adn2814_lol => adn2814_lol,
 
         ep_reset => reset_ep,
-        ep_edgesel => mclk_ctrl_reg(1),
-        ep_addr => mclk_ctrl_reg(15 downto 8),
-	    ep_tgrp => mclk_ctrl_reg(5 downto 4),
+        --ep_edgesel => mclk_ctrl_reg(1),
+        --ep_addr => mclk_ctrl_reg(15 downto 8),
+	    --ep_tgrp => mclk_ctrl_reg(5 downto 4),
         ep_ts_rdy => ep_ts_rdy,
         ep_stat => ep_stat,
 

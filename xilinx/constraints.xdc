@@ -8,7 +8,7 @@
 
 # define primary clocks...
 
-create_clock -name adn2814_clk  -period 3.200   [get_ports adn2814_clk_p]
+create_clock -name adn2814_clk  -period 16.000  [get_ports adn2814_data_p]
 create_clock -name sysclk       -period 10.000  [get_ports sysclk_p]
 create_clock -name gbe_refclk   -period 8.000   [get_ports gbe_refclk_p]
 create_clock -name daq_refclk   -period 8.317   [get_ports daq_refclk_p]
@@ -140,23 +140,31 @@ set_property IOSTANDARD LVTTL [get_ports {spi_*}]
 
 set_property PACKAGE_PIN V6 [get_ports {cdr_sfp_tx_p}]
 set_property PACKAGE_PIN W6 [get_ports {cdr_sfp_tx_n}]
-set_property PACKAGE_PIN AB2 [get_ports {adn2814_clk_p}]
-set_property PACKAGE_PIN AC2 [get_ports {adn2814_clk_n}]
+#set_property PACKAGE_PIN AB2 [get_ports {adn2814_clk_p}]
+#set_property PACKAGE_PIN AC2 [get_ports {adn2814_clk_n}]
 set_property PACKAGE_PIN AC3 [get_ports {adn2814_data_p}]
 set_property PACKAGE_PIN AD3 [get_ports {adn2814_data_n}]
 
 set_property IOSTANDARD LVDS_25 [get_ports {cdr_sfp_tx_?}]
-set_property IOSTANDARD LVDS_25 [get_ports {adn2814_clk_?}]
+#set_property IOSTANDARD LVDS_25 [get_ports {adn2814_clk_?}]
 set_property IOSTANDARD LVDS_25 [get_ports {adn2814_data_?}]
 set_property DIFF_TERM TRUE [get_ports {cdr_sfp_tx_?}]
-set_property DIFF_TERM TRUE [get_ports {adn2814_clk_?}]
+#set_property DIFF_TERM TRUE [get_ports {adn2814_clk_?}]
 set_property DIFF_TERM TRUE [get_ports {adn2814_data_?}]
+
+# NOTE: with the new timing endpoint scheme the external CDR chip is 
+# effectively bypassed and we use it's DATA output as the clock
+# the issue here is that the DATA LVDS output does not enter
+# the FPGA on a CC I/O pair. The following line prevents Vivado 
+# from throwing an error at this.
+
+set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets endpoint_inst/sysclk_ibuf]
 
 ### Timing interface signals (single ended LVTTL)
 
-set_property PACKAGE_PIN D6 [get_ports {adn2814_los}]
-set_property PACKAGE_PIN H8 [get_ports {adn2814_lol}]
-set_property IOSTANDARD LVTTL [get_ports {adn2814_lo?}]
+#set_property PACKAGE_PIN D6 [get_ports {adn2814_los}]
+#set_property PACKAGE_PIN H8 [get_ports {adn2814_lol}]
+#set_property IOSTANDARD LVTTL [get_ports {adn2814_lo?}]
 
 set_property PACKAGE_PIN G7 [get_ports {cdr_sfp_los}]
 set_property PACKAGE_PIN F8 [get_ports {cdr_sfp_abs}]

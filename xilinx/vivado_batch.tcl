@@ -57,31 +57,44 @@ read_vhdl ../oei/ethernet_controller/filter_data_out.vhd
 read_vhdl ../oei/ethernet_controller/or33.vhd
 read_vhdl ../oei/ethernet_controller/xmii_handler.vhd
 
-# timing endpoint firmware from bristol UK folks
+# timing endpoint firmware from bristol UK folks, this is version 2
+# here is their source tree, sources taken from the "endpoint" and "common" directories
 
-read_vhdl ../timing/ep_src/pdts_code8b10bpkg.vhd
 read_vhdl ../timing/ep_src/pdts_defs.vhd
-read_vhdl ../timing/ep_src/pdts_endpoint_stdlogic.vhd
- read_vhdl ../timing/ep_src/pdts_endpoint.vhd
-  read_vhdl ../timing/ep_src/pdts_tstamp.vhd
-  read_vhdl ../timing/ep_src/pdts_adjust.vhd
-   read_vhdl ../timing/ep_src/pdts_synchro.vhd
-  read_vhdl ../timing/ep_src/pdts_acmd_rx.vhd
-  read_vhdl ../timing/ep_src/pdts_rx.vhd
-  read_vhdl ../timing/ep_src/pdts_rx_phy.vhd
-   read_vhdl ../timing/ep_src/pdts_del.vhd
-   read_vhdl ../timing/ep_src/pdts_dec8b10b.vhd
-  read_vhdl ../timing/ep_src/pdts_rx_div_mmcm.vhd
-  read_vhdl ../timing/ep_src/pdts_ep_startup.vhd
-   read_vhdl ../timing/ep_src/pdts_chklock.vhd
-  read_vhdl ../timing/ep_src/pdts_scmd_merge.vhd
-   read_vhdl ../timing/ep_src/pdts_prio_enc.vhd
-  read_vhdl ../timing/ep_src/pdts_idle_gen.vhd
-  read_vhdl ../timing/ep_src/pdts_tx.vhd
-   read_vhdl ../timing/ep_src/pdts_cksum.vhd
-    read_vhdl ../timing/ep_src/outputlogic_crc16.vhd
-  read_vhdl ../timing/ep_src/pdts_tx_phy.vhd
-   read_vhdl ../timing/ep_src/pdts_enc8b10b.vhd
+read_vhdl ../timing/ep_src/pdts_ep_defs.vhd
+read_vhdl ../timing/ep_src/pdts_clock_defs.vhd
+read_vhdl ../timing/ep_src/pdts_code8b10bpkg.vhd
+read_vhdl ../timing/ep_src/pdts_endpoint.vhd
+	read_vhdl ../timing/ep_src/pdts_ep_cdr.vhd
+		read_vhdl ../timing/ep_src/pdts_cdr_sampler.vhd
+	read_vhdl ../timing/ep_src/pdts_ep_core.vhd
+		read_vhdl ../timing/ep_src/pdts_ep_sm.vhd
+			read_vhdl ../timing/ep_src/pdts_synchro.vhd
+			read_vhdl ../timing/ep_src/pdts_synchro_pulse.vhd
+		read_vhdl ../timing/ep_src/pdts_rx.vhd
+			read_vhdl ../timing/ep_src/pdts_rx_phy.vhd
+				read_vhdl ../timing/ep_src/pdts_del.vhd
+				read_vhdl ../timing/ep_src/pdts_dec8b10b.vhd
+			read_vhdl ../timing/ep_src/pdts_rx_pkt.vhd
+				read_vhdl ../timing/ep_src/pdts_cksum.vhd
+					read_vhdl ../timing/ep_src/outputlogic_crc16.vhd
+			read_vhdl ../timing/ep_src/pdts_ep_ctrl.vhd
+				read_vhdl ../timing/ep_src/pdts_ep_transactor.vhd
+			read_vhdl ../timing/ep_src/pdts_pktbuf.vhd
+				read_vhdl ../timing/ep_src/pdts_lutram.vhd
+		read_vhdl ../timing/ep_src/pdts_ep_ctrlmux.vhd
+		read_vhdl ../timing/ep_src/pdts_ep_regfile.vhd
+		read_vhdl ../timing/ep_src/pdts_tx.vhd
+			read_vhdl ../timing/ep_src/pdts_idle_gen.vhd
+			read_vhdl ../timing/ep_src/pdts_acmd_arb.vhd
+			read_vhdl ../timing/ep_src/pdts_tx_phy.vhd
+				read_vhdl ../timing/ep_src/pdts_enc8b10b.vhd
+			read_vhdl ../timing/ep_src/pdts_tx_pkt.vhd
+		read_vhdl ../timing/ep_src/pdts_ep_tstamp.vhd
+	read_vhdl ../timing/ep_src/pdts_mod.vhd
+read_vhdl ../timing/pdts_endpoint_wrapper.vhd
+
+# whew lad...
 
 read_vhdl ../timing/endpoint.vhd
 read_vhdl ../timing/resets.vhd

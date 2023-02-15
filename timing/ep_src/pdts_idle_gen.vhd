@@ -9,13 +9,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
 use work.pdts_defs.all;
+use work.pdts_clock_defs.all;
 
 entity pdts_idle_gen is
 	port(
 		clk: in std_logic;
 		rst: in std_logic;
-		acmd_out: out cmd_w;
-		acmd_in: in cmd_r
+		acmd_out: out pdts_cmd_w;
+		acmd_in: in pdts_cmd_r
 	);
 
 end pdts_idle_gen;
@@ -38,7 +39,7 @@ begin
 		if rising_edge(clk) then
 			if rst = '1' then
 				r <= X"01";
-			elsif acmd_in.ren = '1' then
+			elsif acmd_in.rdy = '1' then
 				r <= r(6 downto 0) & b;
 			end if;
 		end if;
@@ -51,7 +52,7 @@ begin
 		if rising_edge(clk) then
 			if rst = '1' then
 				ctr <= X"00";
-			elsif acmd_in.ren = '1' then
+			elsif acmd_in.rdy = '1' then
 				if last_i = '1' then
 					ctr <= X"00";
 				else
@@ -61,9 +62,10 @@ begin
 		end if;
 	end process;
 	
-	last_i <= '1' when ctr = ADDR_WDS + IDLE_DATA_WDS - 1 else '0';
+	last_i <= '1' when ctr = 2 + IDLE_DATA_WDS - 1 else '0';
 	acmd_out.last <= last_i;
-	acmd_out.d <= X"FF" when ctr < ADDR_WDS else r;
-	acmd_out.req <= '1' when ctr = X"00" else '0';
+	acmd_out.d <= IDLE_ADDR(to_integer(ctr) * 8 + 7 downto to_integer(ctr) * 8) when ctr < 2 else r;
+	acmd_out.valid <= '1';
+	acmd_out.err <= '0';
 	
 end rtl;

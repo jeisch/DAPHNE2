@@ -22,7 +22,7 @@ The self triggered sender is built upon a modular approach. The STC module monit
 
 ### Timing Endpoint
 
-The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. The timing endpoint design used here is the OLDER style timing protocol based on an 8b10b encoded data stream running at 312.5Mbps. The clock is extracted using an external ADN2814 device. The "pdts" endpoint logic was developed by Dave Newbold and others at Bristol UK and adapted to DAPHNE by Adrian @ UPENN. Through the GbE interface the user can monitor all status bits related to the timing endpoint and control status bits as well. The most important control bit selects either the local clocks (with fake timestamp) or timing endpoint to run the FPGA.
+The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. The timing endpoint design used here is the NEW style timing protocol based on pulse width modulated clock at 62.5MHz. An external ADN2814 clock and data recovery chip is present, but this new timing scheme no longer requires it. The AD2814 clock output is not used by the new timing endpoint logic, and the DATAOUT signal is the encoded clock. The "pdts" endpoint logic was developed by Dave Newbold and others at Bristol UK and adapted to DAPHNE by Adrian @ UPENN. Through the GbE interface the user can monitor all status bits related to the timing endpoint and control status bits as well. The most important control bit selects either the local clocks (with fake timestamp) or timing endpoint to run the FPGA.
 
 ### Spy Buffers
 
@@ -188,6 +188,10 @@ Memory Map Notes:
 * Address space is 32 bits, Data width is 64-bits (A32D64)
 * AFE Spy Buffers are 14 bits wide and are read-only
 * When properly aligned, every word in the frame marker spy buffers should read "11111110000000"  (0x3F80)
+
+### SPI Slave
+
+SPI slave placeholder logic is present. This module will ultimately be used for communication with the DAPHNE microcontroller. Not ready yet.
 
 ## Overview of Hardware Subsystems
 

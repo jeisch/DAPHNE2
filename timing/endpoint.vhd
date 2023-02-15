@@ -1,5 +1,5 @@
 -- endpoint.vhd
--- master clock distribution for DAPHNE2 includes Bristol Timing Endpoint Logic
+-- master clock distribution for DAPHNE2 includes NEW Bristol Timing Endpoint Logic 2.0
 -- 
 -- MMCM0: takes 100MHz system clock and produces SCLK100, SCLK200, local 62.5MHz clock
 --        this MMCM is reset by a hard reset from the uC
@@ -27,23 +27,16 @@ port(
     -- external optical timing SFP link interface
 
     cdr_sfp_los: in std_logic; -- loss of signal
-    cdr_sfp_abs: in std_logic; -- high if module is absent
     cdr_sfp_tx_dis: out std_logic; -- high to disable timing SFP TX
-    cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic; -- send data upstream (optional)
+    cdr_sfp_tx_p, cdr_sfp_tx_n: out std_logic; -- send data upstream
 
-    -- external CDR chip interface
+    -- external CDR chip interface: ignore CLKOUT, LOS, and LOL
 
-    adn2814_clk_p, adn2814_clk_n: in std_logic; -- LVDS recovered clock 312.5MHz
-    adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data 
-    adn2814_los: in std_logic; -- loss of signal
-    adn2814_lol: in std_logic; -- loss of lock
+    adn2814_data_p, adn2814_data_n: in std_logic; -- LVDS recovered serial data ACKCHYUALLY the clock!
 
     -- timing endpoint interface 
 
     ep_reset: in std_logic; -- soft reset endpoint logic
-    ep_edgesel: in std_logic; -- sample CDR data on rising or falling edge of CDR clock
-    ep_addr: in std_logic_vector(7 downto 0); -- Endpoint address (async, sampled in clk domain)
-	ep_tgrp: in std_logic_vector(1 downto 0); -- Timing group (async, sampled in clk domain)
     ep_ts_rdy: out std_logic; -- endpoint timestamp is good
     ep_stat: out std_logic_vector(3 downto 0); -- endpoint state bits
 
@@ -67,29 +60,20 @@ end endpoint;
 
 architecture endpoint_arch of endpoint is
 
-component pdts_endpoint_stdlogic
-port(
-		sclk: in std_logic; -- Free-running system clock
-		srst: in std_logic; -- System reset (sclk domain)
-		addr: in std_logic_vector(7 downto 0); -- Endpoint address (async, sampled in clk domain)
-		tgrp: in std_logic_vector(1 downto 0); -- Timing group (async, sampled in clk domain)
-		stat: out std_logic_vector(3 downto 0); -- Status output (sclk domain)
-		rec_clk: in std_logic; -- CDR recovered clock from timing link
-		rec_d: in std_logic; -- CDR recovered data from timing link (rec_clk domain)
-		sfp_los: in std_logic := '0'; -- SFP LOS line (async, sampled in sclk domain)
-		cdr_los: in std_logic := '0'; -- CDR LOS line (async, sampled in sclk domain)
-		cdr_lol: in std_logic := '0'; -- CDR LOL line (async, --sampled in sclk domain)
-        pll_locked: in std_logic;
-		clk: out std_logic; -- 50MHz clock output
-		rst: out std_logic; -- 50MHz domain reset
-		rdy: out std_logic; -- Timestamp valid flag
-		sync: out std_logic_vector(3 downto 0); -- Sync command output (clk domain)
-		sync_stb: out std_logic; -- Sync command strobe (clk domain)
-		sync_first: out std_logic; -- Sync command valid flag (clk domain)
-		tstamp: out std_logic_vector(63 downto 0); -- Timestamp out
-		debug: out std_logic_vector(31 downto 0); -- port for debug info, e.g. applied delay values
-		txd: out std_logic;
-		tx_dis: out std_logic);
+component pdts_endpoint_wrapper is -- wrapped and cleaned up for DAPHNE V2a design
+	port(
+		sys_clk: in std_logic; -- System clock is 100MHz
+		sys_rst: in std_logic; -- System reset (sclk domain)
+		sys_stat: out std_logic_vector(3 downto 0); -- Status output (sclk domain)
+		los: in std_logic := '0'; -- External signal path status (async)
+		rxd: in std_logic; -- Timing input (clk domain)
+		txd: out std_logic; -- Timing output (clk domain)
+		txenb: out std_logic; -- Timing output enable (active low for SFP) (clk domain)
+		clk: out std_logic; -- Base clock output is 62.5MHz
+		rst: out std_logic; -- Base clock reset (clk domain)
+		ready: out std_logic; -- Endpoint ready flag (clk domain)
+		tstamp: out std_logic_vector(63 downto 0) -- Timestamp (clk domain)
+	);
 end component;
 
 signal sysclk_ibuf: std_logic;
@@ -98,10 +82,7 @@ signal mmcm0_clkout0, mmcm0_clkout1, mmcm0_clkout2: std_logic;
 signal local_clk62p5: std_logic;
 signal sclk100_i: std_logic;
 
-signal adn2814_clk_ibuf, adn2814_clk: std_logic;
 signal adn2814_data: std_logic;
-signal ep_rec_d_ddr: std_logic_vector(1 downto 0);
-signal ep_rec_d: std_logic;
 
 signal ep_clk62p5: std_logic;
 signal cdr_sfp_txd: std_logic;
@@ -189,96 +170,36 @@ mmcm_clk2_inst:  BUFG port map( I => mmcm0_clkout2, O => sclk100_i);  -- system 
 
 sclk100 <= sclk100_i;
 
--- 312 MHz recovered clock from ADN2814 chip
-
-cdr_clk_ibuf_inst: IBUFDS
-generic map( DIFF_TERM => TRUE, IBUF_LOW_PWR => FALSE, IOSTANDARD => "LVDS_25" )
-port map( I => adn2814_clk_p, IB => adn2814_clk_n, O  => adn2814_clk_ibuf );
-
-cdr_clk_bufg_inst: BUFG
-port map( I => adn2814_clk_ibuf, O => adn2814_clk );
-
--- serial recovered data from ADN2814 chip
+-- DATA OUT from ADN2814 chip is the modulated clock
 
 cdr_data_inst: IBUFDS
 generic map( DIFF_TERM => TRUE, IBUF_LOW_PWR => FALSE, IOSTANDARD => "LVDS_25" )
 port map( I => adn2814_data_p, IB => adn2814_data_n, O  => adn2814_data );
 
--- choose rising or falling edge of the 312.5MHz CDR clock to sample the CDR data....
+-- new timing endpoint 2.0
+-- The external CDR chip is used but the CLKOUT output is ignored
+-- and the PWM clock is passed through on the DATAOUT output
 
--- Verilog from Adrian:
---    IDDR #(.DDR_CLK_EDGE ("SAME_EDGE_PIPELINED")) iddr_timing
---    (
---        .Q1 (ep_rec_d_ddr[0]),
---        .Q2 (ep_rec_d_ddr[1]),
---        .C  (adn2814_clk),
---        .CE (1'b1),
---        .D  (adn2814_data),
---        .R  (1'b0)
---    );   
+pdts_endpoint_inst: pdts_endpoint_wrapper
+	port map(
+		sys_clk => sclk100_i, -- 100MHz from MMCM0
+		sys_rst => ep_reset,
+		sys_stat => ep_stat,
+		los => cdr_sfp_los,
+		rxd => adn2814_data, -- NEW: get the modulated clock from the external CDR DATA output
+		txd => cdr_sfp_txd, 
+		txenb => cdr_sfp_tx_dis, -- Timing output enable (active low for SFP) (clk domain)
+		clk => ep_clk62p5, -- output clock from endpoint 62.5MHz
+		rst => open, -- endpoint reset output not used here
+		ready => ep_ts_rdy,
+		tstamp => real_timestamp
+	);
 
-IDDR_inst: IDDR
-generic map(DDR_CLK_EDGE => "SAME_EDGE_PIPELINED", INIT_Q1 => '0', INIT_Q2 => '0', SRTYPE => "ASYNC")
-port map(
-    Q1 => ep_rec_d_ddr(0),
-    Q2 => ep_rec_d_ddr(1),
-    C => adn2814_clk,
-    CE => '1',
-    D => adn2814_data,
-    R => '0',
-    S => '0'
-);
-
--- Verilog from Adrian:
--- always @(posedge adn2814_clk) ep_rec_d = ep_rec_d_ddr [edge_sel];
-
-edge_sel_proc: process(adn2814_clk)
-begin
-    if rising_edge(adn2814_clk) then
-        if (ep_edgesel='1') then
-            ep_rec_d <= ep_rec_d_ddr(1);
-        else
-            ep_rec_d <= ep_rec_d_ddr(0);            
-        end if;
-    end if;
-end process edge_sel_proc;
-
--- Bristol UK timing endpoint, legacy timing interface using 8b10b encoded stream @ 312.5Mbps
-
-pdts_endpoint_inst: pdts_endpoint_stdlogic
-port map(
-    sclk => sclk100_i, -- 100MHz from MMCM0
-	srst => ep_reset,
-	addr => ep_addr,
-	tgrp => ep_tgrp,
-	stat => ep_stat,
-	rec_clk => adn2814_clk,
-	rec_d => ep_rec_d,
-	sfp_los => cdr_sfp_los,
-    cdr_los => adn2814_los,
-	cdr_lol => adn2814_lol,
-    pll_locked => '1', -- originally intended for external PLL, not used
-	clk => ep_clk62p5, -- output clock from endpoint 62.5MHz
-	rst => open, -- endpoint reset output not used here
-	rdy => ep_ts_rdy,
-	sync => open, -- sync commands not used by DAPHNE
-	sync_stb => open,
-	sync_first => open,
-	tstamp => real_timestamp, -- this is sync to ep_clk62p5
-	debug => open,
-	txd => cdr_sfp_txd, 
-	tx_dis => open
-);
-
--- you can TRY to send endpoint data upstream....
+-- LVDS driver for timing SFP return channel
 
 OBUFDS_inst: OBUFDS
 generic map(IOSTANDARD=>"LVDS_25")
 port map( I => cdr_sfp_txd, O => cdr_sfp_tx_p, OB => cdr_sfp_tx_n );
-
--- ...but the timing SFP transmitter is DISABLED, so nope.
-
-cdr_sfp_tx_dis <= '1';
 
 -- MMCM1 chooses between local clock 62.5MHz or the endpoint clock 62.5MHz
 -- after switching be sure to reset this MMCM! From the selected clock generate
