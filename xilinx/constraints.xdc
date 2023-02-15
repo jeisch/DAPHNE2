@@ -20,9 +20,10 @@ create_generated_clock -name sclk200        [get_pins endpoint_inst/mmcm0_inst/C
 create_generated_clock -name sclk100        [get_pins endpoint_inst/mmcm0_inst/CLKOUT2]
 create_generated_clock -name mmcm0_clkfbout [get_pins endpoint_inst/mmcm0_inst/CLKFBOUT]
 
-create_generated_clock -name ep_clk62p5      [get_pins endpoint_inst/pdts_endpoint_inst/ep/clkgen/mmcm/CLKOUT0]
-create_generated_clock -name ep_sclk         [get_pins endpoint_inst/pdts_endpoint_inst/ep/clkgen/mmcm/CLKOUT1]
-create_generated_clock -name ep_clkfbout     [get_pins endpoint_inst/pdts_endpoint_inst/ep/clkgen/mmcm/CLKFBOUT] 
+create_generated_clock -name ep_clk62p5      [get_pins endpoint_inst/pdts_endpoint_inst/pdts_endpoint_inst/rxcdr/mmcm/CLKOUT0]
+create_generated_clock -name ep_clk4x        [get_pins endpoint_inst/pdts_endpoint_inst/pdts_endpoint_inst/rxcdr/mmcm/CLKOUT1]
+create_generated_clock -name ep_clk2x        [get_pins endpoint_inst/pdts_endpoint_inst/pdts_endpoint_inst/rxcdr/mmcm/CLKOUT1]
+create_generated_clock -name ep_clkfbout     [get_pins endpoint_inst/pdts_endpoint_inst/pdts_endpoint_inst/rxcdr/mmcm/CLKFBOUT] 
 
 create_generated_clock -name oeiclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT0] 
 create_generated_clock -name oeihclk [get_pins phy_inst/U0/core_clocking_i/mmcm_adv_inst/CLKOUT1]
@@ -43,7 +44,7 @@ set_clock_groups -name async_groups -asynchronous \
 -group {sysclk sclk100 mmcm0_clkfbout} -group {sclk200} -group {local_clk62p5} \
 -group {mclk0 fclk0 mmcm1_clkfbout0} -group {mclk1 fclk1 mmcm1_clkfbout1} \
 -group {oeiclk oeihclk oei_clkfbout} -group {daqclk0 daqclk1 daq_clkfbout} \
--group {ep_clk62p5 ep_sclk ep_clkfbout} -group {adn2814_clk} 
+-group {ep_clk62p5 ep_clk4x ep_clk2x ep_clkfbout} -group {adn2814_clk} 
 
 # tell vivado about places where signals cross clock domains so timing can be ignored here...
 
@@ -162,9 +163,9 @@ set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_nets endpoint_inst/sysclk_ibuf]
 
 ### Timing interface signals (single ended LVTTL)
 
-#set_property PACKAGE_PIN D6 [get_ports {adn2814_los}]
-#set_property PACKAGE_PIN H8 [get_ports {adn2814_lol}]
-#set_property IOSTANDARD LVTTL [get_ports {adn2814_lo?}]
+set_property PACKAGE_PIN D6 [get_ports {adn2814_los}]
+set_property PACKAGE_PIN H8 [get_ports {adn2814_lol}]
+set_property IOSTANDARD LVTTL [get_ports {adn2814_lo?}]
 
 set_property PACKAGE_PIN G7 [get_ports {cdr_sfp_los}]
 set_property PACKAGE_PIN F8 [get_ports {cdr_sfp_abs}]
