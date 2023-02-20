@@ -144,6 +144,11 @@ package daphne2_package is
 
     constant SPYBUFDOUT0_BASEADDR: std_logic_vector(31 downto 0) := "0100000001100000----------------";
 
+    -- SPI slave has two FIFOs, each 2kx8. The command FIFO is write only. The response FIFO is read only.
+    -- because of this they can and do share an address.
+
+    constant SPI_FIFO_ADDR: std_logic_vector(31 downto 0) := X"90000000";
+
 end package;
 
 

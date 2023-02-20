@@ -34,6 +34,7 @@ port(
 
     clock: in std_logic; -- system clock 100MHz
     reset: in std_logic; -- system reset
+
     spi_clk:  in std_logic; -- keep it below 10 MHz
     spi_csn:  in std_logic; -- active low select
     spi_mosi: in std_logic; 

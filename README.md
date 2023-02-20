@@ -181,6 +181,8 @@ The memory map is as follows:
 
 	0x80000000   Test FIFO, 512 x 64, read-write (64-bit)
 
+	0x90000000   SPI FIFO, 2k x 8, read-write (8-bit ASCII strings )
+
 	0xFFFFFFFF   Reserved for OEI internal settings
 
 Memory Map Notes:
@@ -248,9 +250,10 @@ Quad 216 is used for FELIX DAQ links. All four channels in this quad may be used
 
 ### Microcontroller Interface (Slow Controls)
 
-The DAPHNE microcontroller can hard reset the FPGA by pulling the RESETn line LOW momentarily.
+The FPGA firmware features and SPI slave that is used to communicate with the microcontroller. Two FIFOs are used to attach this slave SPI to the GbE interface. Command strings are written into the CMD FIFO (2k x 8). The command string must be less than 512 bytes ASCII data and terminated with 0x0d (CR) or 0x0a (LF). When the CMD FIFO has some data the SPI slave raises the SPI_IRQ line. The microcontroller then fetches the command string via the SPI interface, does the command, and writes any response string back to the SPI slave, which then stores it into the RES FIFO which can be read by the user through the GbE interface. This SPI interface between the FPGA and the microcontroller replaces the 100BASE-X Ethernet inteface on the microcontroller.
 
-The DAPHNE microcontroller can monitor and control some of the FPGA functions through a dedicated SPI interface. From the microcontroller's perspective the FPGA looks like a small SPI memory device (256 x 8). Some of the bits in this small memory space are read only (e.g. status bits) while other bits are read-write (control bits). This memory map is TBD. 
+ALso note that the DAPHNE microcontroller can hard reset the FPGA by pulling the RESETn line LOW momentarily. (There is a command to do this!)
+
 
 ### External Trigger
 

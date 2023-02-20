@@ -261,15 +261,22 @@ architecture DAPHNE2_arch of DAPHNE2 is
       );
     end component;
 
-    component spi
+    component spi -- SPI slave used for comms with uC
     port(
+        oeiclk: in std_logic;
+        cmd_wren: in std_logic;
+        cmd_data: in std_logic_vector(7 downto 0);
+        res_rden: in std_logic;
+        res_data: out std_logic_vector(7 downto 0);
+    
         clock: in std_logic;
         reset: in std_logic;
-        spi_clk: in std_logic; -- keep it below 10 MHz
-        spi_csn: in std_logic; -- active low select
+    
+        spi_clk:  in std_logic;
+        spi_csn:  in std_logic;
         spi_mosi: in std_logic; 
         spi_miso: out std_logic;
-        spi_irq: out std_logic
+        spi_irq:  out std_logic 
     );
     end component;
 
@@ -353,6 +360,9 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal ep_stat: std_logic_vector(3 downto 0);
     signal mmcm1_locked, mmcm0_locked: std_logic;
     signal mclk_ctrl_reg_we: std_logic;
+
+    signal spi_cmd_fifo_wren, spi_res_fifo_rden: std_logic;
+    signal spi_res_fifo_data: std_logic_vector(7 downto 0);
 
 begin
 
@@ -702,6 +712,8 @@ begin
                (X"000000000000" & "000" & mclk_stat_reg) when std_match(rx_addr_reg, MCLK_STAT_ADDR) else
                (X"000000000000" & mclk_ctrl_reg) when std_match(rx_addr_reg, MCLK_CTRL_ADDR) else 
 
+               (X"00000000000000" & spi_res_fifo_data) when std_match(rx_addr_reg, SPI_FIFO_ADDR) else 
+
                (others=>'0');
 
     ready <= '1' when (rx_wren='1') else  -- no wait for writes 
@@ -856,16 +868,31 @@ begin
 
     -- SPI Slave Interface ----------------------------------------------------
     -- used for slow controls communication with the uC
+    -- this module presents a pair of FIFOs (each 2k x 8) to the GbE interface
+    -- user writes an ascii string into the CMD FIFO and reads the response
+    -- from the uC from the RES FIFO. SPI_IRQ is used to tell the uC that 
+    -- there is data in the CMD FIFO. Since the CMD FIFO is write only and the 
+    -- RES FIFO is read only these FIFOs are memory mapped into the same location.
    
+    spi_cmd_fifo_wren <= '1' when (std_match(rx_addr,SPI_FIFO_ADDR) and rx_wren='1') else '0'; 
+    spi_res_fifo_rden <= '1' when (std_match(rx_addr,SPI_FIFO_ADDR) and tx_rden='1') else '0'; 
+
     spi_inst: spi
     port map(
-        clock => sclk200, 
+        clock => sclk100, 
         reset => reset_async,
-        spi_clk => spi_clk,
-        spi_csn => spi_csn,
+
+        spi_clk  => spi_clk,
+        spi_csn  => spi_csn,
         spi_mosi => spi_mosi,
         spi_miso => spi_miso,
-        spi_irq => spi_irq
+        spi_irq  => spi_irq,
+
+        oeiclk => oeiclk,
+        cmd_wren => spi_cmd_fifo_wren,
+        cmd_data => rx_data(7 downto 0),
+        res_rden => spi_res_fifo_rden,
+        res_data => spi_res_fifo_data 
     );
 
     -- LED Blinker ------------------------------------------------------------
