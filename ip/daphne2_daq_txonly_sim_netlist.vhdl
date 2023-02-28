@@ -1,10 +1,10 @@
--- Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+-- Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
--- Tool Version: Vivado v.2020.2.2 (win64) Build 3118627 Tue Feb  9 05:14:06 MST 2021
--- Date        : Mon Sep 26 14:36:53 2022
+-- Tool Version: Vivado v.2022.2 (win64) Build 3671981 Fri Oct 14 05:00:03 MDT 2022
+-- Date        : Tue Feb 28 09:24:50 2023
 -- Host        : PPD-130859 running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               c:/Vivado/DAPHNE2/DAPHNE2.gen/sources_1/ip/daphne2_daq_txonly/daphne2_daq_txonly_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix -prefix
+--               decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_ daphne2_daq_txonly_sim_netlist.vhdl
 -- Design      : daphne2_daq_txonly
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -14,7 +14,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_CLOCK_MODULE is
   port (
     GT3_TX_MMCM_LOCK_OUT : out STD_LOGIC;
     GT3_TXUSRCLK2_OUT : out STD_LOGIC;
@@ -22,11 +22,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE is
     GT0_TXOUTCLK_IN : in STD_LOGIC;
     GT0_TX_MMCM_RESET_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE : entity is "daphne2_daq_txonly_CLOCK_MODULE";
-end daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_CLOCK_MODULE;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_CLOCK_MODULE is
   signal clkfbout : STD_LOGIC;
   signal clkin1 : STD_LOGIC;
   signal clkout0 : STD_LOGIC;
@@ -158,7 +156,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_GT is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT is
   port (
     gt0_drprdy_out : out STD_LOGIC;
     gt0_eyescandataerror_out : out STD_LOGIC;
@@ -189,11 +187,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_GT is
     gt0_txcharisk_in : in STD_LOGIC_VECTOR ( 3 downto 0 );
     gt0_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_GT : entity is "daphne2_daq_txonly_GT";
-end daphne2_daq_txonly_daphne2_daq_txonly_GT;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_GT is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT is
   signal gtpe2_i_n_43 : STD_LOGIC;
   signal NLW_gtpe2_i_PHYSTATUS_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_i_PMARSVDOUT0_UNCONNECTED : STD_LOGIC;
@@ -732,7 +728,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_GT_26 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_26 is
   port (
     gt1_drprdy_out : out STD_LOGIC;
     gt1_eyescandataerror_out : out STD_LOGIC;
@@ -763,10 +759,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_GT_26 is
     gt1_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_GT_26 : entity is "daphne2_daq_txonly_GT";
-end daphne2_daq_txonly_daphne2_daq_txonly_GT_26;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_26 : entity is "daphne2_daq_txonly_GT";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_26;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_GT_26 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_26 is
   signal gt1_txoutclk_i : STD_LOGIC;
   signal gtpe2_i_n_43 : STD_LOGIC;
   signal NLW_gtpe2_i_PHYSTATUS_UNCONNECTED : STD_LOGIC;
@@ -1306,7 +1302,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_GT_27 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_27 is
   port (
     gt2_drprdy_out : out STD_LOGIC;
     gt2_eyescandataerror_out : out STD_LOGIC;
@@ -1337,10 +1333,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_GT_27 is
     gt2_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_GT_27 : entity is "daphne2_daq_txonly_GT";
-end daphne2_daq_txonly_daphne2_daq_txonly_GT_27;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_27 : entity is "daphne2_daq_txonly_GT";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_27;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_GT_27 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_27 is
   signal gt2_txoutclk_i : STD_LOGIC;
   signal gtpe2_i_n_43 : STD_LOGIC;
   signal NLW_gtpe2_i_PHYSTATUS_UNCONNECTED : STD_LOGIC;
@@ -1880,7 +1876,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_GT_28 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_28 is
   port (
     gt3_drprdy_out : out STD_LOGIC;
     gt3_eyescandataerror_out : out STD_LOGIC;
@@ -1911,10 +1907,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_GT_28 is
     gt3_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_GT_28 : entity is "daphne2_daq_txonly_GT";
-end daphne2_daq_txonly_daphne2_daq_txonly_GT_28;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_28 : entity is "daphne2_daq_txonly_GT";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_28;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_GT_28 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_28 is
   signal gt3_txoutclk_i : STD_LOGIC;
   signal gtpe2_i_n_43 : STD_LOGIC;
   signal NLW_gtpe2_i_PHYSTATUS_UNCONNECTED : STD_LOGIC;
@@ -2454,13 +2450,13 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_common is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common is
   port (
     GT0_DRPRDY_COMMON_OUT : out STD_LOGIC;
     GT0_PLL0LOCK_OUT : out STD_LOGIC;
     GT0_PLL0OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL0OUTREFCLK_OUT : out STD_LOGIC;
-    sysclk_in_0 : out STD_LOGIC;
+    gtpe2_common_i_0 : out STD_LOGIC;
     GT0_PLL1OUTCLK_OUT : out STD_LOGIC;
     GT0_PLL1OUTREFCLK_OUT : out STD_LOGIC;
     GT0_DRPDO_COMMON_OUT : out STD_LOGIC_VECTOR ( 15 downto 0 );
@@ -2473,11 +2469,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_common is
     GT0_DRPDI_COMMON_IN : in STD_LOGIC_VECTOR ( 15 downto 0 );
     GT0_DRPADDR_COMMON_IN : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_common : entity is "daphne2_daq_txonly_common";
-end daphne2_daq_txonly_daphne2_daq_txonly_common;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_common is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common is
   signal NLW_gtpe2_common_i_PLL0FBCLKLOST_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_common_i_PLL1FBCLKLOST_UNCONNECTED : STD_LOGIC;
   signal NLW_gtpe2_common_i_PLL1LOCK_UNCONNECTED : STD_LOGIC;
@@ -2549,7 +2543,7 @@ gtpe2_common_i: unisim.vcomponents.GTPE2_COMMON
       PLL0OUTCLK => GT0_PLL0OUTCLK_OUT,
       PLL0OUTREFCLK => GT0_PLL0OUTREFCLK_OUT,
       PLL0PD => cpll_pd_pll0_q0_clk0_refclk_i,
-      PLL0REFCLKLOST => sysclk_in_0,
+      PLL0REFCLKLOST => gtpe2_common_i_0,
       PLL0REFCLKSEL(2 downto 0) => B"001",
       PLL0RESET => PLL0RESET_IN,
       PLL1FBCLKLOST => NLW_gtpe2_common_i_PLL1FBCLKLOST_UNCONNECTED,
@@ -2575,7 +2569,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_common_reset is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common_reset is
   port (
     PLL0RESET_IN : out STD_LOGIC;
     sysclk_in : in STD_LOGIC;
@@ -2583,11 +2577,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_common_reset is
     GT0_PLL0RESET_OUT : in STD_LOGIC;
     cpll_reset_out : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_common_reset : entity is "daphne2_daq_txonly_common_reset";
-end daphne2_daq_txonly_daphne2_daq_txonly_common_reset;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common_reset;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_common_reset is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common_reset is
   signal COMMON_RESET : STD_LOGIC;
   signal COMMON_RESET_i_1_n_0 : STD_LOGIC;
   signal common_reset_asserted : STD_LOGIC;
@@ -2929,17 +2921,15 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_cpll_railing is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_cpll_railing is
   port (
     cpll_reset_out : out STD_LOGIC;
     cpll_pd_pll0_q0_clk0_refclk_i : out STD_LOGIC;
     Q0_CLK0_GTREFCLK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_cpll_railing : entity is "daphne2_daq_txonly_cpll_railing";
-end daphne2_daq_txonly_daphne2_daq_txonly_cpll_railing;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_cpll_railing;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_cpll_railing is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_cpll_railing is
   signal \cpllpd_wait_reg[31]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[63]_srl32_n_1\ : STD_LOGIC;
   signal \cpllpd_wait_reg[94]_srl31_n_0\ : STD_LOGIC;
@@ -3093,7 +3083,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block is
   port (
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     reset_time_out_reg : out STD_LOGIC;
@@ -3113,11 +3103,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block is
     GT0_PLL0LOCK_OUT : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block is
   signal \FSM_sequential_tx_state[3]_i_3__2_n_0\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -3133,27 +3121,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 \FSM_sequential_tx_state[3]_i_1__2\: unisim.vcomponents.LUT6
@@ -3290,7 +3285,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_10 is
   port (
     SR : out STD_LOGIC_VECTOR ( 0 to 0 );
     data_out : out STD_LOGIC;
@@ -3298,10 +3293,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_10 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_10;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_10 is
   signal \^data_out\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -3314,27 +3309,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
   data_out <= \^data_out\;
@@ -3417,17 +3419,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_11 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_11 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_11;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_11 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -3439,27 +3441,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -3533,17 +3542,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_12 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_12 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_12;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_12 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -3555,27 +3564,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -3649,17 +3665,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_13 is
   port (
     data_out : out STD_LOGIC;
     GT2_TX_FSM_RESET_DONE_OUT : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_13 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_13;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_13 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -3671,27 +3687,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -3765,7 +3788,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_14 is
   port (
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     reset_time_out_reg : out STD_LOGIC;
@@ -3786,10 +3809,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_14 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_14;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_14 is
   signal \FSM_sequential_tx_state[3]_i_3__0_n_0\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -3805,27 +3828,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 \FSM_sequential_tx_state[3]_i_1__0\: unisim.vcomponents.LUT6
@@ -3962,17 +3992,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_15 is
   port (
     data_out : out STD_LOGIC;
     gt1_txresetdone_out : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_15 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_15;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_15 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -3984,27 +4014,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -4078,7 +4115,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_16 is
   port (
     SR : out STD_LOGIC_VECTOR ( 0 to 0 );
     data_out : out STD_LOGIC;
@@ -4086,10 +4123,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_16 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_16;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_16 is
   signal \^data_out\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -4102,27 +4139,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
   data_out <= \^data_out\;
@@ -4205,17 +4249,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_17 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_17 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_17;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_17 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -4227,27 +4271,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -4321,17 +4372,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_18 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_18 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_18;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_18 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -4343,27 +4394,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -4437,17 +4495,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_19 is
   port (
     data_out : out STD_LOGIC;
     GT1_TX_FSM_RESET_DONE_OUT : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_19 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_19;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_19 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -4459,27 +4517,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -4553,7 +4618,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_20 is
   port (
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     reset_time_out_reg : out STD_LOGIC;
@@ -4574,10 +4639,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_20 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_20;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_20 is
   signal \FSM_sequential_tx_state[3]_i_3_n_0\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -4593,27 +4658,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 \FSM_sequential_tx_state[3]_i_1\: unisim.vcomponents.LUT6
@@ -4750,17 +4822,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_21 is
   port (
     data_out : out STD_LOGIC;
     gt0_txresetdone_out : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_21 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_21;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_21 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -4772,27 +4844,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -4866,7 +4945,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_22 is
   port (
     SR : out STD_LOGIC_VECTOR ( 0 to 0 );
     data_out : out STD_LOGIC;
@@ -4874,10 +4953,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_22 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_22;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_22 is
   signal \^data_out\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -4890,27 +4969,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
   data_out <= \^data_out\;
@@ -4993,17 +5079,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_23 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_23 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_23;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_23 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5015,27 +5101,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5109,17 +5202,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_24 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_24 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_24;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_24 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5131,27 +5224,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5225,17 +5325,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_25 is
   port (
     data_out : out STD_LOGIC;
     GT0_TX_FSM_RESET_DONE_OUT : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_25 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_25;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_25 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5247,27 +5347,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5341,17 +5448,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_3 is
   port (
     data_out : out STD_LOGIC;
     gt3_txresetdone_out : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_3 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_3;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_3 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5363,27 +5470,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5457,7 +5571,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_4 is
   port (
     SR : out STD_LOGIC_VECTOR ( 0 to 0 );
     data_out : out STD_LOGIC;
@@ -5465,10 +5579,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_4 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_4;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_4 is
   signal \^data_out\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -5481,27 +5595,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
   data_out <= \^data_out\;
@@ -5584,17 +5705,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_5 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_5 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_5;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_5 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5606,27 +5727,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5700,17 +5828,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_6 is
   port (
     data_out : out STD_LOGIC;
     data_in : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_6 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_6;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_6 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5722,27 +5850,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5816,17 +5951,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_7 is
   port (
     data_out : out STD_LOGIC;
     GT3_TX_FSM_RESET_DONE_OUT : in STD_LOGIC;
     CLK1_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_7 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_7;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_7 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -5838,27 +5973,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -5932,7 +6074,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_8 is
   port (
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     reset_time_out_reg : out STD_LOGIC;
@@ -5953,10 +6095,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8 is
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_8 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_8;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_8 is
   signal \FSM_sequential_tx_state[3]_i_3__1_n_0\ : STD_LOGIC;
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
@@ -5972,27 +6114,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 \FSM_sequential_tx_state[3]_i_1__1\: unisim.vcomponents.LUT6
@@ -6129,17 +6278,17 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_9 is
   port (
     data_out : out STD_LOGIC;
     gt2_txresetdone_out : in STD_LOGIC;
     sysclk_in : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9 : entity is "daphne2_daq_txonly_sync_block";
-end daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_9 : entity is "daphne2_daq_txonly_sync_block";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_9;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_9 is
   signal data_sync1 : STD_LOGIC;
   signal data_sync2 : STD_LOGIC;
   signal data_sync3 : STD_LOGIC;
@@ -6151,27 +6300,34 @@ architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9 is
   attribute SHREG_EXTRACT of data_sync_reg1 : label is "no";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of data_sync_reg1 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP : string;
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg1 : label is "VCC:CE GND:R";
   attribute box_type : string;
   attribute box_type of data_sync_reg1 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg2 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg2 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg2 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg2 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg2 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg3 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg3 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg3 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg3 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg3 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg4 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg4 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg4 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg4 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg4 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg5 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg5 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg5 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg5 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg5 : label is "PRIMITIVE";
   attribute ASYNC_REG of data_sync_reg6 : label is std.standard.true;
   attribute SHREG_EXTRACT of data_sync_reg6 : label is "no";
   attribute XILINX_LEGACY_PRIM of data_sync_reg6 : label is "FD";
+  attribute XILINX_TRANSFORM_PINMAP of data_sync_reg6 : label is "VCC:CE GND:R";
   attribute box_type of data_sync_reg6 : label is "PRIMITIVE";
 begin
 data_sync_reg1: unisim.vcomponents.FDRE
@@ -6245,7 +6401,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_USRCLK_SOURCE is
   port (
     GT3_TX_MMCM_LOCK_OUT : out STD_LOGIC;
     GT3_TXUSRCLK2_OUT : out STD_LOGIC;
@@ -6256,11 +6412,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE is
     Q0_CLK0_GTREFCLK_PAD_P_IN : in STD_LOGIC;
     Q0_CLK0_GTREFCLK_PAD_N_IN : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE : entity is "daphne2_daq_txonly_GT_USRCLK_SOURCE";
-end daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_USRCLK_SOURCE;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_USRCLK_SOURCE is
   signal NLW_ibufds_instq0_clk0_ODIV2_UNCONNECTED : STD_LOGIC;
   attribute box_type : string;
   attribute box_type of ibufds_instq0_clk0 : label is "PRIMITIVE";
@@ -6280,7 +6434,7 @@ ibufds_instq0_clk0: unisim.vcomponents.IBUFDS_GTE2
       O => Q0_CLK0_GTREFCLK_OUT,
       ODIV2 => NLW_ibufds_instq0_clk0_ODIV2_UNCONNECTED
     );
-txoutclk_mmcm0_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_CLOCK_MODULE
+txoutclk_mmcm0_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_CLOCK_MODULE
      port map (
       GT0_TXOUTCLK_IN => GT0_TXOUTCLK_IN,
       GT0_TX_MMCM_RESET_IN => GT0_TX_MMCM_RESET_IN,
@@ -6293,7 +6447,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM is
   port (
     gt0_gttxreset_in : out STD_LOGIC;
     MMCM_RESET_IN : out STD_LOGIC;
@@ -6308,11 +6462,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM is
     GT3_TX_MMCM_LOCK_OUT : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
-end daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM is
   signal \FSM_sequential_tx_state[0]_i_2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[2]_i_2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[3]_i_4_n_0\ : STD_LOGIC;
@@ -7258,7 +7410,7 @@ run_phase_alignment_int_s3_reg: unisim.vcomponents.FDRE
       Q => run_phase_alignment_int_s3,
       R => '0'
     );
-sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20
+sync_PLL0LOCK: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_20
      port map (
       E(0) => sync_PLL0LOCK_n_0,
       \FSM_sequential_tx_state_reg[0]\ => \FSM_sequential_tx_state[3]_i_4_n_0\,
@@ -7278,32 +7430,32 @@ sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_20
       reset_time_out_reg_1 => reset_time_out_i_2_n_0,
       sysclk_in => sysclk_in
     );
-sync_TXRESETDONE: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_21
+sync_TXRESETDONE: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_21
      port map (
       data_out => txresetdone_s2,
       gt0_txresetdone_out => gt0_txresetdone_out,
       sysclk_in => sysclk_in
     );
-sync_mmcm_lock_reclocked: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_22
+sync_mmcm_lock_reclocked: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_22
      port map (
       GT3_TX_MMCM_LOCK_OUT => GT3_TX_MMCM_LOCK_OUT,
       SR(0) => sync_mmcm_lock_reclocked_n_0,
       data_out => mmcm_lock_i,
       sysclk_in => sysclk_in
     );
-sync_run_phase_alignment_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_23
+sync_run_phase_alignment_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_23
      port map (
       CLK1_OUT => CLK1_OUT,
       data_in => run_phase_alignment_int_reg_n_0,
       data_out => data_out
     );
-sync_time_out_wait_bypass: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_24
+sync_time_out_wait_bypass: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_24
      port map (
       data_in => time_out_wait_bypass_reg_n_0,
       data_out => time_out_wait_bypass_s2,
       sysclk_in => sysclk_in
     );
-sync_tx_fsm_reset_done_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_25
+sync_tx_fsm_reset_done_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_25
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_TX_FSM_RESET_DONE_OUT => \^gt0_tx_fsm_reset_done_out\,
@@ -7934,7 +8086,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_bypass_count[0]_i_4_n_0\
     );
 \wait_bypass_count_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3_n_7\,
@@ -7958,7 +8113,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(0) => \wait_bypass_count[0]_i_4_n_0\
     );
 \wait_bypass_count_reg[10]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1_n_5\,
@@ -7966,7 +8124,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[11]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1_n_4\,
@@ -7974,7 +8135,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[12]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1_n_7\,
@@ -7997,7 +8161,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(15 downto 12)
     );
 \wait_bypass_count_reg[13]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1_n_6\,
@@ -8005,7 +8172,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[14]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1_n_5\,
@@ -8013,7 +8183,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[15]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1_n_4\,
@@ -8021,7 +8194,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3_n_6\,
@@ -8029,7 +8205,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[2]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3_n_5\,
@@ -8037,7 +8216,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3_n_4\,
@@ -8045,7 +8227,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1_n_7\,
@@ -8068,7 +8253,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(7 downto 4)
     );
 \wait_bypass_count_reg[5]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1_n_6\,
@@ -8076,7 +8264,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[6]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1_n_5\,
@@ -8084,7 +8275,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[7]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1_n_4\,
@@ -8092,7 +8286,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => clear
     );
 \wait_bypass_count_reg[8]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1_n_7\,
@@ -8115,7 +8312,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(11 downto 8)
     );
 \wait_bypass_count_reg[9]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1_n_6\,
@@ -8228,7 +8428,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_time_cnt[6]_i_4_n_0\
     );
 \wait_time_cnt_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(0),
@@ -8236,7 +8439,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(1),
@@ -8244,7 +8450,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[2]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(2),
@@ -8252,7 +8461,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(3),
@@ -8260,7 +8472,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(4),
@@ -8268,7 +8483,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[5]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(5),
@@ -8276,7 +8494,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1_n_0\
     );
 \wait_time_cnt_reg[6]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => sel,
       D => wait_time_cnt0(6),
@@ -8288,7 +8509,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_0 is
   port (
     gt1_gttxreset_in : out STD_LOGIC;
     GT1_TX_FSM_RESET_DONE_OUT : out STD_LOGIC;
@@ -8302,10 +8523,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0 is
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
-end daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_0 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_0;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_0 is
   signal \FSM_sequential_tx_state[0]_i_2__0_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[2]_i_2__0_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[3]_i_4__0_n_0\ : STD_LOGIC;
@@ -9198,7 +9419,7 @@ run_phase_alignment_int_s3_reg: unisim.vcomponents.FDRE
       Q => run_phase_alignment_int_s3_reg_n_0,
       R => '0'
     );
-sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14
+sync_PLL0LOCK: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_14
      port map (
       E(0) => sync_PLL0LOCK_n_0,
       \FSM_sequential_tx_state_reg[0]\ => \FSM_sequential_tx_state[3]_i_4__0_n_0\,
@@ -9218,32 +9439,32 @@ sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_14
       reset_time_out_reg_2 => reset_time_out_reg_n_0,
       sysclk_in => sysclk_in
     );
-sync_TXRESETDONE: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_15
+sync_TXRESETDONE: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_15
      port map (
       data_out => txresetdone_s2,
       gt1_txresetdone_out => gt1_txresetdone_out,
       sysclk_in => sysclk_in
     );
-sync_mmcm_lock_reclocked: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_16
+sync_mmcm_lock_reclocked: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_16
      port map (
       GT3_TX_MMCM_LOCK_OUT => GT3_TX_MMCM_LOCK_OUT,
       SR(0) => sync_mmcm_lock_reclocked_n_0,
       data_out => mmcm_lock_i,
       sysclk_in => sysclk_in
     );
-sync_run_phase_alignment_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_17
+sync_run_phase_alignment_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_17
      port map (
       CLK1_OUT => CLK1_OUT,
       data_in => run_phase_alignment_int_reg_n_0,
       data_out => data_out
     );
-sync_time_out_wait_bypass: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_18
+sync_time_out_wait_bypass: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_18
      port map (
       data_in => time_out_wait_bypass_reg_n_0,
       data_out => time_out_wait_bypass_s2,
       sysclk_in => sysclk_in
     );
-sync_tx_fsm_reset_done_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_19
+sync_tx_fsm_reset_done_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_19
      port map (
       CLK1_OUT => CLK1_OUT,
       GT1_TX_FSM_RESET_DONE_OUT => \^gt1_tx_fsm_reset_done_out\,
@@ -9874,7 +10095,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_bypass_count[0]_i_4__0_n_0\
     );
 \wait_bypass_count_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__0_n_7\,
@@ -9898,7 +10122,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(0) => \wait_bypass_count[0]_i_4__0_n_0\
     );
 \wait_bypass_count_reg[10]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__0_n_5\,
@@ -9906,7 +10133,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[11]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__0_n_4\,
@@ -9914,7 +10144,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[12]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__0_n_7\,
@@ -9937,7 +10170,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(15 downto 12)
     );
 \wait_bypass_count_reg[13]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__0_n_6\,
@@ -9945,7 +10181,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[14]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__0_n_5\,
@@ -9953,7 +10192,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[15]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__0_n_4\,
@@ -9961,7 +10203,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__0_n_6\,
@@ -9969,7 +10214,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[2]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__0_n_5\,
@@ -9977,7 +10225,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__0_n_4\,
@@ -9985,7 +10236,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__0_n_7\,
@@ -10008,7 +10262,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(7 downto 4)
     );
 \wait_bypass_count_reg[5]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__0_n_6\,
@@ -10016,7 +10273,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[6]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__0_n_5\,
@@ -10024,7 +10284,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[7]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__0_n_4\,
@@ -10032,7 +10295,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__0_n_0\
     );
 \wait_bypass_count_reg[8]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__0_n_7\,
@@ -10055,7 +10321,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(11 downto 8)
     );
 \wait_bypass_count_reg[9]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__0_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__0_n_6\,
@@ -10168,7 +10437,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_time_cnt[6]_i_4__0_n_0\
     );
 \wait_time_cnt_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(0),
@@ -10176,7 +10448,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(1),
@@ -10184,7 +10459,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[2]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(2),
@@ -10192,7 +10470,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(3),
@@ -10200,7 +10481,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(4),
@@ -10208,7 +10492,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[5]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(5),
@@ -10216,7 +10503,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__0_n_0\
     );
 \wait_time_cnt_reg[6]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__0_n_0\,
       D => \wait_time_cnt0__0\(6),
@@ -10228,7 +10518,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_1 is
   port (
     gt2_gttxreset_in : out STD_LOGIC;
     GT2_TX_FSM_RESET_DONE_OUT : out STD_LOGIC;
@@ -10242,10 +10532,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1 is
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
-end daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_1 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_1;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_1 is
   signal \FSM_sequential_tx_state[0]_i_2__1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[2]_i_2__1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[3]_i_4__1_n_0\ : STD_LOGIC;
@@ -11138,7 +11428,7 @@ run_phase_alignment_int_s3_reg: unisim.vcomponents.FDRE
       Q => run_phase_alignment_int_s3_reg_n_0,
       R => '0'
     );
-sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8
+sync_PLL0LOCK: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_8
      port map (
       E(0) => sync_PLL0LOCK_n_0,
       \FSM_sequential_tx_state_reg[0]\ => \FSM_sequential_tx_state[3]_i_4__1_n_0\,
@@ -11158,32 +11448,32 @@ sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_8
       reset_time_out_reg_2 => reset_time_out_reg_n_0,
       sysclk_in => sysclk_in
     );
-sync_TXRESETDONE: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_9
+sync_TXRESETDONE: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_9
      port map (
       data_out => txresetdone_s2,
       gt2_txresetdone_out => gt2_txresetdone_out,
       sysclk_in => sysclk_in
     );
-sync_mmcm_lock_reclocked: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_10
+sync_mmcm_lock_reclocked: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_10
      port map (
       GT3_TX_MMCM_LOCK_OUT => GT3_TX_MMCM_LOCK_OUT,
       SR(0) => sync_mmcm_lock_reclocked_n_0,
       data_out => mmcm_lock_i,
       sysclk_in => sysclk_in
     );
-sync_run_phase_alignment_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_11
+sync_run_phase_alignment_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_11
      port map (
       CLK1_OUT => CLK1_OUT,
       data_in => run_phase_alignment_int_reg_n_0,
       data_out => data_out
     );
-sync_time_out_wait_bypass: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_12
+sync_time_out_wait_bypass: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_12
      port map (
       data_in => time_out_wait_bypass_reg_n_0,
       data_out => time_out_wait_bypass_s2,
       sysclk_in => sysclk_in
     );
-sync_tx_fsm_reset_done_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_13
+sync_tx_fsm_reset_done_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_13
      port map (
       CLK1_OUT => CLK1_OUT,
       GT2_TX_FSM_RESET_DONE_OUT => \^gt2_tx_fsm_reset_done_out\,
@@ -11814,7 +12104,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_bypass_count[0]_i_4__1_n_0\
     );
 \wait_bypass_count_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__1_n_7\,
@@ -11838,7 +12131,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(0) => \wait_bypass_count[0]_i_4__1_n_0\
     );
 \wait_bypass_count_reg[10]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__1_n_5\,
@@ -11846,7 +12142,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[11]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__1_n_4\,
@@ -11854,7 +12153,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[12]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__1_n_7\,
@@ -11877,7 +12179,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(15 downto 12)
     );
 \wait_bypass_count_reg[13]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__1_n_6\,
@@ -11885,7 +12190,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[14]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__1_n_5\,
@@ -11893,7 +12201,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[15]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__1_n_4\,
@@ -11901,7 +12212,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__1_n_6\,
@@ -11909,7 +12223,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[2]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__1_n_5\,
@@ -11917,7 +12234,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__1_n_4\,
@@ -11925,7 +12245,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__1_n_7\,
@@ -11948,7 +12271,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(7 downto 4)
     );
 \wait_bypass_count_reg[5]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__1_n_6\,
@@ -11956,7 +12282,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[6]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__1_n_5\,
@@ -11964,7 +12293,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[7]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__1_n_4\,
@@ -11972,7 +12304,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__1_n_0\
     );
 \wait_bypass_count_reg[8]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__1_n_7\,
@@ -11995,7 +12330,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(11 downto 8)
     );
 \wait_bypass_count_reg[9]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__1_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__1_n_6\,
@@ -12108,7 +12446,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_time_cnt[6]_i_4__1_n_0\
     );
 \wait_time_cnt_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(0),
@@ -12116,7 +12457,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(1),
@@ -12124,7 +12468,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[2]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(2),
@@ -12132,7 +12479,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(3),
@@ -12140,7 +12490,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(4),
@@ -12148,7 +12501,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[5]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(5),
@@ -12156,7 +12512,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__1_n_0\
     );
 \wait_time_cnt_reg[6]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__1_n_0\,
       D => \wait_time_cnt0__1\(6),
@@ -12168,7 +12527,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2 is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_2 is
   port (
     gt3_gttxreset_in : out STD_LOGIC;
     GT3_TX_FSM_RESET_DONE_OUT : out STD_LOGIC;
@@ -12182,10 +12541,10 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2 is
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
-end daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2;
+  attribute ORIG_REF_NAME of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_2 : entity is "daphne2_daq_txonly_TX_STARTUP_FSM";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_2;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2 is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_2 is
   signal \FSM_sequential_tx_state[0]_i_2__2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[2]_i_2__2_n_0\ : STD_LOGIC;
   signal \FSM_sequential_tx_state[3]_i_4__2_n_0\ : STD_LOGIC;
@@ -13078,7 +13437,7 @@ run_phase_alignment_int_s3_reg: unisim.vcomponents.FDRE
       Q => run_phase_alignment_int_s3_reg_n_0,
       R => '0'
     );
-sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block
+sync_PLL0LOCK: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block
      port map (
       E(0) => sync_PLL0LOCK_n_0,
       \FSM_sequential_tx_state_reg[0]\ => \FSM_sequential_tx_state[3]_i_4__2_n_0\,
@@ -13098,32 +13457,32 @@ sync_PLL0LOCK: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block
       reset_time_out_reg_2 => reset_time_out_reg_n_0,
       sysclk_in => sysclk_in
     );
-sync_TXRESETDONE: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_3
+sync_TXRESETDONE: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_3
      port map (
       data_out => txresetdone_s2,
       gt3_txresetdone_out => gt3_txresetdone_out,
       sysclk_in => sysclk_in
     );
-sync_mmcm_lock_reclocked: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_4
+sync_mmcm_lock_reclocked: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_4
      port map (
       GT3_TX_MMCM_LOCK_OUT => GT3_TX_MMCM_LOCK_OUT,
       SR(0) => sync_mmcm_lock_reclocked_n_0,
       data_out => mmcm_lock_i,
       sysclk_in => sysclk_in
     );
-sync_run_phase_alignment_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_5
+sync_run_phase_alignment_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_5
      port map (
       CLK1_OUT => CLK1_OUT,
       data_in => run_phase_alignment_int_reg_n_0,
       data_out => data_out
     );
-sync_time_out_wait_bypass: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_6
+sync_time_out_wait_bypass: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_6
      port map (
       data_in => time_out_wait_bypass_reg_n_0,
       data_out => time_out_wait_bypass_s2,
       sysclk_in => sysclk_in
     );
-sync_tx_fsm_reset_done_int: entity work.daphne2_daq_txonly_daphne2_daq_txonly_sync_block_7
+sync_tx_fsm_reset_done_int: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_sync_block_7
      port map (
       CLK1_OUT => CLK1_OUT,
       GT3_TX_FSM_RESET_DONE_OUT => \^gt3_tx_fsm_reset_done_out\,
@@ -13754,7 +14113,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_bypass_count[0]_i_4__2_n_0\
     );
 \wait_bypass_count_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__2_n_7\,
@@ -13778,7 +14140,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(0) => \wait_bypass_count[0]_i_4__2_n_0\
     );
 \wait_bypass_count_reg[10]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__2_n_5\,
@@ -13786,7 +14151,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[11]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__2_n_4\,
@@ -13794,7 +14162,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[12]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__2_n_7\,
@@ -13817,7 +14188,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(15 downto 12)
     );
 \wait_bypass_count_reg[13]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__2_n_6\,
@@ -13825,7 +14199,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[14]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__2_n_5\,
@@ -13833,7 +14210,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[15]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[12]_i_1__2_n_4\,
@@ -13841,7 +14221,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__2_n_6\,
@@ -13849,7 +14232,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[2]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__2_n_5\,
@@ -13857,7 +14243,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[0]_i_3__2_n_4\,
@@ -13865,7 +14254,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__2_n_7\,
@@ -13888,7 +14280,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(7 downto 4)
     );
 \wait_bypass_count_reg[5]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__2_n_6\,
@@ -13896,7 +14291,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[6]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__2_n_5\,
@@ -13904,7 +14302,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[7]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[4]_i_1__2_n_4\,
@@ -13912,7 +14313,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_bypass_count[0]_i_1__2_n_0\
     );
 \wait_bypass_count_reg[8]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__2_n_7\,
@@ -13935,7 +14339,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S(3 downto 0) => wait_bypass_count_reg(11 downto 8)
     );
 \wait_bypass_count_reg[9]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => CLK1_OUT,
       CE => \wait_bypass_count[0]_i_2__2_n_0\,
       D => \wait_bypass_count_reg[8]_i_1__2_n_6\,
@@ -14048,7 +14455,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       O => \wait_time_cnt[6]_i_4__2_n_0\
     );
 \wait_time_cnt_reg[0]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(0),
@@ -14056,7 +14466,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[1]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(1),
@@ -14064,7 +14477,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[2]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(2),
@@ -14072,7 +14488,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[3]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(3),
@@ -14080,7 +14499,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[4]\: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(4),
@@ -14088,7 +14510,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       R => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[5]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(5),
@@ -14096,7 +14521,10 @@ txresetdone_s3_reg: unisim.vcomponents.FDRE
       S => \wait_time_cnt[6]_i_1__2_n_0\
     );
 \wait_time_cnt_reg[6]\: unisim.vcomponents.FDSE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => sysclk_in,
       CE => \wait_time_cnt[6]_i_2__2_n_0\,
       D => \wait_time_cnt0__2\(6),
@@ -14108,7 +14536,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_multi_gt is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_multi_gt is
   port (
     gt0_drprdy_out : out STD_LOGIC;
     gt0_eyescandataerror_out : out STD_LOGIC;
@@ -14199,13 +14627,11 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_multi_gt is
     gt3_txcharisk_in : in STD_LOGIC_VECTOR ( 3 downto 0 );
     gt3_drpaddr_in : in STD_LOGIC_VECTOR ( 8 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_multi_gt : entity is "daphne2_daq_txonly_multi_gt";
-end daphne2_daq_txonly_daphne2_daq_txonly_multi_gt;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_multi_gt;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_multi_gt is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_multi_gt is
 begin
-gt0_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT
+gt0_daphne2_daq_txonly_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
@@ -14236,7 +14662,7 @@ gt0_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT
       gt0_txuserrdy_in => gt0_txuserrdy_in,
       sysclk_in => sysclk_in
     );
-gt1_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_26
+gt1_daphne2_daq_txonly_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_26
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
@@ -14266,7 +14692,7 @@ gt1_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_2
       gt1_txuserrdy_in => gt1_txuserrdy_in,
       sysclk_in => sysclk_in
     );
-gt2_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_27
+gt2_daphne2_daq_txonly_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_27
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
@@ -14296,7 +14722,7 @@ gt2_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_2
       gt2_txuserrdy_in => gt2_txuserrdy_in,
       sysclk_in => sysclk_in
     );
-gt3_daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_28
+gt3_daphne2_daq_txonly_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_28
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
@@ -14331,7 +14757,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_init is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_init is
   port (
     MMCM_RESET_IN : out STD_LOGIC;
     GT0_PLL0RESET_OUT : out STD_LOGIC;
@@ -14424,11 +14850,9 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_init is
     GT3_TX_MMCM_LOCK_OUT : in STD_LOGIC;
     GT0_PLL0LOCK_OUT : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_init : entity is "daphne2_daq_txonly_init";
-end daphne2_daq_txonly_daphne2_daq_txonly_init;
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_init;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_init is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_init is
   signal gt0_gttxreset_t : STD_LOGIC;
   signal \^gt0_txresetdone_out\ : STD_LOGIC;
   signal gt0_txuserrdy_t : STD_LOGIC;
@@ -14446,7 +14870,7 @@ begin
   gt1_txresetdone_out <= \^gt1_txresetdone_out\;
   gt2_txresetdone_out <= \^gt2_txresetdone_out\;
   gt3_txresetdone_out <= \^gt3_txresetdone_out\;
-daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_multi_gt
+daphne2_daq_txonly_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_multi_gt
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0OUTCLK_OUT => GT0_PLL0OUTCLK_OUT,
@@ -14537,7 +14961,7 @@ daphne2_daq_txonly_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_multi_gt
       gt3_txuserrdy_in => gt3_txuserrdy_t,
       sysclk_in => sysclk_in
     );
-gt0_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM
+gt0_txresetfsm_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
@@ -14552,7 +14976,7 @@ gt0_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_F
       gt0_txuserrdy_in => gt0_txuserrdy_t,
       sysclk_in => sysclk_in
     );
-gt1_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_0
+gt1_txresetfsm_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_0
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
@@ -14565,7 +14989,7 @@ gt1_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_F
       pll_reset_asserted_reg_0 => pll_reset_asserted_reg,
       sysclk_in => sysclk_in
     );
-gt2_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_1
+gt2_txresetfsm_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_1
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
@@ -14578,7 +15002,7 @@ gt2_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_F
       pll_reset_asserted_reg_0 => pll_reset_asserted_reg,
       sysclk_in => sysclk_in
     );
-gt3_txresetfsm_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_TX_STARTUP_FSM_2
+gt3_txresetfsm_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_TX_STARTUP_FSM_2
      port map (
       CLK1_OUT => CLK1_OUT,
       GT0_PLL0LOCK_OUT => GT0_PLL0LOCK_OUT,
@@ -14596,7 +15020,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly_daphne2_daq_txonly_support is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support is
   port (
     SOFT_RESET_TX_IN : in STD_LOGIC;
     DONT_RESET_ON_DATA_ERROR_IN : in STD_LOGIC;
@@ -14725,16 +15149,14 @@ entity daphne2_daq_txonly_daphne2_daq_txonly_support is
     sysclk_in : in STD_LOGIC
   );
   attribute EXAMPLE_SIM_GTRESET_SPEEDUP : string;
-  attribute EXAMPLE_SIM_GTRESET_SPEEDUP of daphne2_daq_txonly_daphne2_daq_txonly_support : entity is "TRUE";
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of daphne2_daq_txonly_daphne2_daq_txonly_support : entity is "daphne2_daq_txonly_support";
+  attribute EXAMPLE_SIM_GTRESET_SPEEDUP of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support : entity is "TRUE";
   attribute STABLE_CLOCK_PERIOD : integer;
-  attribute STABLE_CLOCK_PERIOD of daphne2_daq_txonly_daphne2_daq_txonly_support : entity is 10;
+  attribute STABLE_CLOCK_PERIOD of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support : entity is 10;
   attribute downgradeipidentifiedwarnings : string;
-  attribute downgradeipidentifiedwarnings of daphne2_daq_txonly_daphne2_daq_txonly_support : entity is "yes";
-end daphne2_daq_txonly_daphne2_daq_txonly_support;
+  attribute downgradeipidentifiedwarnings of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support : entity is "yes";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support;
 
-architecture STRUCTURE of daphne2_daq_txonly_daphne2_daq_txonly_support is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support is
   signal \<const0>\ : STD_LOGIC;
   signal \^gt0_pll0lock_out\ : STD_LOGIC;
   signal \^gt0_pll0outclk_out\ : STD_LOGIC;
@@ -14779,7 +15201,7 @@ GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
     );
-common0_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_common
+common0_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common
      port map (
       GT0_DRPADDR_COMMON_IN(7 downto 0) => GT0_DRPADDR_COMMON_IN(7 downto 0),
       GT0_DRPDI_COMMON_IN(15 downto 0) => GT0_DRPDI_COMMON_IN(15 downto 0),
@@ -14795,10 +15217,10 @@ common0_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_common
       PLL0RESET_IN => PLL0RESET_IN,
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
       cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
-      sysclk_in => sysclk_in,
-      sysclk_in_0 => \^gt0_pll0refclklost_out\
+      gtpe2_common_i_0 => \^gt0_pll0refclklost_out\,
+      sysclk_in => sysclk_in
     );
-common_reset_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_common_reset
+common_reset_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_common_reset
      port map (
       GT0_PLL0RESET_OUT => GT0_PLL0RESET_OUT,
       PLL0RESET_IN => PLL0RESET_IN,
@@ -14806,13 +15228,13 @@ common_reset_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_common_reset
       cpll_reset_out => cpll_reset_out,
       sysclk_in => sysclk_in
     );
-cpll_railing_pll0_q0_clk0_refclk_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_cpll_railing
+cpll_railing_pll0_q0_clk0_refclk_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_cpll_railing
      port map (
       Q0_CLK0_GTREFCLK_OUT => q0_clk0_refclk_i,
       cpll_pd_pll0_q0_clk0_refclk_i => cpll_pd_pll0_q0_clk0_refclk_i,
       cpll_reset_out => cpll_reset_out
     );
-daphne2_daq_txonly_init_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_init
+daphne2_daq_txonly_init_i: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_init
      port map (
       CLK1_OUT => \^gt3_txusrclk_out\,
       GT0_PLL0LOCK_OUT => \^gt0_pll0lock_out\,
@@ -14905,7 +15327,7 @@ daphne2_daq_txonly_init_i: entity work.daphne2_daq_txonly_daphne2_daq_txonly_ini
       pll_reset_asserted_reg => \^gt0_pll0refclklost_out\,
       sysclk_in => sysclk_in
     );
-gt_usrclk_source: entity work.daphne2_daq_txonly_daphne2_daq_txonly_GT_USRCLK_SOURCE
+gt_usrclk_source: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_GT_USRCLK_SOURCE
      port map (
       GT0_TXOUTCLK_IN => gt0_txoutclk_i,
       GT0_TX_MMCM_RESET_IN => gt0_txmmcm_reset_i,
@@ -14921,7 +15343,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
-entity daphne2_daq_txonly is
+entity decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix is
   port (
     SOFT_RESET_TX_IN : in STD_LOGIC;
     DONT_RESET_ON_DATA_ERROR_IN : in STD_LOGIC;
@@ -15050,12 +15472,12 @@ entity daphne2_daq_txonly is
     sysclk_in : in STD_LOGIC
   );
   attribute NotValidForBitStream : boolean;
-  attribute NotValidForBitStream of daphne2_daq_txonly : entity is true;
+  attribute NotValidForBitStream of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix : entity is true;
   attribute x_core_info : string;
-  attribute x_core_info of daphne2_daq_txonly : entity is "daphne2_daq_txonly,gtwizard_v3_6_13,{protocol_file=Start_from_scratch}";
-end daphne2_daq_txonly;
+  attribute x_core_info of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix : entity is "daphne2_daq_txonly,gtwizard_v3_6_13,{protocol_file=Start_from_scratch}";
+end decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix;
 
-architecture STRUCTURE of daphne2_daq_txonly is
+architecture STRUCTURE of decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix is
   signal \<const0>\ : STD_LOGIC;
   signal NLW_U0_GT0_RX_FSM_RESET_DONE_OUT_UNCONNECTED : STD_LOGIC;
   signal NLW_U0_GT1_RX_FSM_RESET_DONE_OUT_UNCONNECTED : STD_LOGIC;
@@ -15076,7 +15498,7 @@ GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
     );
-U0: entity work.daphne2_daq_txonly_daphne2_daq_txonly_support
+U0: entity work.decalper_eb_ot_sdeen_pot_pi_dehcac_xnilix_daphne2_daq_txonly_support
      port map (
       DONT_RESET_ON_DATA_ERROR_IN => '0',
       GT0_DATA_VALID_IN => '0',

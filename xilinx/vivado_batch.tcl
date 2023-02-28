@@ -106,6 +106,7 @@ read_vhdl ../daphne2.vhd
 
 read_ip ../ip/gig_ethernet_pcs_pma_0.xcix
 read_ip ../ip/daphne2_daq_txonly.xcix
+read_ip ../ip/ila_0.xcix
 
 # Load IP module as *.xci (loading from XCIX file is preferred over this method)
 #read_ip ../src/ip/gig_ethernet_pcs_pma_0.xci
@@ -167,7 +168,7 @@ report_io -file $outputDir/io.rpt
 write_bitstream -force $outputDir/daphne2_$git_sha.bit
 
 # write out ILA debug probes file
-# write_debug_probes -force $outputDir/probes.ltx
+write_debug_probes -force $outputDir/probes.ltx
 
 exit
 
