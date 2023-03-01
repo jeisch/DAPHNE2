@@ -1,4 +1,4 @@
-# dumpout.py -- dump DAPHNE OUTPUT spy buffer(s)
+# dumpout.py -- dump DAPHNE OUTPUT spy buffer(s) Python3
 # 
 # Jamieson Olsen <jamieson@fnal.gov>
 
@@ -12,12 +12,12 @@ thing.write(0x2000, [1234])
 
 # output spy buffer starts at 0x4060_0000 and is 4k deep
 
-print
+print()
 
 doutrec = thing.read(0x40600000,200)
 
 for word in doutrec[2:]:
-    print "%08X" % word
+    print("%08X" % word)
 
 thing.close()
 

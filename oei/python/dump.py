@@ -1,5 +1,4 @@
-# dump.py -- dump DAPHNE spy buffers
-# 
+# dump.py -- dump DAPHNE spy buffers Python3
 
 from oei import *
 
@@ -13,11 +12,11 @@ print
 
 for afe in range(5):
     for ch in range(9):
-        print "AFE%d[%d]: " % (afe,ch),
+        print("AFE%d[%d]: " % (afe,ch)),
         for x in thing.read(0x40000000+(afe*0x100000)+(ch*0x10000),20)[3:]:
-            print "%04X" % x,
-        print
-    print
+            print("%04X" % x),
+        print()
+    print()
        
 thing.close()
 

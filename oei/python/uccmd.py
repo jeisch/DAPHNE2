@@ -1,24 +1,51 @@
 # uccmd.py -- send a command to the microcontroller and read the response
-# uses the new SPI slave firmware
-# 
-# Jamieson Olsen <jamieson@fnal.gov>
+# uses the new SPI slave firmware. Python 3.
 
 from oei import *
 
 thing = OEI("192.168.133.12")
 
-# write and ASCII string to the SPI command FIFO at 0x9000_0000
+print('DAPHNE Command Interpreter. Type quit to exit.')
 
-thing.writef(0x90000000, [0x68,0x65,0x6c,0x70,0x0d,0x0a])
+# prompt user for command
 
-# read the SPI slave response FIFO, also at address 0x9000_0000
+while True:
 
-print("reading the SPI response FIFO")
+	CmdString = input('daphne% ')
 
-responserec = thing.readf(0x90000000,20)
+	if (CmdString=="quit"):
+		break;
+		
+	# convert string to list of ascii values
 
-for word in responserec[2:]:
-    print "0x%02X" % word
+	CmdByteList = []
+
+	for ch in CmdString:
+		CmdByteList.append(ord(ch))
+	
+	CmdByteList.append(0x0d) # tack on CR
+	CmdByteList.append(0x0a) # and LF
+
+	# write an ASCII bytes to the SPI command FIFO at 0x9000_0000
+
+	thing.writef(0x90000000, CmdByteList)
+
+	# read the SPI slave response FIFO, this is also at address 0x9000_0000
+	# if the FIFO is empty it will return zeros when read.
+
+	ResByteList = thing.readf(0x90000000,200)
+
+	ResString = ""
+
+	for b in ResByteList[2:]:
+		if chr(b).isprintable:
+			ResString = ResString + chr(b)
+	
+	print(ResString)
 
 thing.close()
+
+
+
+
 

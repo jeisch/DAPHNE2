@@ -1,11 +1,11 @@
-# reset.py -- reset timing endpoint logic then report on endpoint status bits
+# reset.py -- reset timing endpoint logic then report on endpoint status bits Python3
 
 from oei import *
 import time
 
 thing = OEI("192.168.133.12")
 
-print "DAPHNE firmware version %0X" % thing.read(0x9000,1)[2]
+print("DAPHNE firmware version %0X" % thing.read(0x9000,1)[2])
 
 # master clock input can be endpoint (=1) or local clocks (=0), choose that here:
 
@@ -51,16 +51,16 @@ time.sleep(0.5)
 
 # 5 LSb's = DONE bits should be HIGH if the front end has completed auto alignment
 
-print "AFE automatic alignment done, should read 0x1F: %0X" % thing.read(0x2002,1)[2]
+print("AFE automatic alignment done, should read 0x1F: %0X" % thing.read(0x2002,1)[2])
 
 # bit error count registers for each AFE 
 # if an error is observed on the "FCLK" pattern it increments this counter up to 0xFF
 
-print "AFE0 Error Count = %0X" % thing.read(0x2010,1)[2]
-print "AFE1 Error Count = %0X" % thing.read(0x2011,1)[2]
-print "AFE2 Error Count = %0X" % thing.read(0x2012,1)[2]
-print "AFE3 Error Count = %0X" % thing.read(0x2013,1)[2]
-print "AFE4 Error Count = %0X" % thing.read(0x2014,1)[2]
+print("AFE0 Error Count = %0X" % thing.read(0x2010,1)[2])
+print("AFE1 Error Count = %0X" % thing.read(0x2011,1)[2])
+print("AFE2 Error Count = %0X" % thing.read(0x2012,1)[2])
+print("AFE3 Error Count = %0X" % thing.read(0x2013,1)[2])
+print("AFE4 Error Count = %0X" % thing.read(0x2014,1)[2])
 
 thing.close()
 

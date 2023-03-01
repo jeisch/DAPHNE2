@@ -1,5 +1,5 @@
 # dump.py -- dump DAPHNE INPUT spy buffers
-# Jamieson Olsen <jamieson@fnal.gov>
+# Jamieson Olsen <jamieson@fnal.gov> Python3
 
 from oei import *
 
@@ -10,7 +10,7 @@ thing = OEI("192.168.133.12")
 
 thing.write(0x2000, [1234])
 
-print "Triggered all DAPHNE spy buffers!"
+print("Triggered all DAPHNE spy buffers!")
        
 thing.close()
 
