@@ -31,15 +31,20 @@ while True:
 	thing.writef(0x90000000, CmdByteList)
 
 	# read the SPI slave response FIFO, this is also at address 0x9000_0000
-	# if the FIFO is empty it will return zeros when read.
+	# if the FIFO is empty it will return zeros when read. this assumes the response will be
+	# less than 200 characters
 
-	ResByteList = thing.readf(0x90000000,200)
+	ResByteList = thing.readf(0x90000000,200) 
 
 	ResString = ""
 
 	for b in ResByteList[2:]:
+		if b==255:
+			break
 		if chr(b).isprintable:
 			ResString = ResString + chr(b)
+			
+	ResString = ResString + chr(0)
 	
 	print(ResString)
 
