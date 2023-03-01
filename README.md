@@ -193,7 +193,7 @@ Memory Map Notes:
 
 ### SPI Slave
 
-SPI slave placeholder logic is present. This module will ultimately be used for communication with the DAPHNE microcontroller. Not ready yet.
+SPI slave logic is used for communication with the microcontroller. A pair of FIFOs are used to access this SPI slave device from the GbE interface.
 
 ## Overview of Hardware Subsystems
 
@@ -274,6 +274,11 @@ There are 5 status LEDs. All are pulse stretched in the firmware so that momenta
 ## Simulation
 
 Many of the firmware modules have separate testbench files, written in VHDL. The simulator I use is Aldec Active-HDL. The Vivado simulator should also work with some modifications.
+
+## Debug
+
+Firmware MAY include a Xilinx "chipscope" Internal Logic Analyzer. See xilinx\output\probes.ltx for details.
+
 
 ## Build Instructions
 
