@@ -53,6 +53,9 @@ architecture spi_arch of spi is
     signal cmd_fifo_do: std_logic_vector(7 downto 0);
     signal cmd_fifo_rden: std_logic;
     signal res_fifo_wren: std_logic;
+    signal res_fifo_do: std_logic_vector(7 downto 0);
+    signal res_fifo_empty: std_logic;
+    signal res_fifo_empty_reg: std_logic;
 
     type state_type is (rst, wait4start, rdfifo, loadsr, clkr, clkf, wrfifo, wait4end);
     signal state: state_type;
@@ -221,7 +224,7 @@ generic map (
     ALMOST_EMPTY_OFFSET => X"0080",  
     DATA_WIDTH => 8,                   
     FIFO_SIZE => "18Kb",            
-    FIRST_WORD_FALL_THROUGH => TRUE
+    FIRST_WORD_FALL_THROUGH => FALSE
 )
 port map (
     RST => reset,
@@ -232,17 +235,26 @@ port map (
 
     RDCLK => oeiclk,
     RDEN => res_rden,
-    DO => res_data,
+    DO => res_fifo_do,
 
     ALMOSTEMPTY => open,
     ALMOSTFULL => open, 
-    EMPTY => open,
+    EMPTY => res_fifo_empty,
     FULL => open,
     RDCOUNT => open,
     RDERR => open,
     WRCOUNT => open,
     WRERR => open
 );
+
+res_fifo_empty_reg_proc : process(oeiclk)
+begin
+  if rising_edge(oeiclk) then
+    res_fifo_empty_reg <= res_fifo_empty;
+  end if;
+end process res_fifo_empty_reg_proc;
+
+res_data <= x"FF" when (res_fifo_empty_reg = '1') else res_fifo_do;
 
 -- "chipscope" ILA core running at 100MHz system clock
 
