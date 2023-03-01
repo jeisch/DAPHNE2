@@ -4,9 +4,7 @@ from oei import *
 
 thing = OEI("192.168.133.12")
 
-print "DAPHNE firmware version %0X" % thing.read(0x9000,1)[2]
-
-thing.read(0x4000)
+print("DAPHNE firmware version %0X" % thing.read(0x9000,1)[2])
 
 epstat = thing.read(0x4000,1)[2] # read the timing endpoint and master clock status register
 
@@ -47,29 +45,29 @@ else:
 
 ep_state = (epstat & 0xF00) >> 8  # timing endpoint state bits
 
-if ep_state=0:
+if ep_state==0:
 	print("Endpoint State = 0 : Starting state after reset")
-elif ep_state=1: 
+elif ep_state==1: 
  	print("Endpoint State = 1 : Waiting for SFP LOS to go low")
-elif ep_state=2: 
+elif ep_state==2: 
  	print("Endpoint State = 2 : Waiting for good frequency check")
-elif ep_state=3: 
+elif ep_state==3: 
  	print("Endpoint State = 3 : Waiting for phase adjustment to complete")
-elif ep_state=4: 
+elif ep_state==4: 
  	print("Endpoint State = 4 : Waiting for comma alignment, stable 62.5MHz phase")
-elif ep_state=5: 
+elif ep_state==5: 
  	print("Endpoint State = 5 : Waiting for 8b10 decoder good packet")
-elif ep_state=6: 
+elif ep_state==6: 
  	print("Endpoint State = 6 : Waiting for phase adjustment command")
-elif ep_state=7: 
+elif ep_state==7: 
  	print("Endpoint State = 7 : Waiting for time stamp initialization")
-elif ep_state=8: 
+elif ep_state==8: 
  	print("Endpoint State = 8 : Good to go!!!")
-elif ep_state=12: 
+elif ep_state==12: 
  	print("Endpoint State = 12 : Error in rx")
-elif ep_state=13: 
+elif ep_state==13: 
  	print("Endpoint State = 13 : Error in time stamp check")
-elif ep_state=14: 
+elif ep_state==14: 
  	print("Endpoint State = 14 : Physical layer error after lock")
 else:
 	print("Endpoint State = %d : warning! undefined state!" % ep_state)
