@@ -115,7 +115,30 @@ The memory map is as follows:
 
 	0x00004002  Write anything to reset master clock MMCM1
 	0x00004003  Write anything to reset timing endpoint
-			
+
+	The following registers are used to determine which physical input channels (numbered 0-39)
+	are connected to which streaming core sender inputs. There are four streaming core senders,
+	each with 4 inputs. These registers are write only. 
+
+	0x00005000  Sender0 input0 channel select, default = ch0 aka AFE0 input 0
+	0x00005001  Sender0 input1 channel select, default = ch1
+	0x00005002  Sender0 input2 channel select, default = ch2
+	0x00005003  Sender0 input3 channel select, default = ch3
+
+	0x00005010  Sender1 input0 channel select, default = ch8 aka AFE1 input 0
+	0x00005011  Sender1 input1 channel select, default = ch9
+	0x00005012  Sender1 input2 channel select, default = ch10
+	0x00005013  Sender1 input3 channel select, default = ch11
+
+	0x00005020  Sender2 input0 channel select, default = ch16 aka AFE2 input 0
+	0x00005021  Sender2 input1 channel select, default = ch17
+	0x00005022  Sender2 input2 channel select, default = ch18
+	0x00005023  Sender2 input3 channel select, default = ch19
+
+	0x00005030  Sender3 input0 channel select, default = ch24 aka AFE3 input 0
+	0x00005031  Sender3 input1 channel select, default = ch25
+	0x00005032  Sender3 input2 channel select, default = ch26
+	0x00005033  Sender3 input3 channel select, default = ch27
 				
 	0x00009000  Read the FW version aka git commit hash ID, read-only, 28 bits
 
@@ -250,10 +273,9 @@ Quad 216 is used for FELIX DAQ links. All four channels in this quad may be used
 
 ### Microcontroller Interface (Slow Controls)
 
-The FPGA firmware features and SPI slave that is used to communicate with the microcontroller. Two FIFOs are used to attach this slave SPI to the GbE interface. Command strings are written into the CMD FIFO (2k x 8). The command string must be less than 512 bytes ASCII data and terminated with 0x0d (CR) or 0x0a (LF). When the CMD FIFO has some data the SPI slave raises the SPI_IRQ line. The microcontroller then fetches the command string via the SPI interface, does the command, and writes any response string back to the SPI slave, which then stores it into the RES FIFO which can be read by the user through the GbE interface. This SPI interface between the FPGA and the microcontroller replaces the 100BASE-X Ethernet inteface on the microcontroller.
+The FPGA firmware features and SPI slave that is used to communicate with the microcontroller. Two FIFOs are used to attach this slave SPI to the GbE interface. Command strings are written into the CMD FIFO (2k x 8). The command string must be less than 512 bytes ASCII data and terminated with 0x0d (CR) or 0x0a (LF). When the CMD FIFO has some data the SPI slave raises the SPI_IRQ line. The microcontroller then fetches the command string via the SPI interface, does the command, and writes any response string back to the SPI slave, which then stores it into the RES FIFO which can be read by the user through the GbE interface. If the user attempts to read an empty RES FIFO then 0xFF will be returned. This SPI interface between the FPGA and the microcontroller replaces the 100BASE-X Ethernet inteface on the microcontroller.
 
-ALso note that the DAPHNE microcontroller can hard reset the FPGA by pulling the RESETn line LOW momentarily. (There is a command to do this!)
-
+Also note that the DAPHNE microcontroller can hard reset the FPGA by pulling the RESETn line LOW momentarily. (There is a command to do this!)
 
 ### External Trigger
 

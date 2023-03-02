@@ -287,6 +287,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
         reset: in std_logic; -- for sender logic and for GTP quad
         din: in array_5x9x14_type;  -- AFE data synchronized to clock
         timestamp: in std_logic_vector(63 downto 0);
+        ch_sel: in array_4x4x6_type; -- choose which input channels are used
         slot_id: in std_logic_vector(3 downto 0);
         crate_id: in std_logic_vector(9 downto 0);
         detector_id: in std_logic_vector(5 downto 0);
@@ -363,6 +364,8 @@ architecture DAPHNE2_arch of DAPHNE2 is
 
     signal spi_cmd_fifo_wren, spi_res_fifo_rden: std_logic;
     signal spi_res_fifo_data: std_logic_vector(7 downto 0);
+
+    signal ch_sel_reg: array_4x4x6_type; -- choose which input channels are used for core inputs
 
 begin
 
@@ -840,6 +843,30 @@ begin
         end if;
     end process misc_outlink_stuff_proc;
 
+    -- There are four senders in the streaming core, each sender has four input channels. 
+    -- The following registers specify which input channel (0-39) is connected to each sender.
+    -- These registers are write only. The streaming output record format includes fields in the 
+    -- header which indicate which input channels are being used.
+
+    SenderGen: for s in 3 downto 0 generate
+        CoreInGen: for i in 3 downto 0 generate
+
+            sender_inmux_proc: process(oeiclk)
+            begin
+                if rising_edge(oeiclk) then
+                    if (reset_async='1') then 
+                        ch_sel_reg(s)(i) <= std_logic_vector(to_unsigned(((s*8)+i),6));              
+                    elsif (rx_addr = std_logic_vector(unsigned(CORE_SENDER_INMUX_BASEADDR) + to_unsigned(((s*16)+i),32) ) and rx_wren='1') then
+                        ch_sel_reg(s)(i) <= rx_data(5 downto 0); 
+                    end if;
+                end if;
+            end process sender_inmux_proc;
+
+        end generate CoreInGen;
+    end generate SenderGen;
+
+    -- Streaming core, 4 sender modules, one per output link.
+
     core_inst: core
     port map(
         mclk => mclk,
@@ -847,6 +874,7 @@ begin
         reset => reset_async,
         din => afe_dout,
         timestamp => timestamp,
+        ch_sel => ch_sel_reg,
 
         enable => daq_out_param_reg(29 downto 26),  -- 4 bits
         slot_id => daq_out_param_reg(25 downto 22),  -- 4 bits
