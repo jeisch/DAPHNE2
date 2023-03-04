@@ -165,7 +165,7 @@ report_io -file $outputDir/io.rpt
 
 # generate bitstream...
 
-write_bitstream -force $outputDir/daphne2_$git_sha.bit
+write_bitstream -force -bit_file $outputDir/daphne2_$git_sha.bit
 
 # write out ILA debug probes file
 write_debug_probes -force $outputDir/probes.ltx
