@@ -315,6 +315,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal gmii_tx_en, gmii_tx_er: std_logic;
     signal gmii_rx_dv, gmii_rx_er: std_logic;
     signal status_vector: std_logic_vector(15 downto 0);
+    signal EFUSEUSR: std_logic_vector(31 downto 0);
 
     signal tx_data, rx_data: std_logic_vector(63 downto 0);
     signal rx_addr, rx_addr_reg: std_logic_vector(31 downto 0);
@@ -595,6 +596,12 @@ begin
     gbe_sfp_scl  <= 'Z';
     gbe_sfp_sda  <= 'Z';
 
+    -- get the lower byte of the MAC and IP address from the one time programmable EFUSE USER register
+
+    EFUSE_USR_inst : EFUSE_USR
+    generic map ( SIM_EFUSE_VALUE => X"DEADBEEF" ) -- Value of the 32-bit non-volatile value used in simulation
+    port map ( EFUSEUSR => EFUSEUSR );
+
     -- OEI = "Off the shelf" Ethernet Interface 
 
     eth_int_inst: ethernet_interface
@@ -611,7 +618,7 @@ begin
         rx_wren        => rx_wren,
         tx_rden        => tx_rden,
         b_enable       => open,
-        user_addr          => OEI_USR_ADDR,
+        user_addr          => EFUSEUSR(7 downto 0),
         internal_block_sel => X"00000000",  -- internal access not used
         internal_addr      => X"00000000",
         internal_din       => X"0000000000000000",

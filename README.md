@@ -14,7 +14,7 @@ The core logic contains the sender firmware. The senders take the raw AFE data (
 
 #### Streaming
 
-The streaming sender design takes 4 AFE data streams and packs 64 samples from each stream them into an output frame for transmission to FELIX DAQ. The output link runs at 4.809 Gbps. This design runs continuously and there are a few idle words inserted between output frames. This version of the firmware has four streaming senders instantiated. Output link DAQ0 sends AFE0 channels 0,1,2,3. Output link DAQ1 sends AFE1 channels 0,1,2,3. etc. etc.
+The streaming sender design takes 4 AFE data streams and packs 64 samples from each stream them into an output frame for transmission to FELIX DAQ. The output link runs at 4.809 Gbps. This design runs continuously and there are a few idle words inserted between output frames. This version of the firmware has four streaming senders instantiated. The DEFAULT inputs to each sender are specified in the memory map section below. The sender input channel selection can be changed at any time by writing to registers via the Gigabit Ethernet interface.
 
 #### Self-Triggered 
 
@@ -22,7 +22,7 @@ The self triggered sender is built upon a modular approach. The STC module monit
 
 ### Timing Endpoint
 
-The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. The timing endpoint design used here is the NEW style timing protocol based on pulse width modulated clock at 62.5MHz. An external ADN2814 clock and data recovery chip is present, but this new timing scheme no longer requires it. The AD2814 clock output is not used by the new timing endpoint logic, and the DATAOUT signal is the encoded clock. The "pdts" endpoint logic was developed by Dave Newbold and others at Bristol UK and adapted to DAPHNE by Adrian @ UPENN. Through the GbE interface the user can monitor all status bits related to the timing endpoint and control status bits as well. The most important control bit selects either the local clocks (with fake timestamp) or timing endpoint to run the FPGA.
+The timing endpoint firmware block interfaces to the DAPHNE timing input (optical link) and generates the master 62.5 MHz clock and a 64 bit timestamp. The timing endpoint design used here is the NEW style timing protocol based on pulse width modulated clock at 62.5MHz. An external ADN2814 clock and data recovery chip is present, but this new timing scheme no longer requires it. The AD2814 clock output is not used by the new timing endpoint logic, and the DATAOUT signal is the encoded clock. The "pdts" endpoint logic was developed by Dave Newbold and others at Bristol UK and adapted to DAPHNE by Adrian @ UPENN. Through the GbE interface the user can monitor all status bits related to the timing endpoint and control status bits as well. The most important control bit selects either the local clocks (with fake timestamp) or timing endpoint to run the FPGA. The default endpoint address is 0x000F.
 
 ### Spy Buffers
 
@@ -36,7 +36,7 @@ Output spy buffers capture the data that the core is sending on the DAQ0 output 
 
 ### Gigabit Ethernet (GbE)
 
-The GbE interface is a simple way to access FPGA internal registers and memory buffers from a PC. The GbE interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers and registers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera and Lorenzo Uplegger. The default IP address is 192.168.133.12. Example python code is located in src/oei/python.
+The GbE interface is a simple way to access FPGA internal registers and memory buffers from a PC. The GbE interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers and registers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera and Lorenzo Uplegger. The default IP address is 192.168.133.X and the MAC is 00:80:55:EC:00:X where X is the lower byte of the 32-bit EFUSE_USER register. This register is one time programmable via the JTAG cable. It can also be read via the JTAG cable. Example python code is located in src/oei/python.
 
 The memory map is as follows:
 
