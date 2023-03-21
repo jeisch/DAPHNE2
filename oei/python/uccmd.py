@@ -29,7 +29,9 @@ while True:
 
 	# write an ASCII bytes to the SPI command FIFO at 0x9000_0000
 
-	thing.writef(0x90000000, CmdByteList)
+	for i in range((len(CmdByteList)+49)//50):
+		thing.writef(0x90000000, CmdByteList[i*50:(i+1)*50])
+#	thing.writef(0x90000000, CmdByteList)
 
 	# read the SPI slave response FIFO, this is also at address 0x9000_0000
 	# if the FIFO is empty it will return zeros when read. this assumes the response will be
@@ -40,7 +42,7 @@ while True:
 	more = 40
 	
 	while more > 0:
-		ResByteList = thing.readf(0x90000000,200) 
+		ResByteList = thing.readf(0x90000000,50) 
 		for b in ResByteList[2:]:
 			if b==255:
 				break
