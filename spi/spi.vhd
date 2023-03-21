@@ -60,14 +60,14 @@ architecture spi_arch of spi is
     type state_type is (rst, wait4start, rdfifo, loadsr, clkr, clkf, wrfifo, wait4end);
     signal state: state_type;
 
-    signal probe0: std_logic_vector(5 downto 0);
+    --signal probe0: std_logic_vector(5 downto 0);
 
-    component ila_0
-    port (
-        clk : in std_logic;
-        probe0 : in std_logic_vector(5 downto 0)
-    );
-    end component;
+    --component ila_0
+    --port (
+    --    clk : in std_logic;
+    --    probe0 : in std_logic_vector(5 downto 0)
+    --);
+    --end component;
 
 begin
 
@@ -258,13 +258,14 @@ res_data <= x"FF" when (res_fifo_empty_reg = '1') else res_fifo_do;
 
 -- "chipscope" ILA core running at 100MHz system clock
 
-probe0(5 downto 1) <= reset & spi_clk_reg & spi_csn_reg & spi_mosi_reg & spi_miso_reg;
-probe0(0) <= '1' when (cmd_fifo_empty='0') else '0';
+--probe0(5 downto 1) <= reset & spi_clk_reg & spi_csn_reg & spi_mosi_reg & spi_miso_reg;
+--probe0(0) <= '1' when (cmd_fifo_empty='0') else '0';
 
-ila_inst: ila_0
-port map(
-    clk    => clock,
-    probe0 => probe0
-);
+--ila_inst: ila_0
+--port map(
+--    clk    => clock,
+--    probe0 => probe0
+--);
 
 end spi_arch;
+

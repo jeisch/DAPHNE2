@@ -96,7 +96,7 @@ pdts_endpoint_inst: pdts_endpoint
 
         -- sys_ctrl_in: in pdts_cmo := PDTS_CMO_NULL; -- System control bus (sclk domain)
         -- sys_ctrl_out: out pdts_cmi;
-		sys_addr => X"FFF0", -- Address of the endpoint until overridden via control bus
+		sys_addr => X"000F", -- Address of the endpoint until overridden via control bus
 	    ctrl_out => open, -- Control bus (clk domain)
 		ctrl_in => PDTS_CMI_NULL,
 		pll_clko => open, -- Clock to external PLL

@@ -17,6 +17,7 @@ port(
     reset: in std_logic; -- for sender logic and for GTP quad
     din: in array_5x9x14_type;  -- AFE data synch to mclk
     timestamp: in std_logic_vector(63 downto 0); -- sync to mclk
+    ch_sel: in array_4x4x6_type; -- choose which input channels are used
 
     slot_id: in std_logic_vector(3 downto 0);
     crate_id: in std_logic_vector(9 downto 0);
@@ -273,10 +274,59 @@ architecture core_arch of core is
     signal fclk0, fclk1, fclk2, fclk3: std_logic;
     signal sender0_dout, sender1_dout, sender2_dout, sender3_dout: std_logic_vector(31 downto 0);
     signal sender0_kout, sender1_kout, sender2_kout, sender3_kout: std_logic_vector(3 downto 0);
-    
     signal trig_fclk_reg: std_logic;
+    signal ch_mux: array_4x4x14_type;
 
 begin
+    
+    -- big mux to determine which input channels are connected to which streaming sender module
+    -- each sender module can accept four inputs
+
+    sendergen: for i in 3 downto 3 generate
+        inputgen: for j in 3 downto 0 generate
+            ch_mux(i)(j) <= din(0)(0) when (ch_sel(i)(j)="000000") else -- 0
+                            din(0)(1) when (ch_sel(i)(j)="000001") else -- 1
+                            din(0)(2) when (ch_sel(i)(j)="000010") else -- 2
+                            din(0)(3) when (ch_sel(i)(j)="000011") else -- 3
+                            din(0)(4) when (ch_sel(i)(j)="000100") else -- 4
+                            din(0)(5) when (ch_sel(i)(j)="000101") else -- 5 
+                            din(0)(6) when (ch_sel(i)(j)="000110") else -- 6 
+                            din(0)(7) when (ch_sel(i)(j)="000111") else -- 7
+                            din(1)(0) when (ch_sel(i)(j)="001000") else -- 8
+                            din(1)(1) when (ch_sel(i)(j)="001001") else -- 9
+                            din(1)(2) when (ch_sel(i)(j)="001010") else -- 10
+                            din(1)(3) when (ch_sel(i)(j)="001011") else -- 11
+                            din(1)(4) when (ch_sel(i)(j)="001100") else -- 12
+                            din(1)(5) when (ch_sel(i)(j)="001101") else -- 13
+                            din(1)(6) when (ch_sel(i)(j)="001110") else -- 14
+                            din(1)(7) when (ch_sel(i)(j)="001111") else -- 15
+                            din(2)(0) when (ch_sel(i)(j)="010000") else -- 16
+                            din(2)(1) when (ch_sel(i)(j)="010001") else -- 17
+                            din(2)(2) when (ch_sel(i)(j)="010010") else -- 18
+                            din(2)(3) when (ch_sel(i)(j)="010011") else -- 19
+                            din(2)(4) when (ch_sel(i)(j)="010100") else -- 20
+                            din(2)(5) when (ch_sel(i)(j)="010101") else -- 21
+                            din(2)(6) when (ch_sel(i)(j)="010110") else -- 22
+                            din(2)(7) when (ch_sel(i)(j)="010111") else -- 23
+                            din(3)(0) when (ch_sel(i)(j)="011000") else -- 24
+                            din(3)(1) when (ch_sel(i)(j)="011001") else -- 25
+                            din(3)(2) when (ch_sel(i)(j)="011010") else -- 26
+                            din(3)(3) when (ch_sel(i)(j)="011011") else -- 27
+                            din(3)(4) when (ch_sel(i)(j)="011100") else -- 28
+                            din(3)(5) when (ch_sel(i)(j)="011101") else -- 29
+                            din(3)(6) when (ch_sel(i)(j)="011110") else -- 30
+                            din(3)(7) when (ch_sel(i)(j)="011111") else -- 31
+                            din(4)(0) when (ch_sel(i)(j)="100000") else -- 32
+                            din(4)(1) when (ch_sel(i)(j)="100001") else -- 33 
+                            din(4)(2) when (ch_sel(i)(j)="100010") else -- 34
+                            din(4)(3) when (ch_sel(i)(j)="100011") else -- 35
+                            din(4)(4) when (ch_sel(i)(j)="100100") else -- 36
+                            din(4)(5) when (ch_sel(i)(j)="100101") else -- 37
+                            din(4)(6) when (ch_sel(i)(j)="100110") else -- 38
+                            din(4)(7) when (ch_sel(i)(j)="000111") else -- 39
+                            (others=>'0');
+        end generate inputgen;
+    end generate sendergen;
 
     sender0_inst: dstr4 
     generic map( link => "000000" )
@@ -289,14 +339,14 @@ begin
         version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
-    	afe_dat0 => din(0)(0), -- AFE 0, ch 0-3
-        afe_dat1 => din(0)(1),
-        afe_dat2 => din(0)(2),
-        afe_dat3 => din(0)(3),
-        ch0_id => "000000", -- chid 0-3
-        ch1_id => "000001", 
-        ch2_id => "000010",
-        ch3_id => "000011",        
+    	afe_dat0 => ch_mux(0)(0), 
+        afe_dat1 => ch_mux(0)(1),
+        afe_dat2 => ch_mux(0)(2),
+        afe_dat3 => ch_mux(0)(3),
+        ch0_id => ch_sel(0)(0),
+        ch1_id => ch_sel(0)(1), 
+        ch2_id => ch_sel(0)(2),
+        ch3_id => ch_sel(0)(3),
         fclk => fclk0,
         dout => sender0_dout,
         kout => sender0_kout
@@ -313,14 +363,14 @@ begin
         version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
-    	afe_dat0 => din(1)(0), -- AFE 1, ch 0-3
-        afe_dat1 => din(1)(1),
-        afe_dat2 => din(1)(2),
-        afe_dat3 => din(1)(3),
-        ch0_id => "001000",   --> chid 8,9,10,11
-        ch1_id => "001001", 
-        ch2_id => "001010",
-        ch3_id => "001011",        
+    	afe_dat0 => ch_mux(1)(0),
+        afe_dat1 => ch_mux(1)(1),
+        afe_dat2 => ch_mux(1)(2),
+        afe_dat3 => ch_mux(1)(3),
+        ch0_id => ch_sel(1)(0),
+        ch1_id => ch_sel(1)(1),
+        ch2_id => ch_sel(1)(2),
+        ch3_id => ch_sel(1)(3),
         fclk => fclk1,
         dout => sender1_dout,
         kout => sender1_kout
@@ -337,14 +387,14 @@ begin
         version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
-    	afe_dat0 => din(2)(0), -- AFE 2, ch 0-3
-        afe_dat1 => din(2)(1),
-        afe_dat2 => din(2)(2),
-        afe_dat3 => din(2)(3),
-        ch0_id => "010000", -- chid 16-19
-        ch1_id => "010001", 
-        ch2_id => "010010",
-        ch3_id => "010011",
+    	afe_dat0 => ch_mux(2)(0), 
+        afe_dat1 => ch_mux(2)(1),
+        afe_dat2 => ch_mux(2)(2),
+        afe_dat3 => ch_mux(2)(3),
+        ch0_id => ch_sel(2)(0),
+        ch1_id => ch_sel(2)(1), 
+        ch2_id => ch_sel(2)(2),
+        ch3_id => ch_sel(2)(3),
         fclk => fclk2,
         dout => sender2_dout,
         kout => sender2_kout
@@ -361,14 +411,14 @@ begin
         version_id => version_id,
         mclk => mclk,
         timestamp => timestamp,
-    	afe_dat0 => din(3)(0), -- AFE 3, ch 0-3
-        afe_dat1 => din(3)(1),
-        afe_dat2 => din(3)(2),
-        afe_dat3 => din(3)(3),
-        ch0_id => "011000", -- chid 24-27
-        ch1_id => "011001", 
-        ch2_id => "011010",
-        ch3_id => "011011",        
+    	afe_dat0 => ch_mux(3)(0), 
+        afe_dat1 => ch_mux(3)(1),
+        afe_dat2 => ch_mux(3)(2),
+        afe_dat3 => ch_mux(3)(3),
+        ch0_id => ch_sel(3)(0),
+        ch1_id => ch_sel(3)(1), 
+        ch2_id => ch_sel(3)(2),
+        ch3_id => ch_sel(3)(3),        
         fclk => fclk3,
         dout => sender3_dout,
         kout => sender3_kout

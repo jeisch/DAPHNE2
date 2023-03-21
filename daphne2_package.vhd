@@ -9,9 +9,8 @@ use ieee.numeric_std.all;
 package daphne2_package is
 
     -- Set lower byte of static IP for GbE Interface.
-    -- MAC = 00:80:55:EC:00:0C and IP = 192.168.133.12
-
-    constant OEI_USR_ADDR: std_logic_vector(7 downto 0) := X"0C";
+    -- MAC = 00:80:55:EC:00:X and IP = 192.168.133.X
+    -- where X is the lower 8 bits of EFUSE_USR. this is one time programmable.
 
     -- Address Mapping using the std_match notation '-' is a "don't care" bit
 
@@ -23,14 +22,17 @@ package daphne2_package is
     constant TESTREG_ADDR:  std_logic_vector(31 downto 0) := X"12345678";
     constant FIFO_ADDR:     std_logic_vector(31 downto 0) := X"80000000";
 
+    type array_4x6_type is array (3 downto 0) of std_logic_vector(5 downto 0);
+    type array_4x14_type is array (3 downto 0) of std_logic_vector(13 downto 0);
     type array_5x8_type is array (4 downto 0) of std_logic_vector(7 downto 0);
     type array_5x9_type is array (4 downto 0) of std_logic_vector(8 downto 0);
     type array_8x14_type is array (7 downto 0) of std_logic_vector(13 downto 0);
     type array_9x14_type is array (8 downto 0) of std_logic_vector(13 downto 0);
     type array_9x16_type is array (8 downto 0) of std_logic_vector(15 downto 0);
 
+    type array_4x4x6_type is array (3 downto 0) of array_4x6_type;
+    type array_4x4x14_type is array (3 downto 0) of array_4x14_type;
     type array_5x8x14_type is array (4 downto 0) of array_8x14_type;
-
     type array_5x9x14_type is array (4 downto 0) of array_9x14_type;
     type array_5x9x16_type is array (4 downto 0) of array_9x16_type;
 
@@ -83,6 +85,12 @@ package daphne2_package is
     -- write anything to this address to reset timing endpoint logic
 
     constant EP_RST_ADDR: std_logic_vector(31 downto 0) := X"00004003";
+
+    -- choose which inputs are connected to each core sender, write only, values 0-39 allowed
+    -- this is a block of 16 registers. First register specifies input channel for sender0 input0
+    -- next register is sender0 input 1, ... up to sender3 input3.
+
+    constant CORE_SENDER_INMUX_BASEADDR: std_logic_vector(31 downto 0) := X"00005000";
 
     -- spy buffers are 4k deep
 

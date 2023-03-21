@@ -287,6 +287,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
         reset: in std_logic; -- for sender logic and for GTP quad
         din: in array_5x9x14_type;  -- AFE data synchronized to clock
         timestamp: in std_logic_vector(63 downto 0);
+        ch_sel: in array_4x4x6_type; -- choose which input channels are used
         slot_id: in std_logic_vector(3 downto 0);
         crate_id: in std_logic_vector(9 downto 0);
         detector_id: in std_logic_vector(5 downto 0);
@@ -314,6 +315,7 @@ architecture DAPHNE2_arch of DAPHNE2 is
     signal gmii_tx_en, gmii_tx_er: std_logic;
     signal gmii_rx_dv, gmii_rx_er: std_logic;
     signal status_vector: std_logic_vector(15 downto 0);
+    signal EFUSEUSR: std_logic_vector(31 downto 0);
 
     signal tx_data, rx_data: std_logic_vector(63 downto 0);
     signal rx_addr, rx_addr_reg: std_logic_vector(31 downto 0);
@@ -363,6 +365,8 @@ architecture DAPHNE2_arch of DAPHNE2 is
 
     signal spi_cmd_fifo_wren, spi_res_fifo_rden: std_logic;
     signal spi_res_fifo_data: std_logic_vector(7 downto 0);
+
+    signal ch_sel_reg: array_4x4x6_type; -- choose which input channels are used for core inputs
 
 begin
 
@@ -592,6 +596,12 @@ begin
     gbe_sfp_scl  <= 'Z';
     gbe_sfp_sda  <= 'Z';
 
+    -- get the lower byte of the MAC and IP address from the one time programmable EFUSE USER register
+
+    EFUSE_USR_inst : EFUSE_USR
+    generic map ( SIM_EFUSE_VALUE => X"DEADBEEF" ) -- Value of the 32-bit non-volatile value used in simulation
+    port map ( EFUSEUSR => EFUSEUSR );
+
     -- OEI = "Off the shelf" Ethernet Interface 
 
     eth_int_inst: ethernet_interface
@@ -608,7 +618,7 @@ begin
         rx_wren        => rx_wren,
         tx_rden        => tx_rden,
         b_enable       => open,
-        user_addr          => OEI_USR_ADDR,
+        user_addr          => EFUSEUSR(7 downto 0),
         internal_block_sel => X"00000000",  -- internal access not used
         internal_addr      => X"00000000",
         internal_din       => X"0000000000000000",
@@ -840,6 +850,30 @@ begin
         end if;
     end process misc_outlink_stuff_proc;
 
+    -- There are four senders in the streaming core, each sender has four input channels. 
+    -- The following registers specify which input channel (0-39) is connected to each sender.
+    -- These registers are write only. The streaming output record format includes fields in the 
+    -- header which indicate which input channels are being used.
+
+    SenderGen: for s in 3 downto 0 generate
+        CoreInGen: for i in 3 downto 0 generate
+
+            sender_inmux_proc: process(oeiclk)
+            begin
+                if rising_edge(oeiclk) then
+                    if (reset_async='1') then 
+                        ch_sel_reg(s)(i) <= std_logic_vector(to_unsigned(((s*8)+i),6));              
+                    elsif (rx_addr = std_logic_vector(unsigned(CORE_SENDER_INMUX_BASEADDR) + to_unsigned(((s*16)+i),32) ) and rx_wren='1') then
+                        ch_sel_reg(s)(i) <= rx_data(5 downto 0); 
+                    end if;
+                end if;
+            end process sender_inmux_proc;
+
+        end generate CoreInGen;
+    end generate SenderGen;
+
+    -- Streaming core, 4 sender modules, one per output link.
+
     core_inst: core
     port map(
         mclk => mclk,
@@ -847,6 +881,7 @@ begin
         reset => reset_async,
         din => afe_dout,
         timestamp => timestamp,
+        ch_sel => ch_sel_reg,
 
         enable => daq_out_param_reg(29 downto 26),  -- 4 bits
         slot_id => daq_out_param_reg(25 downto 22),  -- 4 bits
