@@ -104,7 +104,7 @@ spi_miso <= spi_miso_reg;
 fsm_proc: process(clock)
 begin
     if rising_edge(clock) then
-        if (reset='1') then
+        if ((reset='1') or (spi_csn_reg='1')) then
             state <= rst;
             shift_reg <= X"00";
             spi_miso_reg <= '0';
