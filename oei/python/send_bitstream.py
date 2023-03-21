@@ -1,5 +1,6 @@
 # send_bitstream.py -- send a bitstream to a DAPHNE2A through repeated write commands
 
+import argparse
 from oei import *
 from time import sleep,time
 import encode_bin
@@ -80,7 +81,14 @@ class command_sender(object):
 
 
 
-bf =encode_bin.binfile('/home/jeisch/DAPHNE2/xilinx/outout.bin')
-thing = OEI("192.168.133.12")
-print('sending a bitfile with default options')
-cs = command_sender(bf,thing,4)
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-f', '--file', type=str, required=True, help='Path to bitstream file.')
+    parser.add_argument('--ip-address', type=str, required=True, help='IP address.')
+    args = parser.parse_args()    
+
+    bf =encode_bin.binfile(args.file)
+    thing = OEI(args.ip_address)
+    print('sending a bitfile with default options')
+    cs = command_sender(bf,thing,4)
+    cs.go()
