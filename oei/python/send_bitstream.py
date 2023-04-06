@@ -1,3 +1,4 @@
+#!/bin/env python3
 # send_bitstream.py -- send a bitstream to a DAPHNE2A through repeated write commands
 
 import argparse
@@ -18,6 +19,15 @@ class command_sender(object):
         self.returned = [] # re-initialize to clear out previous entries
         self.replybuf = b"" # same
         print("ready")
+
+    def send_header(self):
+        cmd = self.cmdgen.HeaderWriteCmd()
+        cmdbin = [ord(ch) for ch in cmd]
+        cmdbin.append(0x0d)
+        self.pending.append(bytes(cmdbin))
+        for i in range((len(cmdbin)+49)//50):
+            self.oei.writef(0x90000000, cmdbin[i*50:(i+1)*50])
+
 
     def send_next(self):
         cmd = self.cmdgen.next()
@@ -63,6 +73,7 @@ class command_sender(object):
     def go(self):
         start = time()
         self.lastbyte = time()
+        self.send_header()
         while len(self.returned) < len(self.cmdgen):
             if self.cmdgen.more():
                 self.send_next()
@@ -85,9 +96,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-f', '--file', type=str, required=True, help='Path to bitstream file.')
     parser.add_argument('--ip-address', type=str, required=True, help='IP address.')
-    args = parser.parse_args()    
+    parser.add_argument('--pageoffset', type=int, default=0, help='Starting page offset, must be multiple of 16.')
+    parser.add_argument('--header',type=bool, default=True, help='Include header')
+    args = parser.parse_args()
 
-    bf =encode_bin.binfile(args.file)
+    bf =encode_bin.binfile(args.file,page_offset=args.pageoffset,header=args.header)
     thing = OEI(args.ip_address)
     print('sending a bitfile with default options')
     cs = command_sender(bf,thing,4)
