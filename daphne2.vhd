@@ -618,7 +618,7 @@ begin
         rx_wren        => rx_wren,
         tx_rden        => tx_rden,
         b_enable       => open,
-        user_addr          => EFUSEUSR(7 downto 0),
+        user_addr          => EFUSEUSR(15 downto 8),
         internal_block_sel => X"00000000",  -- internal access not used
         internal_addr      => X"00000000",
         internal_din       => X"0000000000000000",

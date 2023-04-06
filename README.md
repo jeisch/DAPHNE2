@@ -36,7 +36,7 @@ Output spy buffers capture the data that the core is sending on the DAQ0 output 
 
 ### Gigabit Ethernet (GbE)
 
-The GbE interface is a simple way to access FPGA internal registers and memory buffers from a PC. The GbE interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers and registers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera and Lorenzo Uplegger. The default IP address is 192.168.133.X and the MAC is 00:80:55:EC:00:X where X is the lower byte of the 32-bit EFUSE_USER register. This register is one time programmable via the JTAG cable. It can also be read via the JTAG cable. Example python code is located in src/oei/python.
+The GbE interface is a simple way to access FPGA internal registers and memory buffers from a PC. The GbE interface is always active, but is not required for operation. This interface is intended for debugging and provides fast access to various spy buffers and registers. This interface is based on the "off the shelf Ethernet Interface" developed at Fermilab by Ryan Rivera and Lorenzo Uplegger. The default IP address is 192.168.133.XX and the MAC is 00:80:55:DE:00:XX where XX is EFUSE_USER[15..8] register. This register is one time programmable via the Vivado Hardware Manager. It can also be read via the JTAG cable. Example python code is located in src/oei/python.
 
 The memory map is as follows:
 

@@ -114,7 +114,7 @@ architecture BEHAVIORAL of ethernet_interface is
 	signal arp_announce				: std_logic := '0';  	
 	signal burst_mode				: std_logic := '0';
 	signal self_addr				: std_logic_vector(23 downto 0) := x"C0A885";	 --192.168.133.X;  
-	signal self_mac 				: std_logic_vector(39 downto 0) := x"008055EC00";                
+	signal self_mac 				: std_logic_vector(39 downto 0) := x"008055DE00";
 	signal self_port				: std_logic_vector(15 downto 0) := ETH_CONTROLLER_DEFAULT_PORT;							                
 	signal user_addr_byte			: std_logic_vector(7 downto 0)  := ETH_CONTROLLER_DEFAULT_ADDR;	
 	signal user_addr_sig			: std_logic_vector(7 downto 0)  := ETH_CONTROLLER_DEFAULT_ADDR;	
@@ -138,7 +138,7 @@ architecture BEHAVIORAL of ethernet_interface is
 	-------- end simple declaration section -----------	
   	 											  								     
 begin										 
-	
+
    ec_wrapper : entity work.ethernet_controller_wrapper
       port map (
 	  			GMII_RXD(7 downto 0)=>PHY_RXD(7 downto 0),

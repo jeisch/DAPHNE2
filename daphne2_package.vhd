@@ -9,8 +9,8 @@ use ieee.numeric_std.all;
 package daphne2_package is
 
     -- Set lower byte of static IP for GbE Interface.
-    -- MAC = 00:80:55:EC:00:X and IP = 192.168.133.X
-    -- where X is the lower 8 bits of EFUSE_USR. this is one time programmable.
+    -- MAC = 00:80:55:DE:00:XX and IP = 192.168.133.XX
+    -- where XX is EFUSE_USER[15..8] NOTE this is one time programmable!
 
     -- Address Mapping using the std_match notation '-' is a "don't care" bit
 
